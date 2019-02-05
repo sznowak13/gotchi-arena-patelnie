@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="162.47222222222223" y="698.5">com.codecool.gochiarena.model.User</node>
+    <node x="309.0" y="413.0">com.codecool.gochiarena.model.Gochi</node>
+    <node x="0.0" y="202.0">com.codecool.gochiarena.model.Action</node>
+    <node x="207.0" y="189.0">com.codecool.gochiarena.model.Attack</node>
+    <node x="237.47222222222223" y="0.0">com.codecool.gochiarena.model.GochiType</node>
+    <node x="379.47222222222223" y="662.0">com.codecool.gochiarena.model.BattleArena</node>
+    <node x="473.0" y="178.0">com.codecool.gochiarena.model.StatPoints</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.codecool.gochiarena.model.Gochi" target="com.codecool.gochiarena.model.Action">
+      <point x="-94.5" y="-99.5" />
+      <point x="322.5" y="393.0" />
+      <point x="46.75" y="393.0" />
+      <point x="-46.75" y="63.5" />
+    </edge>
+    <edge source="com.codecool.gochiarena.model.Attack" target="com.codecool.gochiarena.model.GochiType">
+      <point x="58.5" y="-76.5" />
+      <point x="382.5" y="153.0" />
+      <point x="342.47222222222223" y="153.0" />
+      <point x="-35.0" y="64.0" />
+    </edge>
+    <edge source="com.codecool.gochiarena.model.BattleArena" target="com.codecool.gochiarena.model.Gochi">
+      <point x="60.24999999999997" y="-64.0" />
+      <point x="560.2222222222222" y="637.0" />
+      <point x="489.0" y="637.0" />
+      <point x="72.0" y="99.5" />
+    </edge>
+    <edge source="com.codecool.gochiarena.model.Gochi" target="com.codecool.gochiarena.model.Attack">
+      <point x="-40.5" y="-99.5" />
+      <point x="376.5" y="373.0" />
+      <point x="265.5" y="373.0" />
+      <point x="-58.5" y="76.5" />
+    </edge>
+    <edge source="com.codecool.gochiarena.model.Gochi" target="com.codecool.gochiarena.model.StatPoints">
+      <point x="94.5" y="-99.5" />
+      <point x="511.5" y="393.0" />
+      <point x="603.5" y="393.0" />
+      <point x="43.5" y="87.5" />
+    </edge>
+    <edge source="com.codecool.gochiarena.model.User" target="com.codecool.gochiarena.model.Gochi">
+      <point x="0.0" y="-27.5" />
+      <point x="260.97222222222223" y="637.0" />
+      <point x="345.0" y="637.0" />
+      <point x="-72.0" y="99.5" />
+    </edge>
+    <edge source="com.codecool.gochiarena.model.Gochi" target="com.codecool.gochiarena.model.GochiType">
+      <point x="13.5" y="-99.5" />
+      <point x="430.5" y="393.0" />
+      <point x="451.5" y="393.0" />
+      <point x="451.5" y="153.0" />
+      <point x="412.47222222222223" y="153.0" />
+      <point x="35.0" y="64.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="212.5" y="522.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
