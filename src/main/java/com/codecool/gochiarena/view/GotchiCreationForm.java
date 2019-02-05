@@ -23,9 +23,10 @@ public class GotchiCreationForm extends VBox {
     private Text pointsPool = new Text("200");
     private Button createGotchi = new Button("Create!");
 
-    public CreateGotchiForm() {
+    public GotchiCreationForm() {
         this.setSpacing(5);
         this.typeChoiceBox.getItems().addAll(GochiType.ROCK, GochiType.SCISSORS, GochiType.PAPER);
+        this.typeChoiceBox.setValue(GochiType.ROCK);
         this.getChildren().addAll(
                 new Label("Name: "), nameField,
                 new Label("Choose type: "), typeChoiceBox,
@@ -69,7 +70,7 @@ public class GotchiCreationForm extends VBox {
 
     private void addStatField(String statName) {
         HBox statField = new HBox(5);
-        Text statValue = new Text();
+        Text statValue = new Text("0");
         Slider statSlider = this.createStatSlider(statValue);
         statField.getChildren().addAll(new Label(statName) ,statSlider, statValue);
         this.getChildren().add(statField);
