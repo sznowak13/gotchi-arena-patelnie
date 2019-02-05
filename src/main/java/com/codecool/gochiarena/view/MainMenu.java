@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class MainMenu extends HBox {
 
     private Button createGotchiBtn = new Button("Create new gotchi");
+    private Button selectGotchi = new Button("Battle!");
     private VBox gotchiListing = new VBox(15);
     private ToggleGroup gotchiToggle = new ToggleGroup();
 
@@ -24,7 +25,7 @@ public class MainMenu extends HBox {
         this.setAlignment(Pos.CENTER);
         this.setSpacing(50);
         this.createGotchiList();
-        this.getChildren().addAll(this.gotchiListing, this.createGotchiBtn);
+        this.getChildren().addAll(this.gotchiListing, this.createGotchiBtn, this.selectGotchi);
     }
 
 
@@ -34,6 +35,7 @@ public class MainMenu extends HBox {
         this.gotchiListing.getChildren().add(new Text("Available Gotchis: "));
         for (Gotchi gotchi : Gotchi.getAvailableGotchis()) {
             RadioButton listItem = new RadioButton(gotchi.getName() + " " + gotchi.getType());
+            listItem.setUserData(gotchi);
             listItem.setToggleGroup(this.gotchiToggle);
             this.gotchiListing.getChildren().add(listItem);
         }
@@ -41,5 +43,14 @@ public class MainMenu extends HBox {
 
     public void setCreateButtonAction(Stage primaryStage, Scene scene) {
         this.createGotchiBtn.setOnAction((event) -> primaryStage.setScene(scene));
+    }
+
+    public void setStartButtonAction(Stage primaryStage, Scene scene) {
+        this.selectGotchi.setOnAction((event) -> {
+            if (scene.getRoot() instanceof BattleStage) {
+                ((BattleStage) scene.getRoot()).setGotchiName(this.gotchiToggle.getSelectedToggle().getUserData().toString());
+            }
+            primaryStage.setScene(scene);
+        });
     }
 }
