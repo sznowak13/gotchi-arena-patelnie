@@ -15,22 +15,17 @@ import javafx.stage.Stage;
 public class MainMenu extends HBox {
 
     private Button createGotchiBtn = new Button("Create new gotchi");
-    private Button refreshList = new Button("Refresh list");
     private VBox gotchiListing = new VBox(15);
 
     public MainMenu() {
         this.setAlignment(Pos.CENTER);
         this.setSpacing(50);
         this.createGotchiList();
-        this.setupRefreshButton();
-        this.getChildren().addAll(this.gotchiListing, this.createGotchiBtn, this.refreshList);
+        this.getChildren().addAll(this.gotchiListing, this.createGotchiBtn);
     }
 
-    private void setupRefreshButton() {
-        this.refreshList.setOnAction((event) -> this.createGotchiList());
-    }
 
-    private void createGotchiList() {
+    public void createGotchiList() {
         this.gotchiListing.getChildren().clear();
         this.gotchiListing.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
         this.gotchiListing.getChildren().add(new Text("Available Gotchis: "));

@@ -45,6 +45,9 @@ public class GotchiCreationForm extends VBox {
                     this.typeChoiceBox.getValue(),
                     this.calculateStatPoints())
             );
+            if (scene.getRoot() instanceof MainMenu) {
+                ((MainMenu) scene.getRoot()).createGotchiList();
+            }
             primaryStage.setScene(scene);
         });
     }
