@@ -39,6 +39,7 @@ public class MainMenu extends HBox {
             listItem.setToggleGroup(this.gotchiToggle);
             this.gotchiListing.getChildren().add(listItem);
         }
+        this.gotchiToggle.selectToggle(this.gotchiToggle.getToggles().get(0));
     }
 
     public void setCreateButtonAction(Stage primaryStage, Scene scene) {
