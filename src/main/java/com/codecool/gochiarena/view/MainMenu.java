@@ -4,6 +4,8 @@ import com.codecool.gochiarena.model.Gotchi;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -16,6 +18,7 @@ public class MainMenu extends HBox {
 
     private Button createGotchiBtn = new Button("Create new gotchi");
     private VBox gotchiListing = new VBox(15);
+    private ToggleGroup gotchiToggle = new ToggleGroup();
 
     public MainMenu() {
         this.setAlignment(Pos.CENTER);
@@ -30,7 +33,9 @@ public class MainMenu extends HBox {
         this.gotchiListing.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
         this.gotchiListing.getChildren().add(new Text("Available Gotchis: "));
         for (Gotchi gotchi : Gotchi.getAvailableGotchis()) {
-            this.gotchiListing.getChildren().add(new Text(gotchi.getName() + " " + gotchi.getType()));
+            RadioButton listItem = new RadioButton(gotchi.getName() + " " + gotchi.getType());
+            listItem.setToggleGroup(this.gotchiToggle);
+            this.gotchiListing.getChildren().add(listItem);
         }
     }
 
