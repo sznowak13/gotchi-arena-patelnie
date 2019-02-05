@@ -15,13 +15,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateGotchiForm extends VBox {
+public class GotchiCreationForm extends VBox {
 
-    private Label nameLabel = new Label("Name: ");
     private TextField nameField = new TextField("Your gotchi name...");
-    private Label typeLabel = new Label("Choose type: ");
     private ChoiceBox<GochiType> typeChoiceBox = new ChoiceBox<>();
-    private Label statLabel = new Label("Stat points");
     private List<Text> statValues = new ArrayList<>();
     private Text pointsPool = new Text("200");
     private Button createGotchi = new Button("Create!");
@@ -29,7 +26,11 @@ public class CreateGotchiForm extends VBox {
     public CreateGotchiForm() {
         this.setSpacing(5);
         this.typeChoiceBox.getItems().addAll(GochiType.ROCK, GochiType.SCISSORS, GochiType.PAPER);
-        this.getChildren().addAll(nameLabel, nameField, typeLabel, typeChoiceBox, statLabel, pointsPool);
+        this.getChildren().addAll(
+                new Label("Name: "), nameField,
+                new Label("Choose type: "), typeChoiceBox,
+                new Label("Stat points"), pointsPool
+        );
         for (String statName : StatPoints.getStatNames()) {
             this.addStatField(statName);
         }
