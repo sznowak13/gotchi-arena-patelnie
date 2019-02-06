@@ -49,6 +49,7 @@ public class MainMenu extends BorderPane {
         this.selectGotchi.setOnAction((event) -> {
             if (scene.getRoot() instanceof BattleStage) {
                 ((BattleStage) scene.getRoot()).setGotchiInfo((Gotchi) this.gotchiToggle.getSelectedToggle().getUserData());
+                ((BattleStage) scene.getRoot()).setEnemyInfo(Gotchi.getRandomGotchi());
             }
             primaryStage.setScene(scene);
         });
