@@ -1,21 +1,28 @@
 package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.BattleArena;
+import com.codecool.gochiarena.model.Gotchi;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-public class BattleStage extends HBox {
+public class BattleStage extends GridPane {
 
     private BattleArena battleArena = new BattleArena();
-    private Text gotchiName = new Text();
+
+    GotchiInfo info;
 
     public BattleStage() {
-        this.getChildren().add(gotchiName);
-        this.setAlignment(Pos.CENTER);
+        this.setPadding(new Insets(10));
+        this.add(new Text("test"), 0, 1);
+        this.setGridLinesVisible(true);
+        this.setAlignment(Pos.TOP_LEFT);
     }
 
-    public void setGotchiName(String gotchiName) {
-        this.gotchiName.setText(gotchiName);
+    public void setGotchiInfo(Gotchi gotchi) {
+        this.info = new GotchiInfo(gotchi);
+        this.add(info, 0, 0);
     }
 }
