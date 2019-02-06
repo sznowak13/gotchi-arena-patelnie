@@ -2,6 +2,7 @@ package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.Action;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -16,9 +17,10 @@ public class ActionChooseView extends VBox {
     ActionChooseView() {
         super(10);
         this.setPadding(new Insets(10));
+        this.setAlignment(Pos.CENTER);
         this.getChildren().add(new Text("Choose your gotchi action!"));
         for (Action action: Action.values()) {
-            RadioButton choice = new RadioButton(action.toString());
+            RadioButton choice = new RadioButton(action.toString().toLowerCase());
             choice.setToggleGroup(actionsGroup);
             this.getChildren().add(choice);
         }
