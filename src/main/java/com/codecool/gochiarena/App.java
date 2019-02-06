@@ -22,6 +22,8 @@ public class App extends Application {
         mainMenu.setCreateButtonAction(primaryStage, creationScene);
         mainMenu.setStartButtonAction(primaryStage, batteScene);
 
+        form.setupBackButton(primaryStage, mainScene);
+
 
         primaryStage.setScene(mainScene);
         primaryStage.show();

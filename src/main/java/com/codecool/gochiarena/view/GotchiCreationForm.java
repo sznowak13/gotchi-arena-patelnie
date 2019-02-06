@@ -22,6 +22,7 @@ public class GotchiCreationForm extends VBox {
     private List<Text> statValues = new ArrayList<>();
     private Text pointsPool = new Text("200");
     private Button createGotchi = new Button("Create!");
+    private Button backButton = new Button("Back to main menu");
 
     public GotchiCreationForm() {
         this.setSpacing(5);
@@ -36,6 +37,14 @@ public class GotchiCreationForm extends VBox {
             this.addStatField(statName);
         }
         this.getChildren().add(createGotchi);
+        this.getChildren().add(backButton);
+    }
+
+
+    public void setupBackButton(Stage primaryStage, Scene scene){
+        this.backButton.setOnAction((event) -> {
+            primaryStage.setScene(scene);
+        });
     }
 
     public void setupCreateButton(Stage primaryStage, Scene scene) {
