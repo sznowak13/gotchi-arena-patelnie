@@ -3,8 +3,8 @@ package com.codecool.gochiarena.view;
 import com.codecool.gochiarena.model.GochiType;
 import com.codecool.gochiarena.model.Gotchi;
 import com.codecool.gochiarena.model.StatPoints;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.codecool.gochiarena.view.ViewConfig;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class GotchiCreationForm extends VBox {
         }
 
 
-        this.createUserInterfaceField();
+        this.createHorizontalField();
     }
 
 
@@ -81,12 +82,14 @@ public class GotchiCreationForm extends VBox {
         return slider;
     }
 
-    private HBox createUserInterfaceField(){
-        HBox userInterface = new HBox();
-        userInterface.setStyle("-fx-background-color: #336699;");
-        userInterface.getChildren().addAll(backButton, createGotchi);
-        this.getChildren().add(userInterface);
-        return userInterface;
+    private HBox createHorizontalField(){
+        HBox horizontalField = new HBox();
+        horizontalField.setStyle("-fx-background-color: #336699;");
+        horizontalField.setPadding(new Insets(0, 0, 0, ViewConfig.WIDTH/14)); // <----- looks like magic number and it is
+        horizontalField.setSpacing(ViewConfig.WIDTH/2);
+        horizontalField.getChildren().addAll(backButton, createGotchi);
+        this.getChildren().add(horizontalField);
+        return horizontalField;
     }
 
     private void addStatField(String statName) {
