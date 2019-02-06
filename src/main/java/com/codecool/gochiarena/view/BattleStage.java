@@ -11,13 +11,14 @@ public class BattleStage extends GridPane {
 
     private BattleArena battleArena = new BattleArena();
 
-    GotchiInfo info;
+    private GotchiInfo info;
+    private ActionChooseView actionChoose = new ActionChooseView();
 
     public BattleStage() {
         this.setPadding(new Insets(10));
-        this.add(new Text("test"), 0, 1);
         this.setGridLinesVisible(true);
         this.setAlignment(Pos.TOP_LEFT);
+        this.add(actionChoose, 0,1);
     }
 
     public void setGotchiInfo(Gotchi gotchi) {
