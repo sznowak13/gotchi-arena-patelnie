@@ -35,6 +35,10 @@ public class Gotchi {
         availableGotchis.add(gotchi);
     }
 
+    public static Gotchi getRandomGotchi() {
+        return availableGotchis.get((int) (Math.random() * availableGotchis.size()));
+    }
+
     public static List<Gotchi> getAvailableGotchis() {
         return availableGotchis;
     }
