@@ -4,6 +4,7 @@ import com.codecool.gochiarena.view.BattleStage;
 import com.codecool.gochiarena.view.GotchiCreationForm;
 import com.codecool.gochiarena.view.MainMenu;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

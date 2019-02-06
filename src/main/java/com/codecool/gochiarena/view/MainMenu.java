@@ -49,7 +49,7 @@ public class MainMenu extends HBox {
     public void setStartButtonAction(Stage primaryStage, Scene scene) {
         this.selectGotchi.setOnAction((event) -> {
             if (scene.getRoot() instanceof BattleStage) {
-                ((BattleStage) scene.getRoot()).setGotchiName(this.gotchiToggle.getSelectedToggle().getUserData().toString());
+                ((BattleStage) scene.getRoot()).setGotchiInfo((Gotchi) this.gotchiToggle.getSelectedToggle().getUserData());
             }
             primaryStage.setScene(scene);
         });

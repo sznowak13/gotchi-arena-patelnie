@@ -5,7 +5,6 @@ import com.codecool.gochiarena.model.Gotchi;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class BattleStage extends GridPane {
