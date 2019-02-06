@@ -36,8 +36,9 @@ public class GotchiCreationForm extends VBox {
         for (String statName : StatPoints.getStatNames()) {
             this.addStatField(statName);
         }
-        this.getChildren().add(createGotchi);
-        this.getChildren().add(backButton);
+
+
+        this.createUserInterfaceField();
     }
 
 
@@ -78,6 +79,14 @@ public class GotchiCreationForm extends VBox {
         slider.valueProperty().addListener((observable, oldValue, newValue) -> value.setText(String.valueOf(newValue.intValue())));
 
         return slider;
+    }
+
+    private HBox createUserInterfaceField(){
+        HBox userInterface = new HBox();
+        userInterface.setStyle("-fx-background-color: #336699;");
+        userInterface.getChildren().addAll(backButton, createGotchi);
+        this.getChildren().add(userInterface);
+        return userInterface;
     }
 
     private void addStatField(String statName) {
