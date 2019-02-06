@@ -26,4 +26,8 @@ public class BattleStage extends BorderPane {
         this.enemyInfo = new EnemyGotchisInfo(gotchi);
         this.setRight(enemyInfo);
     }
+
+    public BattleMessageView getBattleMessageView() {
+        return battleMessageView;
+    }
 }

@@ -17,4 +17,16 @@ public class BattleMessageView extends VBox {
         this.setMinHeight(100);
         this.setBackground(new Background(new BackgroundFill(Color.CORNSILK, null, null)));
     }
+
+    public void addNewMessage(String message) {
+        this.messages.add(new Text(message));
+        this.refreshMessages();
+    }
+
+    public void refreshMessages() {
+        this.getChildren().clear();
+        for (Text message: messages) {
+            this.getChildren().add(message);
+        }
+    }
 }
