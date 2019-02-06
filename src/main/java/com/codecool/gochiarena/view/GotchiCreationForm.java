@@ -11,9 +11,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sun.plugin.javascript.navig.Array;
 
 import javax.swing.text.View;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GotchiCreationForm extends VBox {
@@ -24,6 +26,8 @@ public class GotchiCreationForm extends VBox {
     private Text pointsPool = new Text("200");
     private Button createGotchi = new Button("Create!");
     private Button backButton = new Button("Back to main menu");
+    private final int poolOfPoints = 200;
+
 
     public GotchiCreationForm() {
         this.setSpacing(5);
@@ -49,6 +53,7 @@ public class GotchiCreationForm extends VBox {
         });
     }
 
+
     public void setupCreateButton(Stage primaryStage, Scene scene) {
         this.createGotchi.setOnAction((event) -> {
             Gotchi.addGotchi(new Gotchi(
@@ -56,18 +61,48 @@ public class GotchiCreationForm extends VBox {
                     this.typeChoiceBox.getValue(),
                     this.calculateStatPoints())
             );
-            if (scene.getRoot() instanceof MainMenu) {
-                ((MainMenu) scene.getRoot()).createGotchiList();
+
+            if (checkStatsAllowed(countStats(createStatsArr(calculateStatPoints())))){
+                if (scene.getRoot() instanceof MainMenu) {
+                    ((MainMenu) scene.getRoot()).createGotchiList();
+                }
+                primaryStage.setScene(scene);}
+            else{
+                System.out.println("za duzo punkcikow ziomek");
             }
-            primaryStage.setScene(scene);
+
+
         });
     }
+
+    private List<Integer> createStatsArr(StatPoints statsPoints) {
+        List<Integer> statsArr = new ArrayList<>();
+        statsArr.add(statsPoints.getSpeedPoints());
+        statsArr.add(statsPoints.getDefencePoints());
+        statsArr.add(statsPoints.getAttackPoints());
+        statsArr.add(statsPoints.getStaminaPoints());
+        return statsArr;
+    }
+
+    private int countStats(List<Integer> statsArr){
+        int statSum = 0;
+        for(int stat: statsArr){
+            statSum +=stat;
+        }
+        return statSum;
+    }
+
+    public boolean checkStatsAllowed(int statSum){
+        return statSum<=poolOfPoints ? true : false;
+    }
+
 
     private StatPoints calculateStatPoints() {
         int[] statPoints = new int[statValues.size()];
         for (int i = 0; i < statPoints.length; i++) {
             statPoints[i] = Integer.parseInt(statValues.get(i).getText());
         }
+        System.out.println(Arrays.toString(statPoints));
         return new StatPoints(statPoints);
     }
 
@@ -76,8 +111,8 @@ public class GotchiCreationForm extends VBox {
         slider.setMajorTickUnit(50);
         slider.setMinorTickCount(1);
         slider.setShowTickLabels(true);
-
         slider.valueProperty().addListener((observable, oldValue, newValue) -> value.setText(String.valueOf(newValue.intValue())));
+
 
         return slider;
     }

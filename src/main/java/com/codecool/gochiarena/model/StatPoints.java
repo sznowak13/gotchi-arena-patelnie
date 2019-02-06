@@ -2,9 +2,8 @@ package com.codecool.gochiarena.model;
 
 public class StatPoints {
 
-    private static String[] statNames = new String[] {"Attack", "Evade", "Speed", "Defence", "Stamina"};
+    private static String[] statNames = new String[] {"Attack", "Speed", "Defence", "Stamina"};
 
-    private int evadePoints;
     private int attackPoints;
     private int speedPoints;
     private int defencePoints;
@@ -13,10 +12,9 @@ public class StatPoints {
 
     public StatPoints(int[] pointsInput) {
         this.attackPoints = pointsInput[0];
-        this.evadePoints = pointsInput[1];
-        this.speedPoints = pointsInput[2];
-        this.defencePoints = pointsInput[3];
-        this.staminaPoints = pointsInput[4];
+        this.speedPoints = pointsInput[1];
+        this.defencePoints = pointsInput[2];
+        this.staminaPoints = pointsInput[3];
         this.healthPoints = 100;
     }
 
@@ -24,13 +22,6 @@ public class StatPoints {
         return statNames;
     }
 
-    public int getEvadePoints() {
-        return evadePoints;
-    }
-
-    public void setEvadePoints(int evadePoints) {
-        this.evadePoints = evadePoints;
-    }
 
     public int getAttackPoints() {
         return attackPoints;
@@ -80,7 +71,6 @@ public class StatPoints {
         sb.append(String.format("Health: %s, ", this.healthPoints));
         sb.append(String.format("Stamina: %s, ", this.staminaPoints));
         sb.append(String.format("Speed: %s, ", this.speedPoints));
-        sb.append(String.format("Evade: %s", this.evadePoints));
         return sb.toString();
     }
 }

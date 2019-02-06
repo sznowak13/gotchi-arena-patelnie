@@ -17,11 +17,11 @@ public class App extends Application {
         Scene mainScene = new Scene(mainMenu, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         BattleStage battleStage = new BattleStage();
-        Scene batteScene = new Scene(battleStage, ViewConfig.WIDTH, ViewConfig.HEIGHT);
+        Scene battleScene = new Scene(battleStage, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         form.setupCreateButton(primaryStage, mainScene);
         mainMenu.setCreateButtonAction(primaryStage, creationScene);
-        mainMenu.setStartButtonAction(primaryStage, batteScene);
+        mainMenu.setStartButtonAction(primaryStage, battleScene);
 
         form.setupBackButton(primaryStage, mainScene);
 

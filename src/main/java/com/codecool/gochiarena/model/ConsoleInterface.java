@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class ConsoleInterface {
 
-    private static String[] statPoints = new String[] {"attack", "evade", "speed", "defence", "stamina"};
+    private static String[] statPoints = new String[] {"attack", "speed", "defence", "stamina"};
 
     public static void main(String[] args) {
         System.out.println("Create goczi");
