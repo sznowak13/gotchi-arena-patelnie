@@ -15,6 +15,7 @@ public class EnemyGotchisInfo extends VBox {
     private Text stamina = new Text();
     private HBox readyStatus = new HBox(5);
 
+
     EnemyGotchisInfo(Gotchi gotchi) {
         this.setAlignment(Pos.CENTER);
         this.enemyName.setText("User: " + "Enemy");
