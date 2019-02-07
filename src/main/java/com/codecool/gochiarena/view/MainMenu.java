@@ -46,6 +46,8 @@ public class MainMenu extends HBox {
         this.createGotchiBtn.setOnAction((event) -> primaryStage.setScene(scene));
     }
 
+
+
     public void setStartButtonAction(Stage primaryStage, Scene scene) {
         this.selectGotchi.setOnAction((event) -> {
             if (scene.getRoot() instanceof BattleStage) {
