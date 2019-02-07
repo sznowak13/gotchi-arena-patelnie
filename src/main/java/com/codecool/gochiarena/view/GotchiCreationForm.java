@@ -29,6 +29,7 @@ public class GotchiCreationForm extends VBox {
     private Button createGotchi = new Button("Create!");
     private Button backButton = new Button("Back to main menu");
     private final int poolOfPoints = 200;
+    private final Text exceedMsg = new Text("Warning: You mustn't exceed 200pts");
 
 
     public GotchiCreationForm() {
@@ -63,14 +64,13 @@ public class GotchiCreationForm extends VBox {
                     this.typeChoiceBox.getValue(),
                     this.calculateStatPoints())
             );
-
             if (checkStatsAllowed(countStats(calculateStatPoints()))){
                 if (scene.getRoot() instanceof MainMenu) {
                     ((MainMenu) scene.getRoot()).createGotchiList();
                 }
                 primaryStage.setScene(scene);}
             else{
-                this.addExceedWarning();
+                this.addExceedWarning(exceedMsg);
             }
         });
     }
@@ -111,19 +111,18 @@ public class GotchiCreationForm extends VBox {
         slider.setMinorTickCount(1);
         slider.setShowTickLabels(true);
         slider.setBlockIncrement(10);
+        slider.setOnMouseClicked(Event ->{
+            this.removeExceedWarning(exceedMsg);
+        });
 
         slider.valueProperty().addListener((observable, oldValue, newValue) ->{
+
             value.setText(String.valueOf(newValue.intValue()));
             int sliderSum = countStats(calculateStatPoints());
             pointsPool.setText(Integer.toString(poolOfPoints - sliderSum));
 
-
-
-            //pointsPool.setText(String.valueOf(poolOfPoints - newValue.intValue()));
-
             }
         );
-
         return slider;
     }
     private HBox createHorizontalField(){
@@ -145,14 +144,14 @@ public class GotchiCreationForm extends VBox {
 
     }
 
-    private void addExceedWarning(){
-        //Alert alert = new Alert(AlertType.WARNING, "You mustn't exceed 200pts");
-        Text message = new Text();
-        message.setText("Warning: You mustn\'t exceed 200pts");
+    private void addExceedWarning(Text message){
         message.setFill(Color.RED);
         message.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         this.getChildren().add(message);
     }
 
+    private void removeExceedWarning(Text message){
+        this.getChildren().remove(message);
+    }
 
 }
