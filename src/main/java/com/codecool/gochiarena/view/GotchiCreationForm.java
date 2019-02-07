@@ -68,10 +68,8 @@ public class GotchiCreationForm extends VBox {
                 }
                 primaryStage.setScene(scene);}
             else{
-                System.out.println("za duzo punkcikow ziomek");
+                this.addExceedWarning();
             }
-
-
         });
     }
 
@@ -135,4 +133,10 @@ public class GotchiCreationForm extends VBox {
         this.getChildren().add(statField);
         this.statValues.add(statValue);
     }
+
+    private void addExceedWarning(){
+        //Alert alert = new Alert(AlertType.WARNING, "You mustn't exceed 200pts");
+        this.getChildren().add(new Text("You mustn\'t exceed 200pts"));
+    }
+
 }
