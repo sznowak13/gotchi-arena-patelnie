@@ -14,15 +14,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import sun.plugin.javascript.navig.Array;
 
-import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static javafx.scene.control.Alert.*;
-import static javafx.scene.paint.Color.rgb;
 
 public class GotchiCreationForm extends VBox {
 
@@ -68,7 +64,7 @@ public class GotchiCreationForm extends VBox {
                     this.calculateStatPoints())
             );
 
-            if (checkStatsAllowed(countStats(createStatsArr(calculateStatPoints())))){
+            if (checkStatsAllowed(countStats(calculateStatPoints()))){
                 if (scene.getRoot() instanceof MainMenu) {
                     ((MainMenu) scene.getRoot()).createGotchiList();
                 }
@@ -79,7 +75,7 @@ public class GotchiCreationForm extends VBox {
         });
     }
 
-    private List<Integer> createStatsArr(StatPoints statsPoints) {
+    /*private List<Integer> createStatsArr(StatPoints statsPoints) {
         List<Integer> statsArr = new ArrayList<>();
         statsArr.add(statsPoints.getSpeedPoints());
         statsArr.add(statsPoints.getDefencePoints());
@@ -87,8 +83,8 @@ public class GotchiCreationForm extends VBox {
         statsArr.add(statsPoints.getStaminaPoints());
         return statsArr;
     }
-
-    private int countStats(List<Integer> statsArr){
+*/
+    private int countStats(int [] statsArr){
         int statSum = 0;
         for(int stat: statsArr){
             statSum +=stat;
@@ -97,17 +93,16 @@ public class GotchiCreationForm extends VBox {
     }
 
     public boolean checkStatsAllowed(int statSum){
-        return statSum<=poolOfPoints ? true : false;
+        return statSum <= poolOfPoints ? true : false;
     }
 
 
-    private StatPoints calculateStatPoints() {
+    private int[] calculateStatPoints() {
         int[] statPoints = new int[statValues.size()];
         for (int i = 0; i < statPoints.length; i++) {
             statPoints[i] = Integer.parseInt(statValues.get(i).getText());
         }
-        System.out.println(Arrays.toString(statPoints));
-        return new StatPoints(statPoints);
+        return statPoints;
     }
 
     private Slider createStatSlider(Text value) {
@@ -115,12 +110,22 @@ public class GotchiCreationForm extends VBox {
         slider.setMajorTickUnit(50);
         slider.setMinorTickCount(1);
         slider.setShowTickLabels(true);
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> value.setText(String.valueOf(newValue.intValue())));
+        slider.setBlockIncrement(10);
 
+        slider.valueProperty().addListener((observable, oldValue, newValue) ->{
+            value.setText(String.valueOf(newValue.intValue()));
+            int sliderSum = countStats(calculateStatPoints());
+            pointsPool.setText(Integer.toString(poolOfPoints - sliderSum));
+
+
+
+            //pointsPool.setText(String.valueOf(poolOfPoints - newValue.intValue()));
+
+            }
+        );
 
         return slider;
     }
-
     private HBox createHorizontalField(){
         HBox horizontalField = new HBox();
         horizontalField.setPadding(new Insets(0, 0, 0, ViewConfig.WIDTH/14)); // <----- looks like magic number and it is
