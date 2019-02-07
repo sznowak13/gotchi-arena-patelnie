@@ -142,6 +142,7 @@ public class GotchiCreationForm extends VBox {
         statField.getChildren().addAll(new Label(statName) ,statSlider, statValue);
         this.getChildren().add(statField);
         this.statValues.add(statValue);
+
     }
 
     private void addExceedWarning(){

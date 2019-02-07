@@ -16,15 +16,15 @@ public class Gotchi {
     private Action currentAction;
 
     static {
-        availableGotchis.add(new Gotchi("Goczi1", GochiType.ROCK, new StatPoints(new int[] {10, 10, 10, 10, 10, 10})));
-        availableGotchis.add(new Gotchi("Goczi2", GochiType.SCISSORS, new StatPoints(new int[] {10, 10, 10, 10, 10, 10})));
-        availableGotchis.add(new Gotchi("Goczi3", GochiType.PAPER, new StatPoints(new int[] {10, 10, 10, 10, 10, 10})));
+        availableGotchis.add(new Gotchi("Goczi1", GochiType.ROCK, new int[] {10, 10, 10, 10, 10, 10}));
+        availableGotchis.add(new Gotchi("Goczi2", GochiType.SCISSORS, new int[] {10, 10, 10, 10, 10, 10}));
+        availableGotchis.add(new Gotchi("Goczi3", GochiType.PAPER, new int[] {10, 10, 10, 10, 10, 10}));
     }
 
-    public Gotchi(String name, GochiType type, StatPoints statPoints) {
+    public Gotchi(String name, GochiType type, int[] statPoints) {
         this.name = name;
         this.type = type;
-        this.statPoints = statPoints;
+        this.statPoints = new StatPoints(statPoints);
         this.id = idCounter++;
         this.primaryAttack = Attack.PRIMARY.ofType(type);
         this.secondaryAttack = Attack.SECONDARY.ofType(type.getSecondaryType());
