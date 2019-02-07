@@ -24,9 +24,7 @@ public class MainMenu extends BorderPane {
         this.setLeft(this.gotchiListing);
         this.setCenter(this.selectGotchi);
         this.setRight(this.createGotchiBtn);
-//        this.getChildren().addAll(this.gotchiListing, this.createGotchiBtn, this.selectGotchi);
     }
-
 
     public void createGotchiList() {
         this.gotchiListing.getChildren().clear();

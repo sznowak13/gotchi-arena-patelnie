@@ -5,6 +5,7 @@ import com.codecool.gochiarena.model.Gotchi;
 import com.codecool.gochiarena.model.StatPoints;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -26,6 +27,7 @@ public class GotchiCreationForm extends VBox {
 
     public GotchiCreationForm() {
         this.setSpacing(5);
+        this.setPadding(new Insets(20));
         this.typeChoiceBox.getItems().addAll(GochiType.ROCK, GochiType.SCISSORS, GochiType.PAPER);
         this.typeChoiceBox.setValue(GochiType.ROCK);
         this.getChildren().addAll(
