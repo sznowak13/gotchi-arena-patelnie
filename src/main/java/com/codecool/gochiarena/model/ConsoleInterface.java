@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class ConsoleInterface {
 
-    private static String[] statPoints = new String[] {"attack", "evade", "speed", "defence", "stamina"};
+    private static String[] statPoints = new String[] {"attack", "speed", "defence", "stamina"};
 
     public static void main(String[] args) {
         System.out.println("Create goczi");
@@ -21,10 +21,10 @@ public class ConsoleInterface {
             pointsPool -= points;
             pointsInput[i] = points;
         }
-        StatPoints statPoints = new StatPoints(pointsInput);
+       // StatPoints statPoints = new StatPoints(pointsInput);
 
-        Gotchi gotchi = new Gotchi(name, type, statPoints);
-        System.out.println(gotchi);
+        //Gotchi gotchi = new Gotchi(name, type, statPoints);
+      //  System.out.println(gotchi);
     }
 
     public static String askForInput(String message) {
