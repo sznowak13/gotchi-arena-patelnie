@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sun.plugin.javascript.navig.Array;
@@ -17,6 +20,9 @@ import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static javafx.scene.control.Alert.*;
+import static javafx.scene.paint.Color.rgb;
 
 public class GotchiCreationForm extends VBox {
 
@@ -117,7 +123,6 @@ public class GotchiCreationForm extends VBox {
 
     private HBox createHorizontalField(){
         HBox horizontalField = new HBox();
-        horizontalField.setStyle("-fx-background-color: #336699;");
         horizontalField.setPadding(new Insets(0, 0, 0, ViewConfig.WIDTH/14)); // <----- looks like magic number and it is
         horizontalField.setSpacing(ViewConfig.WIDTH/2);
         horizontalField.getChildren().addAll(backButton, createGotchi);
@@ -136,7 +141,12 @@ public class GotchiCreationForm extends VBox {
 
     private void addExceedWarning(){
         //Alert alert = new Alert(AlertType.WARNING, "You mustn't exceed 200pts");
-        this.getChildren().add(new Text("You mustn\'t exceed 200pts"));
+        Text message = new Text();
+        message.setText("Warning: You mustn\'t exceed 200pts");
+        message.setFill(Color.RED);
+        message.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        this.getChildren().add(message);
     }
+
 
 }
