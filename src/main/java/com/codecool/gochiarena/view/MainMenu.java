@@ -52,6 +52,7 @@ public class MainMenu extends BorderPane {
                 battleStage.setGotchiInfo((Gotchi) this.gotchiToggle.getSelectedToggle().getUserData());
                 battleStage.setEnemyInfo(Gotchi.getRandomGotchi());
                 battleStage.getBattleMessageView().addNewMessage("Battle starts!");
+                battleStage.setupReadyButton();
 
             }
             primaryStage.setScene(scene);

@@ -14,11 +14,12 @@ public class Gotchi {
     private Attack primaryAttack;
     private Attack secondaryAttack;
     private Action currentAction;
+    private boolean ready;
 
     static {
-        availableGotchis.add(new Gotchi("Goczi1", GochiType.ROCK, new StatPoints(new int[] {10, 10, 10, 10, 10, 10})));
-        availableGotchis.add(new Gotchi("Goczi2", GochiType.SCISSORS, new StatPoints(new int[] {10, 10, 10, 10, 10, 10})));
-        availableGotchis.add(new Gotchi("Goczi3", GochiType.PAPER, new StatPoints(new int[] {10, 10, 10, 10, 10, 10})));
+        availableGotchis.add(new Gotchi("Goczi1", GochiType.ROCK, new StatPoints(new int[] {50, 10, 10, 10, 10, 10})));
+        availableGotchis.add(new Gotchi("Goczi2", GochiType.SCISSORS, new StatPoints(new int[] {30, 10, 10, 10, 10, 10})));
+        availableGotchis.add(new Gotchi("Goczi3", GochiType.PAPER, new StatPoints(new int[] {20, 10, 10, 10, 10, 10})));
     }
 
     public Gotchi(String name, GochiType type, StatPoints statPoints) {
@@ -26,9 +27,8 @@ public class Gotchi {
         this.type = type;
         this.statPoints = statPoints;
         this.id = idCounter++;
-        this.primaryAttack = Attack.PRIMARY.ofType(type);
-        this.secondaryAttack = Attack.SECONDARY.ofType(type.getSecondaryType());
-        secondaryAttack.setType(type.getSecondaryType());
+        this.primaryAttack = Attack.PRIMARY;
+        this.secondaryAttack = Attack.SECONDARY;
     }
 
     public static void addGotchi(Gotchi gotchi) {
@@ -76,7 +76,7 @@ public class Gotchi {
     }
 
     public Attack getPrimaryAttack() {
-        return primaryAttack;
+            return primaryAttack;
     }
 
     public void setPrimaryAttack(Attack primaryAttack) {
@@ -102,5 +102,17 @@ public class Gotchi {
     @Override
     public String toString() {
         return String.format("Gotchi %s of type %s, %s.", this.name, this.type, this.statPoints);
+    }
+
+    public void setReady(boolean b) {
+        this.ready = true;
+    }
+
+    public boolean isReady() {
+        return this.ready;
+    }
+
+    public void takeDamage(double damage) {
+        this.getStatPoints().decreaseHealthPoints(damage - this.getStatPoints().getDefencePoints());
     }
 }
