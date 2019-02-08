@@ -1,20 +1,18 @@
 package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.Gotchi;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MainMenu extends HBox {
+public class MainMenu extends BorderPane {
 
     private Button createGotchiBtn = new Button("Create new gotchi");
     private Button selectGotchi = new Button("Battle!");
@@ -22,12 +20,11 @@ public class MainMenu extends HBox {
     private ToggleGroup gotchiToggle = new ToggleGroup();
 
     public MainMenu() {
-        this.setAlignment(Pos.CENTER);
-        this.setSpacing(50);
         this.createGotchiList();
-        this.getChildren().addAll(this.gotchiListing, this.createGotchiBtn, this.selectGotchi);
+        this.setLeft(this.gotchiListing);
+        this.setCenter(this.selectGotchi);
+        this.setRight(this.createGotchiBtn);
     }
-
 
     public void createGotchiList() {
         this.gotchiListing.getChildren().clear();
@@ -51,7 +48,12 @@ public class MainMenu extends HBox {
     public void setStartButtonAction(Stage primaryStage, Scene scene) {
         this.selectGotchi.setOnAction((event) -> {
             if (scene.getRoot() instanceof BattleStage) {
-                ((BattleStage) scene.getRoot()).setGotchiName(this.gotchiToggle.getSelectedToggle().getUserData().toString());
+                BattleStage battleStage = (BattleStage) scene.getRoot();
+                battleStage.setGotchiInfo((Gotchi) this.gotchiToggle.getSelectedToggle().getUserData());
+                battleStage.setEnemyInfo(Gotchi.getRandomGotchi());
+                battleStage.getBattleMessageView().addNewMessage("Battle starts!");
+                battleStage.setupReadyButton();
+
             }
             primaryStage.setScene(scene);
         });

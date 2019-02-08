@@ -80,8 +80,14 @@ fabric.properties
 
 # Sonarlint plugin
 .idea/sonarlint
+.idea/compiler.xml
+.idea/misc.xml
+.idea/encodings.xml
+.idea/gotchi-arena-patelnie.iml
+
 
 # End of https://www.gitignore.io/api/intellij
 
 target/
+src/test
 

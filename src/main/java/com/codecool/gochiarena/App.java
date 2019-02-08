@@ -6,10 +6,12 @@ import com.codecool.gochiarena.view.MainMenu;
 import com.codecool.gochiarena.view.ViewConfig;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
+        Font.loadFont(getClass().getResourceAsStream("fonts/font.ttf"), 16);
         GotchiCreationForm form = new GotchiCreationForm();
         Scene creationScene = new Scene(form, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
@@ -25,7 +27,8 @@ public class App extends Application {
 
         form.setupBackButton(primaryStage, mainScene);
 
-
+        mainMenu.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        battleStage.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }

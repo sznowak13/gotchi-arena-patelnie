@@ -63,6 +63,10 @@ public class StatPoints {
         this.healthPoints = healthPoints;
     }
 
+    public void decreaseHealthPoints(double dmg) {
+        this.healthPoints -= dmg;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

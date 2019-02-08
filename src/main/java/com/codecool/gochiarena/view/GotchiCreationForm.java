@@ -3,7 +3,6 @@ package com.codecool.gochiarena.view;
 import com.codecool.gochiarena.model.GochiType;
 import com.codecool.gochiarena.model.Gotchi;
 import com.codecool.gochiarena.model.StatPoints;
-import com.codecool.gochiarena.view.ViewConfig;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,9 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 
 public class GotchiCreationForm extends VBox {
 
@@ -34,6 +31,7 @@ public class GotchiCreationForm extends VBox {
 
     public GotchiCreationForm() {
         this.setSpacing(5);
+        this.setPadding(new Insets(20));
         this.typeChoiceBox.getItems().addAll(GochiType.ROCK, GochiType.SCISSORS, GochiType.PAPER);
         this.typeChoiceBox.setValue(GochiType.ROCK);
         this.getChildren().addAll(
@@ -141,7 +139,6 @@ public class GotchiCreationForm extends VBox {
         statField.getChildren().addAll(new Label(statName) ,statSlider, statValue);
         this.getChildren().add(statField);
         this.statValues.add(statValue);
-
     }
 
     private void addExceedWarning(Text message){
