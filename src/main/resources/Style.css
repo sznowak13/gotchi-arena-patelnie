@@ -15,3 +15,7 @@
     -fx-background-size: 430 180;
     -fx-background-position: bottom;
 }
+
+.my-special-button{
+    -fx-pref-width: 200px;
+}

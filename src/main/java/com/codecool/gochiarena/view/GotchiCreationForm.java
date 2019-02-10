@@ -124,6 +124,7 @@ public class GotchiCreationForm extends VBox {
         );
         return slider;
     }
+
     private HBox createHorizontalField(){
         HBox horizontalField = new HBox();
         horizontalField.setPadding(new Insets(0, 0, 0, ViewConfig.WIDTH/14)); // <----- looks like magic number and it is

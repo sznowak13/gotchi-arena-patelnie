@@ -1,5 +1,7 @@
 package com.codecool.gochiarena.view;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
@@ -9,15 +11,34 @@ import javafx.stage.Stage;
 
 public class MainMenu extends BorderPane {
 
-    private Button createGotchiBtn = new Button("Create new gotchi");
+    private Button createGotchiBtn = new Button("Create new Gotchi");
     private Button singlePlayerBtn = new Button("Single player");
     private Button multiPlayerBtn = new Button("Multiplayer");
 
 
+
     public MainMenu() {
-        this.setRight(this.createGotchiBtn);
-        this.setCenter(this.multiPlayerBtn);
-        this.setLeft(this.singlePlayerBtn);
+        this.setCenter(this.createVerticalField());
+    }
+
+    public Button getCreateGotchiBtn() {
+        return createGotchiBtn;
+    }
+
+    public Button getSinglePlayerBtn() {
+        return singlePlayerBtn;
+    }
+
+    public Button getMultiPlayerBtn() {
+        return multiPlayerBtn;
+    }
+
+    private VBox createVerticalField(){
+        VBox verticalField = new VBox();
+        verticalField.setSpacing(8);
+        verticalField.setAlignment(Pos.CENTER);
+        verticalField.getChildren().addAll(singlePlayerBtn, multiPlayerBtn, createGotchiBtn);
+        return verticalField;
     }
 
 

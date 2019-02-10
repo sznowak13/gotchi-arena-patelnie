@@ -26,6 +26,10 @@ public class App extends Application {
         mainMenu.setMultiPlayerBtn(primaryStage, prepareBattleScene);
         mainMenu.setCreateButtonAction(primaryStage, creationScene);
         mainMenu.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        mainMenu.getCreateGotchiBtn().getStyleClass().add("my-special-button");
+        mainMenu.getSinglePlayerBtn().getStyleClass().add("my-special-button");
+        mainMenu.getMultiPlayerBtn().getStyleClass().add("my-special-button");
+
 
         prepareBattle.setStartButtonAction(primaryStage, battleScene);
         prepareBattle.setupBackButton(primaryStage, mainScene);
