@@ -21,18 +21,20 @@ public class App extends Application {
         BattleStage battleStage = new BattleStage();
         Scene battleScene = new Scene(battleStage, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
-        form.setupCreateButton(primaryStage, prepareBattleScene);
+        mainMenu.setId("pane");
         mainMenu.setSinglePlayerBtn(primaryStage, prepareBattleScene);
         mainMenu.setMultiPlayerBtn(primaryStage, prepareBattleScene);
         mainMenu.setCreateButtonAction(primaryStage, creationScene);
-        prepareBattle.setStartButtonAction(primaryStage, battleScene);
-
-        form.setupBackButton(primaryStage, mainScene);
-        prepareBattle.setupBackButton(primaryStage, mainScene);
-
         mainMenu.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
-        battleStage.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+
+        prepareBattle.setStartButtonAction(primaryStage, battleScene);
+        prepareBattle.setupBackButton(primaryStage, mainScene);
         prepareBattle.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+
+        form.setupCreateButton(primaryStage, prepareBattleScene);
+        form.setupBackButton(primaryStage, mainScene);
+
+        battleStage.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
 
         primaryStage.setScene(mainScene);
         primaryStage.show();
