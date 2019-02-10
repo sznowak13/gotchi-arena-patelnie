@@ -1,12 +1,9 @@
 package com.codecool.gochiarena.view;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
 import javafx.scene.layout.*;
-
 import javafx.stage.Stage;
 
 public class MainMenu extends BorderPane {
@@ -19,6 +16,7 @@ public class MainMenu extends BorderPane {
 
     public MainMenu() {
         this.setCenter(this.createVerticalField());
+        this.setTop(this.createHorizontalFieldForImage());
     }
 
     public Button getCreateGotchiBtn() {
@@ -36,9 +34,16 @@ public class MainMenu extends BorderPane {
     private VBox createVerticalField(){
         VBox verticalField = new VBox();
         verticalField.setSpacing(8);
-        verticalField.setAlignment(Pos.CENTER);
+        verticalField.setAlignment(Pos.TOP_CENTER);
         verticalField.getChildren().addAll(singlePlayerBtn, multiPlayerBtn, createGotchiBtn);
         return verticalField;
+    }
+
+    private HBox createHorizontalFieldForImage(){
+        HBox horizontalField = new HBox();
+        horizontalField.getStyleClass().add("hbox");
+        horizontalField.setId("hbox-custom");
+        return horizontalField;
     }
 
 

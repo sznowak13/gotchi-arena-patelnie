@@ -19,3 +19,12 @@
 .my-special-button{
     -fx-pref-width: 200px;
 }
+
+#hbox-custom {
+    -fx-background-image: url("title.png");
+    -fx-background-position: center;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 640, 90;
+    -fx-padding: 140 0 30 0;
+    -fx-spacing: 25;
+}
