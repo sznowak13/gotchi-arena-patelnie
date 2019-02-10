@@ -63,8 +63,8 @@ public class GotchiCreationForm extends VBox {
                     this.calculateStatPoints())
             );
             if (checkStatsAllowed(countStats(calculateStatPoints()))){
-                if (scene.getRoot() instanceof MainMenu) {
-                    ((MainMenu) scene.getRoot()).createGotchiList();
+                if (scene.getRoot() instanceof PrepareBattle) {
+                    ((PrepareBattle) scene.getRoot()).createGotchiList();
                 }
                 primaryStage.setScene(scene);}
             else{
