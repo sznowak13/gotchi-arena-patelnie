@@ -68,6 +68,7 @@ public class GotchiCreationForm extends VBox {
                 }
                 primaryStage.setScene(scene);}
             else{
+                this.removeExceedWarning(exceedMsg);
                 this.addExceedWarning(exceedMsg);
             }
         });
