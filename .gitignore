@@ -84,6 +84,8 @@ fabric.properties
 .idea/misc.xml
 .idea/encodings.xml
 .idea/gotchi-arena-patelnie.iml
+.idea/cssdialects.xml
+
 
 
 # End of https://www.gitignore.io/api/intellij
