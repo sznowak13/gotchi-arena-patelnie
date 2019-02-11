@@ -8,6 +8,11 @@
     -fx-font-size: 15;
 }
 
+#special-font{
+    -fx-font-size: 15;
+    -fx-spacing: 20;
+}
+
 #pane{
     -fx-background-color: #ffffff;
     -fx-background-image: url("poki.jpg");

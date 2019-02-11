@@ -18,7 +18,6 @@ public class BattleStage extends BorderPane {
     private BattleArena battleArena = new BattleArena();
 
     public BattleStage() {
-        this.setPadding(new Insets(10));
         this.actionChoose.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
         this.setLeft(actionChoose);
         this.setBottom(battleMessageView);
