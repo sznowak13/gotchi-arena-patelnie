@@ -19,7 +19,7 @@ import java.util.List;
 
 public class GotchiCreationForm extends VBox {
 
-    private TextField nameField = new TextField("Your gotchi name...");
+    private TextField nameField = new TextField();
     private ChoiceBox<GochiType> typeChoiceBox = new ChoiceBox<>();
     private List<Text> statValues = new ArrayList<>();
     private Text pointsPool = new Text("200");
@@ -30,6 +30,8 @@ public class GotchiCreationForm extends VBox {
 
 
     public GotchiCreationForm() {
+        this.nameField.setPromptText("Your gotchi name...");
+        this.nameField.setFocusTraversable(false);
         this.setSpacing(5);
         this.setPadding(new Insets(20));
         this.typeChoiceBox.getItems().addAll(GochiType.ROCK, GochiType.SCISSORS, GochiType.PAPER);
@@ -127,7 +129,7 @@ public class GotchiCreationForm extends VBox {
 
     private HBox createHorizontalField(){
         HBox horizontalField = new HBox();
-        horizontalField.setPadding(new Insets(0, 0, 0, ViewConfig.WIDTH/14)); // <----- looks like magic number and it is
+        horizontalField.setPadding(new Insets(50, 0, 0, ViewConfig.WIDTH/14)); // <----- looks like magic number and it is
         horizontalField.setSpacing(ViewConfig.WIDTH/2);
         horizontalField.getChildren().addAll(backButton, createGotchi);
         this.getChildren().add(horizontalField);
