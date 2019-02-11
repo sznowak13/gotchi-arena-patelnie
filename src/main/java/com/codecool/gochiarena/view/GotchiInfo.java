@@ -1,10 +1,8 @@
 package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.Gotchi;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class GotchiInfo extends HBox {
@@ -18,7 +16,7 @@ public class GotchiInfo extends HBox {
 
 
     GotchiInfo(Gotchi gotchi) {
-        super.setId("special-font");
+        super.setId("gotchi-battle-info");
         name.setText("Name \n" + gotchi.getName());
         type.setText("Type \n" + gotchi.getType().toString());
         health.setText("Health \n" + String.valueOf(gotchi.getStatPoints().getHealthPoints()));

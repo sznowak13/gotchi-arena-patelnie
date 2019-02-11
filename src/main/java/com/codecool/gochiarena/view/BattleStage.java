@@ -3,11 +3,8 @@ package com.codecool.gochiarena.view;
 import com.codecool.gochiarena.model.Action;
 import com.codecool.gochiarena.model.BattleArena;
 import com.codecool.gochiarena.model.Gotchi;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 
 public class BattleStage extends BorderPane {
 
@@ -18,23 +15,33 @@ public class BattleStage extends BorderPane {
     private BattleArena battleArena = new BattleArena();
 
     public BattleStage() {
-        this.actionChoose.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
         this.setLeft(actionChoose);
-        this.setBottom(battleMessageView);
+        ScrollPane scroll = createScrollPaneForMessages();
+        this.battleMessageView.heightProperty().addListener((observable, oldValue, newValue) -> {
+            scroll.setVvalue((double) newValue);
+        });
+        this.setBottom(scroll);
     }
 
     public void setGotchiInfo(Gotchi gotchi) {
         this.battleArena.setGotchi1(gotchi);
         this.playerInfo = new GotchiInfo(gotchi);
-        this.playerInfo.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, null, null)));
         this.setTop(playerInfo);
     }
 
     public void setEnemyInfo(Gotchi gotchi) {
         this.battleArena.setGotchi2(gotchi);
         this.enemyInfo = new EnemyGotchisInfo(gotchi);
-        this.enemyInfo.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
+        this.enemyInfo.setId("enemy-gotchi-battle-info");
         this.setRight(enemyInfo);
+    }
+
+    public ScrollPane createScrollPaneForMessages() {
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setContent(battleMessageView);
+        return scrollPane;
     }
 
     public BattleMessageView getBattleMessageView() {
