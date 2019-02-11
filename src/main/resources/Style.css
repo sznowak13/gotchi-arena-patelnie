@@ -1,5 +1,5 @@
 .root{
-    -fx-background-color: #ecffd7;
+    -fx-background-color: #dcffed;
 }
 
 .button{
@@ -27,4 +27,25 @@
     -fx-background-size: 640, 90;
     -fx-padding: 140 0 30 0;
     -fx-spacing: 25;
+}
+
+#vbox-custom-rock {
+    -fx-background-image: url("squirtle.png");
+    -fx-background-position: center;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 380, 230;
+}
+
+#vbox-custom-paper {
+    -fx-background-image: url("bulbasaur.png");
+    -fx-background-position: center;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 300, 190;
+}
+
+#vbox-custom-scissors {
+    -fx-background-image: url("charmander.png");
+    -fx-background-position: center;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 300, 190;
 }
