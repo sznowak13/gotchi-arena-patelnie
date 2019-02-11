@@ -8,9 +8,36 @@
     -fx-font-size: 15;
 }
 
-#special-font{
+#gotchi-battle-info{
     -fx-font-size: 15;
     -fx-spacing: 20;
+    -fx-background-color: #45ff06;
+}
+
+#enemy-gotchi-battle-info{
+    -fx-font-size: 13;
+    -fx-spacing: 8;
+    -fx-pref-width: 130;
+    -fx-background-color: #eee6e4;
+}
+
+#action-choose{
+     -fx-font-size: 13;
+     -fx-alignment: center-left;
+     -fx-padding: 10;
+     -fx-spacing: 10;
+     -fx-pref-width: 130;
+     -fx-background-color: #eee6e4;
+ }
+
+#battle-message-view{
+    -fx-font-size: 13;
+    -fx-spacing: 5;
+    -fx-pref-width: 640;
+    -fx-pref-height: 100;
+    -fx-background-color: #ffffff;
+    -fx-border-color: black;
+    -fx-border-width: 1;
 }
 
 #pane{
