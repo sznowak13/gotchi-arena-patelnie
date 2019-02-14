@@ -15,9 +15,7 @@ public class ActionChooseView extends VBox {
     private Button readyButton = new Button("Ready!");
 
     ActionChooseView() {
-        super(10);
-        this.setAlignment(Pos.CENTER_LEFT);
-        this.setPadding(new Insets(10));
+        this.setId("action-choose");
         this.getChildren().add(new Text("Choose your gotchi action!"));
         for (Action action: Action.values()) {
             RadioButton choice = new RadioButton(action.toString().toLowerCase());

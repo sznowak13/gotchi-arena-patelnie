@@ -1,9 +1,6 @@
 package com.codecool.gochiarena;
 
-import com.codecool.gochiarena.view.BattleStage;
-import com.codecool.gochiarena.view.GotchiCreationForm;
-import com.codecool.gochiarena.view.MainMenu;
-import com.codecool.gochiarena.view.ViewConfig;
+import com.codecool.gochiarena.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
@@ -11,9 +8,12 @@ import javafx.stage.Stage;
 
 public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
-        Font.loadFont(getClass().getResourceAsStream("fonts/font.ttf"), 16);
+
         GotchiCreationForm form = new GotchiCreationForm();
         Scene creationScene = new Scene(form, ViewConfig.WIDTH, ViewConfig.HEIGHT);
+
+        PrepareBattle prepareBattle = new PrepareBattle();
+        Scene prepareBattleScene = new Scene(prepareBattle, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         MainMenu mainMenu = new MainMenu();
         Scene mainScene = new Scene(mainMenu, ViewConfig.WIDTH, ViewConfig.HEIGHT);
@@ -21,14 +21,25 @@ public class App extends Application {
         BattleStage battleStage = new BattleStage();
         Scene battleScene = new Scene(battleStage, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
-        form.setupCreateButton(primaryStage, mainScene);
+        mainMenu.setId("pane");
+        mainMenu.setSinglePlayerBtn(primaryStage, prepareBattleScene);
+        mainMenu.setMultiPlayerBtn(primaryStage, prepareBattleScene);
         mainMenu.setCreateButtonAction(primaryStage, creationScene);
-        mainMenu.setStartButtonAction(primaryStage, battleScene);
+        mainMenu.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        mainMenu.getCreateGotchiBtn().getStyleClass().add("my-special-button");
+        mainMenu.getSinglePlayerBtn().getStyleClass().add("my-special-button");
+        mainMenu.getMultiPlayerBtn().getStyleClass().add("my-special-button");
 
+
+        prepareBattle.setStartButtonAction(primaryStage, battleScene);
+        prepareBattle.setupBackButton(primaryStage, mainScene);
+        prepareBattle.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+
+        form.setupCreateButton(primaryStage, prepareBattleScene);
         form.setupBackButton(primaryStage, mainScene);
 
-        mainMenu.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
         battleStage.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
