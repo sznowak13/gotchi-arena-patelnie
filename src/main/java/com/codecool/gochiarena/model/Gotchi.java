@@ -17,15 +17,15 @@ public class Gotchi {
     private boolean ready;
 
     static {
-        availableGotchis.add(new Gotchi("Goczi1", GochiType.ROCK, new int[] {10, 10, 10, 10, 10, 10}));
-        availableGotchis.add(new Gotchi("Goczi2", GochiType.SCISSORS, new int[] {10, 10, 10, 10, 10, 10}));
-        availableGotchis.add(new Gotchi("Goczi3", GochiType.PAPER, new int[] {10, 10, 10, 10, 10, 10}));
+        availableGotchis.add(new Gotchi("Goczi1", GochiType.ROCK, 10, 10, 10, 10));
+        availableGotchis.add(new Gotchi("Goczi2", GochiType.SCISSORS, 10, 10, 10 ,10));
+        availableGotchis.add(new Gotchi("Goczi3", GochiType.PAPER, 10, 10, 10, 10));
     }
 
-    public Gotchi(String name, GochiType type, int[] statPoints) {
+    public Gotchi(String name, GochiType type, int attack, int speed, int defence, int stamina) {
         this.name = name;
         this.type = type;
-        this.statPoints = new StatPoints(statPoints);
+        this.statPoints = new StatPoints(attack, speed, defence, stamina);
         this.id = idCounter++;
         this.primaryAttack = Attack.PRIMARY;
         this.secondaryAttack = Attack.SECONDARY;

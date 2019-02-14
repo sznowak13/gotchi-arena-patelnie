@@ -41,7 +41,7 @@ public class GotchiCreationForm extends VBox {
                 new Label("Choose type: "), typeChoiceBox,
                 new Label("Stat points"), pointsPool
         );
-        for (String statName : StatPoints.getStatNames()) {
+        for (String statName : new String[] {"Attack", "Speed", "Defence", "Stamina"}) {
             this.addStatField(statName);
         }
 
@@ -59,10 +59,11 @@ public class GotchiCreationForm extends VBox {
 
     public void setupCreateButton(Stage primaryStage, Scene scene) {
         this.createGotchi.setOnAction((event) -> {
+            int [] points = this.calculateStatPoints();
             Gotchi.addGotchi(new Gotchi(
                     this.nameField.getText(),
                     this.typeChoiceBox.getValue(),
-                    this.calculateStatPoints())
+                    points[0], points[1], points[2], points[3])
             );
             if (checkStatsAllowed(countStats(calculateStatPoints()))){
                 if (scene.getRoot() instanceof PrepareBattle) {

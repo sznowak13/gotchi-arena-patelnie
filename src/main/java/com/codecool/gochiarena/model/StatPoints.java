@@ -1,80 +1,73 @@
 package com.codecool.gochiarena.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class StatPoints {
 
-    private static String[] statNames = new String[] {"Attack", "Speed", "Defence", "Stamina"};
+    private Map<String ,Integer> points = new HashMap<>();
 
-    private int attackPoints;
-    private int speedPoints;
-    private int defencePoints;
-    private int staminaPoints;
-    private int healthPoints;
-
-    public StatPoints(int[] pointsInput) {
-        this.attackPoints = pointsInput[0];
-        this.speedPoints = pointsInput[1];
-        this.defencePoints = pointsInput[2];
-        this.staminaPoints = pointsInput[3];
-        this.healthPoints = 100;
+    public StatPoints(int attackPoints, int speedPoints, int defencePoints, int staminaPoints) {
+        this.points.put("attack", attackPoints);
+        this.points.put("speed", speedPoints);
+        this.points.put("defence", defencePoints);
+        this.points.put("stamina", staminaPoints);
+        this.points.put("health", 100);
     }
-
-    public static String[] getStatNames() {
-        return statNames;
-    }
-
 
     public int getAttackPoints() {
-        return attackPoints;
+        return this.points.get("attack");
     }
 
     public void setAttackPoints(int attackPoints) {
-        this.attackPoints = attackPoints;
+        this.points.put("attack", attackPoints);
     }
 
     public int getSpeedPoints() {
-        return speedPoints;
+        return this.points.get("speed");
     }
 
     public void setSpeedPoints(int speedPoints) {
-        this.speedPoints = speedPoints;
+        this.points.put("speed", speedPoints);
     }
 
     public int getDefencePoints() {
-        return defencePoints;
+        return this.points.get("defence");
     }
 
     public void setDefencePoints(int defencePoints) {
-        this.defencePoints = defencePoints;
+        this.points.put("defence", defencePoints);
     }
 
     public int getStaminaPoints() {
-        return staminaPoints;
+        return this.points.get("stamina");
     }
 
     public void setStaminaPoints(int staminaPoints) {
-        this.staminaPoints = staminaPoints;
+        this.points.put("stamina", staminaPoints);
     }
 
     public int getHealthPoints() {
-        return healthPoints;
+        return this.points.get("health");
     }
 
     public void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
+        this.points.put("health", healthPoints);
     }
 
     public void decreaseHealthPoints(double dmg) {
-        this.healthPoints -= dmg;
+        int previousHP = this.points.get("health");
+        this.points.put("health", previousHP - (int) dmg);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Attack: %s, ", this.attackPoints));
-        sb.append(String.format("Defence: %s, ", this.defencePoints));
-        sb.append(String.format("Health: %s, ", this.healthPoints));
-        sb.append(String.format("Stamina: %s, ", this.staminaPoints));
-        sb.append(String.format("Speed: %s, ", this.speedPoints));
+        sb.append(String.format("Attack: %s, ", this.points.get("attack")));
+        sb.append(String.format("Defence: %s, ", this.points.get("defence")));
+        sb.append(String.format("Health: %s, ", this.points.get("health")));
+        sb.append(String.format("Stamina: %s, ", this.points.get("stamina")));
+        sb.append(String.format("Speed: %s, ", this.points.get("speed")));
         return sb.toString();
     }
 }
