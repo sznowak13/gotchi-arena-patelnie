@@ -57,7 +57,8 @@ public class StatPoints {
 
     public void decreaseHealthPoints(double dmg) {
         int previousHP = this.points.get("health");
-        this.points.put("health", previousHP - (int) dmg);
+        int afterDmg = previousHP - dmg < 0 ? 0 : previousHP - (int) dmg;
+        this.points.put("health", afterDmg);
     }
 
     @Override
