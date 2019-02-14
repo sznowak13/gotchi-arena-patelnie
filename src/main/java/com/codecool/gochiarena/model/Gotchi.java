@@ -5,43 +5,24 @@ import java.util.List;
 
 public class Gotchi {
 
-    private static List<Gotchi> availableGotchis = new ArrayList<>();
+
     private static int idCounter = 0;
     private int id;
     private String name;
     private GochiType type;
     private StatPoints statPoints;
-    private Attack primaryAttack;
-    private Attack secondaryAttack;
     private Action currentAction;
     private boolean ready;
 
-    static {
-        availableGotchis.add(new Gotchi("Goczi1", GochiType.ROCK, 10, 10, 10, 10));
-        availableGotchis.add(new Gotchi("Goczi2", GochiType.SCISSORS, 10, 10, 10 ,10));
-        availableGotchis.add(new Gotchi("Goczi3", GochiType.PAPER, 10, 10, 10, 10));
-    }
 
     public Gotchi(String name, GochiType type, int attack, int speed, int defence, int stamina) {
         this.name = name;
         this.type = type;
         this.statPoints = new StatPoints(attack, speed, defence, stamina);
         this.id = idCounter++;
-        this.primaryAttack = Attack.PRIMARY;
-        this.secondaryAttack = Attack.SECONDARY;
     }
 
-    public static void addGotchi(Gotchi gotchi) {
-        availableGotchis.add(gotchi);
-    }
 
-    public static Gotchi getRandomGotchi() {
-        return availableGotchis.get((int) (Math.random() * availableGotchis.size()));
-    }
-
-    public static List<Gotchi> getAvailableGotchis() {
-        return availableGotchis;
-    }
 
     public int getId() {
         return id;
@@ -73,22 +54,6 @@ public class Gotchi {
 
     public void setStatPoints(StatPoints statPoints) {
         this.statPoints = statPoints;
-    }
-
-    public Attack getPrimaryAttack() {
-            return primaryAttack;
-    }
-
-    public void setPrimaryAttack(Attack primaryAttack) {
-        this.primaryAttack = primaryAttack;
-    }
-
-    public Attack getSecondaryAttack() {
-        return secondaryAttack;
-    }
-
-    public void setSecondaryAttack(Attack secondaryAttack) {
-        this.secondaryAttack = secondaryAttack;
     }
 
     public Action getCurrentAction() {

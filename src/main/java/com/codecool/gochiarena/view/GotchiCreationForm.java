@@ -2,6 +2,7 @@ package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.GochiType;
 import com.codecool.gochiarena.model.Gotchi;
+import com.codecool.gochiarena.model.GotchiDAO;
 import com.codecool.gochiarena.model.StatPoints;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -60,7 +61,7 @@ public class GotchiCreationForm extends VBox {
     public void setupCreateButton(Stage primaryStage, Scene scene) {
         this.createGotchi.setOnAction((event) -> {
             int [] points = this.calculateStatPoints();
-            Gotchi.addGotchi(new Gotchi(
+            GotchiDAO.addGotchi(new Gotchi(
                     this.nameField.getText(),
                     this.typeChoiceBox.getValue(),
                     points[0], points[1], points[2], points[3])

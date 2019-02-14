@@ -2,6 +2,7 @@ package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.GochiType;
 import com.codecool.gochiarena.model.Gotchi;
+import com.codecool.gochiarena.model.GotchiDAO;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -32,7 +33,7 @@ public class PrepareBattle extends BorderPane {
         this.gotchiListing.setPadding(new Insets(0, 15, 0, 15));
         this.gotchiListing.setAlignment(Pos.CENTER_LEFT);
         this.gotchiListing.getChildren().add(new Text("Available Gotchis: "));
-        for (Gotchi gotchi : Gotchi.getAvailableGotchis()) {
+        for (Gotchi gotchi : GotchiDAO.getAvailableGotchis()) {
             RadioButton listItem = new RadioButton(gotchi.getName() + " " + gotchi.getType());
             listItem.setUserData(gotchi);
             listItem.setToggleGroup(this.gotchiToggle);
@@ -49,7 +50,7 @@ public class PrepareBattle extends BorderPane {
             if (scene.getRoot() instanceof BattleStage) {
                 BattleStage battleStage = (BattleStage) scene.getRoot();
                 battleStage.setGotchiInfo((Gotchi) this.gotchiToggle.getSelectedToggle().getUserData());
-                battleStage.setEnemyInfo(Gotchi.getRandomGotchi());
+                battleStage.setEnemyInfo(GotchiDAO.getRandomGotchi());
                 battleStage.getBattleMessageView().addNewMessage("Battle starts!");
                 battleStage.setupReadyButton();
 

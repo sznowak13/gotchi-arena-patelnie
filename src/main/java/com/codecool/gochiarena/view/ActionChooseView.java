@@ -1,8 +1,6 @@
 package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.Action;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
