@@ -1,9 +1,14 @@
 package com.codecool.gochiarena.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BattleArena {
 
     private Gotchi gotchi1;
     private Gotchi gotchi2;
+
+    private Map<String, Gotchi> fighters = new HashMap<>();
 
     public void setGotchi1(Gotchi gotchi1) {
         this.gotchi1 = gotchi1;
@@ -17,8 +22,9 @@ public class BattleArena {
         Action action1 = gotchi1.getCurrentAction();
         Action action2 = gotchi2.getCurrentAction();
         if (action1.equals(Action.PRIMARY_ATTACK) && action2.equals(Action.PRIMARY_ATTACK)){
-            Gotchi attacker = this.setAttacker();
-            Gotchi defender = this.setDefender();
+            setAttackerAndDefender();
+            Gotchi attacker = this.fighters.get("Attacker");
+            Gotchi defender = this.fighters.get("Defender");
             this.dealDamage(attacker, defender);
             if (defender.getStatPoints().getHealthPoints() <= 0) {
                 return String.format("%s is dead!", defender.getName());
@@ -54,19 +60,13 @@ public class BattleArena {
         }
     }
 
-    public Gotchi setAttacker() {
+    public void setAttackerAndDefender() {
         if (this.gotchi1.getStatPoints().getSpeedPoints() > this.gotchi2.getStatPoints().getSpeedPoints()) {
-            return this.gotchi1;
+            fighters.put("Attacker", gotchi1);
+            fighters.put("Defender", gotchi2);
         } else {
-            return this.gotchi2;
-        }
-    }
-
-    public Gotchi setDefender() {
-        if (this.gotchi1.getStatPoints().getSpeedPoints() > this.gotchi2.getStatPoints().getSpeedPoints()) {
-            return this.gotchi2;
-        } else {
-            return this.gotchi1;
+            fighters.put("Attacker", gotchi2);
+            fighters.put("Defender", gotchi1);
         }
     }
 
