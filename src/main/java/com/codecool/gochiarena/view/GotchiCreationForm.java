@@ -33,8 +33,7 @@ public class GotchiCreationForm extends VBox {
     public GotchiCreationForm() {
         this.nameField.setPromptText("Your gotchi name...");
         this.nameField.setFocusTraversable(false);
-        this.setSpacing(5);
-        this.setPadding(new Insets(20));
+        this.setId("gotchi-creation-form");
         this.typeChoiceBox.getItems().addAll(GochiType.ROCK, GochiType.SCISSORS, GochiType.PAPER);
         this.typeChoiceBox.setValue(GochiType.ROCK);
         this.getChildren().addAll(
@@ -110,10 +109,7 @@ public class GotchiCreationForm extends VBox {
 
     private Slider createStatSlider(Text value) {
         Slider slider = new Slider(0, 200, 0);
-        slider.setMajorTickUnit(50);
-        slider.setMinorTickCount(1);
-        slider.setShowTickLabels(true);
-        slider.setBlockIncrement(10);
+        slider.getStyleClass().add("slider");
         slider.setOnMouseClicked(Event ->{
             this.removeExceedWarning(exceedMsg);
         });
@@ -131,25 +127,25 @@ public class GotchiCreationForm extends VBox {
 
     private HBox createHorizontalField(){
         HBox horizontalField = new HBox();
-        horizontalField.setPadding(new Insets(50, 0, 0, ViewConfig.WIDTH/14)); // <----- looks like magic number and it is
-        horizontalField.setSpacing(ViewConfig.WIDTH/2);
+        horizontalField.setId("create-gotchi-buttons");
         horizontalField.getChildren().addAll(backButton, createGotchi);
         this.getChildren().add(horizontalField);
         return horizontalField;
     }
 
     private void addStatField(String statName) {
-        HBox statField = new HBox(5);
+        HBox statField = new HBox();
+        statField.setId("create-gotchi-stat-field");
         Text statValue = new Text("0");
         Slider statSlider = this.createStatSlider(statValue);
+        statSlider.getStyleClass().add("slider");
         statField.getChildren().addAll(new Label(statName) ,statSlider, statValue);
         this.getChildren().add(statField);
         this.statValues.add(statValue);
     }
 
     private void addExceedWarning(Text message){
-        message.setFill(Color.RED);
-        message.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        message.setId("create-gotchi-warning-msg");
         this.getChildren().add(message);
     }
 
