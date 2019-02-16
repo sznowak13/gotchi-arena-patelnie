@@ -25,9 +25,7 @@ public class GotchiInfo extends HBox {
         speed.setText("Speed \n" + String.valueOf(gotchi.getStatPoints().getSpeedPoints()));
         defence.setText("Defence \n" + String.valueOf(gotchi.getStatPoints().getDefencePoints()));
 
-
         this.getChildren().addAll(name, type, health, stamina, attack, speed, defence);
-        this.setAlignment(Pos.CENTER);
     }
 
 

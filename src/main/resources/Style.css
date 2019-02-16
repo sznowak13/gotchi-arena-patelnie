@@ -25,6 +25,7 @@
     -fx-font-size: 15;
     -fx-spacing: 20;
     -fx-background-color: #45ff06;
+    -fx-alignment: center;
 }
 
 #enemy-gotchi-battle-info{

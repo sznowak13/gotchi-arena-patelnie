@@ -1,16 +1,12 @@
 package com.codecool.gochiarena.view;
 
-import com.codecool.gochiarena.model.GochiType;
 import com.codecool.gochiarena.model.Gotchi;
 import com.codecool.gochiarena.model.GotchiDAO;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
