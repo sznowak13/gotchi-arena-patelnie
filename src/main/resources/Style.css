@@ -126,3 +126,45 @@
     -fx-background-repeat: stretch;
     -fx-background-size: 300, 190;
 }
+
+#hbox-enemy-rock {
+    -fx-background-image: url("squirtle-front.png");
+    -fx-background-position: right;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100, 60;
+}
+
+#hbox-enemy-paper {
+    -fx-background-image: url("bulbasaur-front.png");
+    -fx-background-position: right;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100, 60;
+}
+
+#hbox-enemy-scissors {
+    -fx-background-image: url("charmander-front.png");
+    -fx-background-position: right;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 80, 50;
+}
+
+#hbox-gotchi-rock {
+    -fx-background-image: url("squirtle-back.png");
+    -fx-background-position: left;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 120, 60;
+}
+
+#hbox-gotchi-paper {
+    -fx-background-image: url("bulbasaur-back.png");
+    -fx-background-position: left;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 130, 70;
+}
+
+#hbox-gotchi-scissors {
+    -fx-background-image: url("charmander-back.png");
+    -fx-background-position: left;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 110, 90;
+}
