@@ -3,8 +3,13 @@ package com.codecool.gochiarena.view;
 import com.codecool.gochiarena.model.Action;
 import com.codecool.gochiarena.model.BattleArena;
 import com.codecool.gochiarena.model.Gotchi;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class BattleStage extends BorderPane {
 
@@ -21,6 +26,7 @@ public class BattleStage extends BorderPane {
             scroll.setVvalue((double) newValue);
         });
         this.setBottom(scroll);
+        this.setCenter(createVerticalContainer());
     }
 
     public void setGotchiInfo(Gotchi gotchi) {
@@ -33,6 +39,34 @@ public class BattleStage extends BorderPane {
         this.battleArena.setGotchi2(gotchi);
         this.enemyInfo = new EnemyGotchisInfo(gotchi);
         this.setRight(enemyInfo);
+    }
+
+    public VBox createVerticalContainer() {
+        VBox verticalContainer = new VBox();
+        verticalContainer.getChildren().addAll(createContainerForEnemy(), createGotchiContainer());
+        return verticalContainer;
+    }
+
+
+
+    public HBox createContainerForEnemy() {
+        HBox enemyContainer = new HBox();
+        enemyContainer.setAlignment(Pos.TOP_RIGHT);
+        enemyContainer.setPadding(new Insets(10, 0, 150, 10));
+        ProgressBar pbRed = new ProgressBar(0.4);
+        enemyContainer.getChildren().add(pbRed);
+        enemyContainer.setId("hbox-enemy-scissors");
+        return enemyContainer;
+    }
+
+    public HBox createGotchiContainer() {
+        HBox gotchiContainer = new HBox();
+        gotchiContainer.setAlignment(Pos.TOP_LEFT);
+        gotchiContainer.setPadding(new Insets(10, 0, 150, 10));
+        ProgressBar pbRed = new ProgressBar(1);
+        gotchiContainer.getChildren().add(pbRed);
+        gotchiContainer.setId("hbox-gotchi-scissors");
+        return gotchiContainer;
     }
 
     public ScrollPane createScrollPaneForMessages() {
@@ -59,5 +93,29 @@ public class BattleStage extends BorderPane {
             System.out.println(g1.getStatPoints().getHealthPoints());
             System.out.println(g2.getStatPoints().getHealthPoints());
         });
+    }
+}
+
+enum TypeImageEnemy {
+    ROCK("hbox-enemy-rock"),
+    PAPER("hbox-enemy-paper"),
+    SCISSORS("hbox-enemy-scissors");
+
+    final String id;
+
+    private TypeImageEnemy(String id) {
+        this.id = id;
+    }
+}
+
+enum TypeImageGotchi {
+    ROCK("hbox-gotchi-rock"),
+    PAPER("hbox-gotchi-paper"),
+    SCISSORS("hbox-gotchi-scissors");
+
+    final String id;
+
+    private TypeImageGotchi(String id) {
+        this.id = id;
     }
 }
