@@ -33,6 +33,7 @@
     -fx-spacing: 8;
     -fx-pref-width: 130;
     -fx-background-color: #eee6e4;
+    -fx-alignment: center;
 }
 
 #action-choose{

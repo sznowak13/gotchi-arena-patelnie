@@ -32,7 +32,7 @@ public class BattleStage extends BorderPane {
     public void setEnemyInfo(Gotchi gotchi) {
         this.battleArena.setGotchi2(gotchi);
         this.enemyInfo = new EnemyGotchisInfo(gotchi);
-        this.enemyInfo.setId("enemy-gotchi-battle-info");
+//        this.enemyInfo.setId("enemy-gotchi-battle-info");
         this.setRight(enemyInfo);
     }
 
