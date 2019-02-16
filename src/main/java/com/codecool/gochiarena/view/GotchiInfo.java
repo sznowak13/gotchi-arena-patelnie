@@ -1,7 +1,6 @@
 package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.Gotchi;
-import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
