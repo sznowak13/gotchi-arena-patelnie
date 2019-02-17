@@ -31,9 +31,7 @@ public class PrepareBattle extends BorderPane {
             RadioButton listItem = new RadioButton(gotchi.getName() + " " + gotchi.getType());
             listItem.setUserData(gotchi);
             listItem.setToggleGroup(this.gotchiToggle);
-            listItem.setOnMouseClicked(event -> {
-                this.setCenter(createVerticalFieldForType(TypeImage.valueOf(gotchi.getType().toString()).id));
-            });
+            listItem.setOnMouseClicked(event -> this.setCenter(createVerticalFieldForType(TypeImage.valueOf(gotchi.getType().toString()).imgChoose)));
             this.gotchiListing.getChildren().add(listItem);
         }
         this.gotchiToggle.selectToggle(this.gotchiToggle.getToggles().get(0));
@@ -75,14 +73,3 @@ public class PrepareBattle extends BorderPane {
 
 }
 
-enum TypeImage {
-    ROCK("vbox-custom-rock"),
-    PAPER("vbox-custom-paper"),
-    SCISSORS("vbox-custom-scissors");
-
-    final String id;
-
-    private TypeImage(String id) {
-        this.id = id;
-    }
-}

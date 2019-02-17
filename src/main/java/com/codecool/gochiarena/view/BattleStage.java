@@ -43,8 +43,8 @@ public class BattleStage extends BorderPane {
 
     public VBox createVerticalContainer() {
         VBox verticalContainer = new VBox();
-        String playerImgId = TypeImageGotchi.valueOf(battleArena.getGotchi1().getType().toString()).id;
-        String enemyImgId = TypeImageEnemy.valueOf(battleArena.getGotchi2().getType().toString()).id;
+        String playerImgId = TypeImage.valueOf(battleArena.getGotchi1().getType().toString()).imgPlayer;
+        String enemyImgId = TypeImage.valueOf(battleArena.getGotchi2().getType().toString()).imgEnemy;
         verticalContainer.getChildren().addAll(createContainerForEnemy(enemyImgId), createGotchiContainer(playerImgId));
         return verticalContainer;
     }
@@ -96,26 +96,3 @@ public class BattleStage extends BorderPane {
     }
 }
 
-enum TypeImageEnemy {
-    ROCK("hbox-enemy-rock"),
-    PAPER("hbox-enemy-paper"),
-    SCISSORS("hbox-enemy-scissors");
-
-    final String id;
-
-    private TypeImageEnemy(String id) {
-        this.id = id;
-    }
-}
-
-enum TypeImageGotchi {
-    ROCK("hbox-gotchi-rock"),
-    PAPER("hbox-gotchi-paper"),
-    SCISSORS("hbox-gotchi-scissors");
-
-    final String id;
-
-    private TypeImageGotchi(String id) {
-        this.id = id;
-    }
-}
