@@ -8,10 +8,24 @@
     -fx-font-size: 15;
 }
 
+#buttons-border{
+    -fx-background-color: #eee6e4;
+    -fx-padding: 0 0 0 2;
+    -fx-spacing: 210;
+}
+
+#choose-gotchi-border{
+    -fx-background-color: #eee6e4;
+    -fx-padding: 0 15 0 15;
+    -fx-alignment: center-left;
+    -fx-spacing: 15;
+}
+
 #gotchi-battle-info{
     -fx-font-size: 15;
     -fx-spacing: 20;
     -fx-background-color: #45ff06;
+    -fx-alignment: center;
 }
 
 #enemy-gotchi-battle-info{
@@ -19,6 +33,7 @@
     -fx-spacing: 8;
     -fx-pref-width: 130;
     -fx-background-color: #eee6e4;
+    -fx-alignment: center;
 }
 
 #action-choose{

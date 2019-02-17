@@ -1,7 +1,6 @@
 package com.codecool.gochiarena.view;
 
 import com.codecool.gochiarena.model.Gotchi;
-import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -25,9 +24,7 @@ public class GotchiInfo extends HBox {
         speed.setText("Speed \n" + String.valueOf(gotchi.getStatPoints().getSpeedPoints()));
         defence.setText("Defence \n" + String.valueOf(gotchi.getStatPoints().getDefencePoints()));
 
-
         this.getChildren().addAll(name, type, health, stamina, attack, speed, defence);
-        this.setAlignment(Pos.CENTER);
     }
 
 

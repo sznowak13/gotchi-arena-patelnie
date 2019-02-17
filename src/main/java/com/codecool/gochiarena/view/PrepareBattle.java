@@ -1,22 +1,18 @@
 package com.codecool.gochiarena.view;
 
-import com.codecool.gochiarena.model.GochiType;
 import com.codecool.gochiarena.model.Gotchi;
 import com.codecool.gochiarena.model.GotchiDAO;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PrepareBattle extends BorderPane {
     private Button selectGotchi = new Button("Battle!");
-    private VBox gotchiListing = new VBox(15);
+    private VBox gotchiListing = new VBox();
     private ToggleGroup gotchiToggle = new ToggleGroup();
     private Button backButton = new Button("Back to main menu");
 
@@ -29,9 +25,7 @@ public class PrepareBattle extends BorderPane {
 
     public void createGotchiList() {
         this.gotchiListing.getChildren().clear();
-        this.gotchiListing.setBackground(new Background(new BackgroundFill(Color.LIGHTSEAGREEN, null, null)));
-        this.gotchiListing.setPadding(new Insets(0, 15, 0, 15));
-        this.gotchiListing.setAlignment(Pos.CENTER_LEFT);
+        this.gotchiListing.setId("choose-gotchi-border");
         this.gotchiListing.getChildren().add(new Text("Available Gotchis: "));
         for (Gotchi gotchi : GotchiDAO.getAvailableGotchis()) {
             RadioButton listItem = new RadioButton(gotchi.getName() + " " + gotchi.getType());
@@ -67,16 +61,13 @@ public class PrepareBattle extends BorderPane {
 
     private HBox createHorizontalFieldForButtons(){
         HBox horizontalFieldForButtons = new HBox();
-        horizontalFieldForButtons.setBackground(new Background(new BackgroundFill(Color.LIGHTSEAGREEN, null, null)));
-        horizontalFieldForButtons.setPadding(new Insets(0, 0, 0, 2)); // <----- looks like magic number and it is
-        horizontalFieldForButtons.setSpacing(ViewConfig.WIDTH/3);
+        horizontalFieldForButtons.setId("buttons-border");
         horizontalFieldForButtons.getChildren().addAll(backButton, selectGotchi);
         return horizontalFieldForButtons;
     }
 
     private VBox createVerticalFieldForType(String id) {
         VBox verticalField = new VBox();
-        verticalField.getStyleClass().add("vbox");
         verticalField.setId(id);
         return verticalField;
     }
