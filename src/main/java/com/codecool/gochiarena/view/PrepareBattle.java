@@ -47,6 +47,7 @@ public class PrepareBattle extends BorderPane {
                 battleStage.setEnemyInfo(GotchiDAO.getRandomGotchi());
                 battleStage.getBattleMessageView().addNewMessage("Battle starts!");
                 battleStage.setupReadyButton();
+                battleStage.setCenter(battleStage.createVerticalContainer());
 
             }
             primaryStage.setScene(scene);

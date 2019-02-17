@@ -26,7 +26,6 @@ public class BattleStage extends BorderPane {
             scroll.setVvalue((double) newValue);
         });
         this.setBottom(scroll);
-        this.setCenter(createVerticalContainer());
     }
 
     public void setGotchiInfo(Gotchi gotchi) {
@@ -41,31 +40,32 @@ public class BattleStage extends BorderPane {
         this.setRight(enemyInfo);
     }
 
+
     public VBox createVerticalContainer() {
         VBox verticalContainer = new VBox();
-        verticalContainer.getChildren().addAll(createContainerForEnemy(), createGotchiContainer());
+        String playerImgId = TypeImageGotchi.valueOf(battleArena.getGotchi1().getType().toString()).id;
+        String enemyImgId = TypeImageEnemy.valueOf(battleArena.getGotchi2().getType().toString()).id;
+        verticalContainer.getChildren().addAll(createContainerForEnemy(enemyImgId), createGotchiContainer(playerImgId));
         return verticalContainer;
     }
 
-
-
-    public HBox createContainerForEnemy() {
+    public HBox createContainerForEnemy(String id) {
         HBox enemyContainer = new HBox();
         enemyContainer.setAlignment(Pos.TOP_RIGHT);
         enemyContainer.setPadding(new Insets(10, 0, 150, 10));
         ProgressBar pbRed = new ProgressBar(0.4);
         enemyContainer.getChildren().add(pbRed);
-        enemyContainer.setId("hbox-enemy-scissors");
+        enemyContainer.setId(id);
         return enemyContainer;
     }
 
-    public HBox createGotchiContainer() {
+    public HBox createGotchiContainer(String id) {
         HBox gotchiContainer = new HBox();
         gotchiContainer.setAlignment(Pos.TOP_LEFT);
         gotchiContainer.setPadding(new Insets(10, 0, 150, 10));
         ProgressBar pbRed = new ProgressBar(1);
         gotchiContainer.getChildren().add(pbRed);
-        gotchiContainer.setId("hbox-gotchi-scissors");
+        gotchiContainer.setId(id);
         return gotchiContainer;
     }
 
