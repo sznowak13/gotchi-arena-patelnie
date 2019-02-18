@@ -15,6 +15,7 @@ public class PrepareBattle extends BorderPane {
     private VBox gotchiListing = new VBox();
     private ToggleGroup gotchiToggle = new ToggleGroup();
     private Button backButton = new Button("Back to main menu");
+    private GotchiDAO gotchiDAO = GotchiDAO.getInstance();
 
     public PrepareBattle() {
         this.createGotchiList();
@@ -27,7 +28,7 @@ public class PrepareBattle extends BorderPane {
         this.gotchiListing.getChildren().clear();
         this.gotchiListing.setId("choose-gotchi-border");
         this.gotchiListing.getChildren().add(new Text("Available Gotchis: "));
-        for (Gotchi gotchi : GotchiDAO.getAvailableGotchis()) {
+        for (Gotchi gotchi : gotchiDAO.getAvailableGotchis()) {
             RadioButton listItem = new RadioButton(gotchi.getName() + " " + gotchi.getType());
             listItem.setUserData(gotchi);
             listItem.setToggleGroup(this.gotchiToggle);
@@ -42,7 +43,7 @@ public class PrepareBattle extends BorderPane {
             if (scene.getRoot() instanceof BattleStage) {
                 BattleStage battleStage = (BattleStage) scene.getRoot();
                 battleStage.setGotchiInfo((Gotchi) this.gotchiToggle.getSelectedToggle().getUserData());
-                battleStage.setEnemyInfo(GotchiDAO.getRandomGotchi());
+                battleStage.setEnemyInfo(gotchiDAO.getRandomGotchi());
                 battleStage.getBattleMessageView().addNewMessage("Battle starts!");
                 battleStage.setupReadyButton();
                 battleStage.setCenter(battleStage.createVerticalContainer());

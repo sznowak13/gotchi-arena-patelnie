@@ -2,6 +2,7 @@ package com.codecool.gochiarena.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Gotchi {
 
@@ -16,10 +17,18 @@ public class Gotchi {
 
 
     public Gotchi(String name, GochiType type, int attack, int speed, int defence, int stamina) {
+        this(name, type, new StatPoints(attack, speed, defence, stamina));
+    }
+
+    public Gotchi(String name, GochiType type, Map<String, Integer> points) {
+        this(name, type, new StatPoints(points));
+    }
+
+    private Gotchi(String name, GochiType type, StatPoints statPoints) {
         this.name = name;
         this.type = type;
-        this.statPoints = new StatPoints(attack, speed, defence, stamina);
         this.id = idCounter++;
+        this.statPoints = statPoints;
     }
 
 

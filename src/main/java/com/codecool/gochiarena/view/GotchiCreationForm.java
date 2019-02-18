@@ -57,19 +57,19 @@ public class GotchiCreationForm extends VBox {
 
     public void setupCreateButton(Stage primaryStage, Scene scene) {
         this.createGotchi.setOnAction((event) -> {
-            Map<String, Integer> points = this.calculateStatPoints();
-            this.controller.addNewGotchi(
+            Map<String, Integer> points = this.readStatPoints();
+            String error = this.controller.addNewGotchi(
                     this.nameField.getText(),
                     this.typeChoiceBox.getValue(),
                     points);
-            if (){
+            if (error == null){
                 if (scene.getRoot() instanceof PrepareBattle) {
                     ((PrepareBattle) scene.getRoot()).createGotchiList();
                 }
                 primaryStage.setScene(scene);}
-            else{
-                this.removeExceedWarning(warningMsg);
-                this.addExceedWarning(warningMsg);
+            else {
+                this.removeExceedWarning();
+                this.addExceedWarning(error);
             }
         });
     }
@@ -78,7 +78,7 @@ public class GotchiCreationForm extends VBox {
 
 
 
-    private Map<String, Integer> calculateStatPoints() {
+    private Map<String, Integer> readStatPoints() {
         Map<String, Integer> statPoints = new HashMap<>();
         for (int i = 0; i < statLabels.length; i++) {
             statPoints.put(statLabels[i], Integer.parseInt(statValues.get(i).getText()));
@@ -89,16 +89,11 @@ public class GotchiCreationForm extends VBox {
     private Slider createStatSlider(Text value) {
         Slider slider = new Slider(0, 200, 0);
         slider.getStyleClass().add("slider");
-        slider.setOnMouseClicked(Event ->{
-            this.removeExceedWarning(warningMsg);
-        });
+        slider.setOnMouseClicked(Event -> this.removeExceedWarning());
 
         slider.valueProperty().addListener((observable, oldValue, newValue) ->{
-
             value.setText(String.valueOf(newValue.intValue()));
-            int sliderSum = countStats(calculateStatPoints());
-            pointsPool.setText(Integer.toString(poolOfPoints - sliderSum));
-
+            pointsPool.setText(controller.calculatePointsPool(readStatPoints()));
             }
         );
         return slider;
@@ -123,13 +118,14 @@ public class GotchiCreationForm extends VBox {
         this.statValues.add(statValue);
     }
 
-    private void addExceedWarning(Text message){
-        message.setId("create-gotchi-warning-msg");
-        this.getChildren().add(message);
+    private void addExceedWarning(String message){
+        this.warningMsg.setText(message);
+        this.warningMsg.setId("create-gotchi-warning-msg");
+        this.getChildren().add(this.warningMsg);
     }
 
-    private void removeExceedWarning(Text message){
-        this.getChildren().remove(message);
+    private void removeExceedWarning(){
+        this.getChildren().remove(this.warningMsg);
     }
 
 }

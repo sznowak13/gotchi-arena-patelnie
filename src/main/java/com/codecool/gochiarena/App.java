@@ -1,5 +1,6 @@
 package com.codecool.gochiarena;
 
+import com.codecool.gochiarena.controller.GotchiFormController;
 import com.codecool.gochiarena.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,7 +9,8 @@ import javafx.stage.Stage;
 public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
-        GotchiCreationForm form = new GotchiCreationForm();
+        GotchiFormController formController = new GotchiFormController();
+        GotchiCreationForm form = new GotchiCreationForm(formController);
         Scene creationScene = new Scene(form, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         PrepareBattle prepareBattle = new PrepareBattle();
