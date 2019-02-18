@@ -57,19 +57,19 @@ public class GotchiCreationForm extends VBox {
 
     public void setupCreateButton(Stage primaryStage, Scene scene) {
         this.createGotchi.setOnAction((event) -> {
-            Map<String, Integer> points = this.calculateStatPoints();
-            this.controller.addNewGotchi(
+            Map<String, Integer> points = this.readStatPoints();
+            String error = this.controller.addNewGotchi(
                     this.nameField.getText(),
                     this.typeChoiceBox.getValue(),
                     points);
-            if (){
+            if (error == null){
                 if (scene.getRoot() instanceof PrepareBattle) {
                     ((PrepareBattle) scene.getRoot()).createGotchiList();
                 }
                 primaryStage.setScene(scene);}
-            else{
-                this.removeExceedWarning(warningMsg);
-                this.addExceedWarning(warningMsg);
+            else {
+                this.removeExceedWarning();
+                this.addExceedWarning(error);
             }
         });
     }
