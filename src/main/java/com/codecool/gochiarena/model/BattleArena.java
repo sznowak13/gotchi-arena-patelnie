@@ -1,26 +1,27 @@
 package com.codecool.gochiarena.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BattleArena {
 
-    private Gotchi gotchi1;
-    private Gotchi gotchi2;
+    private List<Gotchi> gotchis = new ArrayList<>();
 
     private Map<String, Gotchi> fighters = new HashMap<>();
 
     public void setGotchi1(Gotchi gotchi1) {
-        this.gotchi1 = gotchi1;
+        this.gotchis.add(0, gotchi1);
     }
 
     public void setGotchi2(Gotchi gotchi2) {
-        this.gotchi2 = gotchi2;
+        this.gotchis.add(1, gotchi2);
     }
 
     public String battle() {
-        Action action1 = gotchi1.getCurrentAction();
-        Action action2 = gotchi2.getCurrentAction();
+        Action action1 = gotchis.get(0).getCurrentAction();
+        Action action2 = gotchis.get(1).getCurrentAction();
         if (action1.equals(Action.PRIMARY_ATTACK) && action2.equals(Action.PRIMARY_ATTACK)){
             setAttackerAndDefender();
             Gotchi attacker = this.fighters.get("Attacker");
@@ -53,15 +54,17 @@ public class BattleArena {
         }
     }
 
-    public void setGotchiReady(Gotchi gotchi) {
-        gotchi.setReady(true);
-        if (gotchi1.isReady() && gotchi2.isReady()) {
+    public void setGotchiReady(int playerNum) {
+        gotchis.get(playerNum).setReady(true);
+        if (gotchis.get(0).isReady() && gotchis.get(1).isReady()) {
             this.battle();
         }
     }
 
     public void setAttackerAndDefender() {
-        if (this.gotchi1.getStatPoints().getSpeedPoints() > this.gotchi2.getStatPoints().getSpeedPoints()) {
+        Gotchi gotchi1 = gotchis.get(0);
+        Gotchi gotchi2 = gotchis.get(1);
+        if (gotchi1.getStatPoints().getSpeedPoints() > gotchi2.getStatPoints().getSpeedPoints()) {
             fighters.put("Attacker", gotchi1);
             fighters.put("Defender", gotchi2);
         } else {
@@ -71,10 +74,10 @@ public class BattleArena {
     }
 
     public Gotchi getGotchi1() {
-        return gotchi1;
+        return gotchis.get(0);
     }
 
     public Gotchi getGotchi2() {
-        return this.gotchi2;
+        return gotchis.get(1);
     }
 }
