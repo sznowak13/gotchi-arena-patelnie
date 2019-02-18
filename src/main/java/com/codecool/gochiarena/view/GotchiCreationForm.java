@@ -78,7 +78,7 @@ public class GotchiCreationForm extends VBox {
 
 
 
-    private Map<String, Integer> calculateStatPoints() {
+    private Map<String, Integer> readStatPoints() {
         Map<String, Integer> statPoints = new HashMap<>();
         for (int i = 0; i < statLabels.length; i++) {
             statPoints.put(statLabels[i], Integer.parseInt(statValues.get(i).getText()));
