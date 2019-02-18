@@ -5,14 +5,18 @@ import com.codecool.gochiarena.model.BattleArena;
 import com.codecool.gochiarena.model.Gotchi;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class BattleStage extends BorderPane {
+import java.util.Observable;
 
+public class BattleStage extends Observable {
+
+    private BorderPane mainPane;
     private GotchiInfo playerInfo;
     private EnemyGotchisInfo enemyInfo;
     private ActionChooseView actionChoose = new ActionChooseView();
@@ -20,24 +24,25 @@ public class BattleStage extends BorderPane {
     private BattleArena battleArena = new BattleArena();
 
     public BattleStage() {
-        this.setLeft(actionChoose);
+        this.mainPane = new BorderPane();
+        this.mainPane.setLeft(actionChoose);
         ScrollPane scroll = createScrollPaneForMessages();
         this.battleMessageView.heightProperty().addListener((observable, oldValue, newValue) -> {
             scroll.setVvalue((double) newValue);
         });
-        this.setBottom(scroll);
+        this.mainPane.setBottom(scroll);
     }
 
     public void setGotchiInfo(Gotchi gotchi) {
         this.battleArena.setGotchi1(gotchi);
         this.playerInfo = new GotchiInfo(gotchi);
-        this.setTop(playerInfo);
+        this.mainPane.setTop(playerInfo);
     }
 
     public void setEnemyInfo(Gotchi gotchi) {
         this.battleArena.setGotchi2(gotchi);
         this.enemyInfo = new EnemyGotchisInfo(gotchi);
-        this.setRight(enemyInfo);
+        this.mainPane.setRight(enemyInfo);
     }
 
 
@@ -83,16 +88,12 @@ public class BattleStage extends BorderPane {
 
     public void setupReadyButton() {
         this.actionChoose.getReadyButton().setOnAction(event -> {
-            Gotchi g1 = this.battleArena.getGotchi1();
-            Gotchi g2 = this.battleArena.getGotchi2();
-            g1.setCurrentAction(Action.PRIMARY_ATTACK);
-            g2.setCurrentAction(Action.PRIMARY_ATTACK);
-            this.battleMessageView.addNewMessage(this.battleArena.battle());
-            this.setGotchiInfo(g1);
-            this.setEnemyInfo(g2);
-            System.out.println(g1.getStatPoints().getHealthPoints());
-            System.out.println(g2.getStatPoints().getHealthPoints());
+            this.notifyObservers("Player ready");
         });
+    }
+
+    public Parent getMainPane() {
+        return mainPane;
     }
 }
 
