@@ -6,10 +6,15 @@ import java.util.Map;
 
 public class GotchiDAO {
 
-    private List<Gotchi> availableGotchis = new ArrayList<>();
-    private static final int MAX_POOL_OF_POINTS = 200;
+    private static GotchiDAO instance = new GotchiDAO();
 
-    GotchiDAO() {
+    private List<Gotchi> availableGotchis = new ArrayList<>();
+
+    public static GotchiDAO getInstance() {
+        return instance;
+    }
+
+    private GotchiDAO() {
         availableGotchis.add(new Gotchi("Goczi1", GochiType.ROCK, 10, 10, 10, 10));
         availableGotchis.add(new Gotchi("Goczi2", GochiType.SCISSORS, 10, 10, 10 ,10));
         availableGotchis.add(new Gotchi("Goczi3", GochiType.PAPER, 10, 10, 10, 10));
