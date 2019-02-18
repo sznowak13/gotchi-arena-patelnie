@@ -1,6 +1,7 @@
 package com.codecool.gochiarena.controller;
 
 import com.codecool.gochiarena.model.GochiType;
+import com.codecool.gochiarena.model.Gotchi;
 import com.codecool.gochiarena.model.GotchiDAO;
 import com.codecool.gochiarena.view.GotchiCreationForm;
 
@@ -11,10 +12,14 @@ public class GotchiFormController {
     GotchiCreationForm form;
     GotchiDAO gotchiDAO;
 
-    public boolean addNewGotchi(String name, GochiType type, Map<String, Integer> points) {
+    GotchiFormController(){
 
-        name = name.trim();
-        if (name.length() < 1){
+    }
+
+    public boolean addNewGotchi(String name, GochiType type, Map<String, Integer> points) {
+        if gotchiDAO.addGotchiNameValidation(name);
+
+
 
             return false;
         }

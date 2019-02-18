@@ -46,7 +46,9 @@ public class GotchiDAO {
     }
 
 
-    public void addNewGotchi(Gotchi gotchi){
-
+    public void addNewGotchi(String name, Map<String, Integer> mapPoints, Gotchi gotchi){
+        if(addGotchiNameValidation(name) & addGotchiStatPointValidation(mapPoints)){
+            availableGotchis.add(gotchi);
+        }
     }
 }
