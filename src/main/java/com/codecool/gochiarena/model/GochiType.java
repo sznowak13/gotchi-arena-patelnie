@@ -1,28 +1,30 @@
 package com.codecool.gochiarena.model;
 
 public enum GochiType {
-    ROCK,
-    PAPER,
-    SCISSORS;
+    WATER,
+    GRASS,
+    FIRE;
+
+    static {
+        WATER.setup(GRASS, FIRE);
+        GRASS.setup(FIRE, WATER);
+        FIRE.setup(WATER, GRASS);
+    }
+
+    private void setup(GochiType vulnerability, GochiType secondary) {
+        this.vulnerability = vulnerability;
+        this.secondary = secondary;
+    }
+
+    private GochiType vulnerability;
+    private GochiType secondary;
 
     public GochiType getVulnerability() {
-        if (this.equals(GochiType.ROCK)) {
-            return GochiType.PAPER;
-        } else if (this.equals(GochiType.SCISSORS)) {
-            return GochiType.ROCK;
-        } else {
-            return GochiType.SCISSORS;
-        }
+        return vulnerability;
     }
 
     public GochiType getSecondaryType() {
-        if (this.equals(GochiType.ROCK)) {
-            return GochiType.SCISSORS;
-        } else if (this.equals(GochiType.SCISSORS)) {
-            return GochiType.PAPER;
-        } else {
-            return GochiType.ROCK;
-        }
+        return secondary;
     }
 
 }

@@ -32,8 +32,8 @@ public class GotchiCreationForm extends VBox {
         this.nameField.setPromptText("Your gotchi name...");
         this.nameField.setFocusTraversable(false);
         this.setId("gotchi-creation-form");
-        this.typeChoiceBox.getItems().addAll(GochiType.ROCK, GochiType.SCISSORS, GochiType.PAPER);
-        this.typeChoiceBox.setValue(GochiType.ROCK);
+        this.typeChoiceBox.getItems().addAll(GochiType.WATER, GochiType.FIRE, GochiType.GRASS);
+        this.typeChoiceBox.setValue(GochiType.WATER);
         this.getChildren().addAll(
                 new Label("Name: "), nameField,
                 new Label("Choose type: "), typeChoiceBox,

@@ -1,9 +1,9 @@
 package com.codecool.gochiarena.view;
 
 enum TypeImage {
-    ROCK("hbox-enemy-rock", "hbox-gotchi-rock", "vbox-custom-rock"),
-    PAPER("hbox-enemy-paper", "hbox-gotchi-paper", "vbox-custom-paper"),
-    SCISSORS("hbox-enemy-scissors", "hbox-gotchi-scissors", "vbox-custom-scissors");
+    WATER("hbox-enemy-rock", "hbox-gotchi-rock", "vbox-custom-rock"),
+    GRASS("hbox-enemy-paper", "hbox-gotchi-paper", "vbox-custom-paper"),
+    FIRE("hbox-enemy-scissors", "hbox-gotchi-scissors", "vbox-custom-scissors");
 
     final String imgEnemy;
     final String imgPlayer;
