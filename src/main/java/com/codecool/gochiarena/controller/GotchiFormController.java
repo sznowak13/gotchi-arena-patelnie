@@ -16,9 +16,9 @@ public class GotchiFormController {
     public String addNewGotchi(String name, GochiType type, Map<String, Integer> points) {
         String error = null;
         if (!gotchiDAO.validateName(name)) {
-            error = "Incorrect name";
+            error = "Incorrect name!";
         } else if (!gotchiDAO.validateStatpoints(points)) {
-            error = "Too much stat points";
+            error = "Too much stat points!";
         }
         if (error == null) {
             gotchiDAO.addNewGotchi(new Gotchi(name, type, points));

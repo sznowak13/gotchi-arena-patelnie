@@ -42,7 +42,7 @@
 }
 
 #create-gotchi-buttons{
-    -fx-padding: 80 0 0 30;
+    -fx-padding: 30 0 20 40;
     -fx-spacing: 300;
 }
 
