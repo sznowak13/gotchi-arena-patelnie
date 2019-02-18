@@ -17,6 +17,7 @@ public class StatPoints {
 
     public StatPoints(Map<String, Integer> points) {
         this.points = points;
+        this.points.put("Health", 100);
     }
 
     public int getAttackPoints() {
