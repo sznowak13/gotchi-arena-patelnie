@@ -1,5 +1,6 @@
 package com.codecool.gochiarena;
 
+import com.codecool.gochiarena.controller.BattleStageController;
 import com.codecool.gochiarena.controller.GotchiFormController;
 import com.codecool.gochiarena.view.*;
 import javafx.application.Application;
@@ -19,8 +20,10 @@ public class App extends Application {
         MainMenu mainMenu = new MainMenu();
         Scene mainScene = new Scene(mainMenu, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
+        BattleStageController battleStageController = new BattleStageController();
         BattleStage battleStage = new BattleStage();
-        Scene battleScene = new Scene(battleStage, ViewConfig.WIDTH, ViewConfig.HEIGHT);
+        battleStageController.setBattleStage(battleStage);
+        Scene battleScene = new Scene(battleStage.getMainPane(), ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         mainMenu.setId("pane");
         mainMenu.setSinglePlayerBtn(primaryStage, prepareBattleScene);
@@ -40,7 +43,7 @@ public class App extends Application {
         form.setupBackButton(primaryStage, mainScene);
         form.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
 
-        battleStage.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        battleStage.getMainPane().getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
 
         primaryStage.setScene(mainScene);
         primaryStage.show();

@@ -40,15 +40,6 @@ public class PrepareBattle extends BorderPane {
 
     public void setStartButtonAction(Stage primaryStage, Scene scene) {
         this.selectGotchi.setOnAction((event) -> {
-            if (scene.getRoot() instanceof BattleStage) {
-                BattleStage battleStage = (BattleStage) scene.getRoot();
-                battleStage.setGotchiInfo((Gotchi) this.gotchiToggle.getSelectedToggle().getUserData());
-                battleStage.setEnemyInfo(gotchiDAO.getRandomGotchi());
-                battleStage.getBattleMessageView().addNewMessage("Battle starts!");
-                battleStage.setupReadyButton();
-                battleStage.setCenter(battleStage.createVerticalContainer());
-
-            }
             primaryStage.setScene(scene);
         });
     }
