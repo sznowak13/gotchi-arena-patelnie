@@ -118,13 +118,14 @@ public class GotchiCreationForm extends VBox {
         this.statValues.add(statValue);
     }
 
-    private void addExceedWarning(Text message){
-        message.setId("create-gotchi-warning-msg");
-        this.getChildren().add(message);
+    private void addExceedWarning(String message){
+        this.warningMsg.setText(message);
+        this.warningMsg.setId("create-gotchi-warning-msg");
+        this.getChildren().add(this.warningMsg);
     }
 
-    private void removeExceedWarning(Text message){
-        this.getChildren().remove(message);
+    private void removeExceedWarning(){
+        this.getChildren().remove(this.warningMsg);
     }
 
 }
