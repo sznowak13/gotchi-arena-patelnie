@@ -1,22 +1,18 @@
 package com.codecool.gochiarena.view;
 
+import com.codecool.gochiarena.controller.GotchiFormController;
 import com.codecool.gochiarena.model.GochiType;
-import com.codecool.gochiarena.model.Gotchi;
-import com.codecool.gochiarena.model.GotchiDAO;
-import com.codecool.gochiarena.model.StatPoints;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GotchiCreationForm extends VBox {
 
@@ -26,11 +22,13 @@ public class GotchiCreationForm extends VBox {
     private Text pointsPool = new Text("200");
     private Button createGotchi = new Button("Create!");
     private Button backButton = new Button("Back to main menu");
-    private final int poolOfPoints = 200;
-    private final Text exceedMsg = new Text("Warning: You mustn't exceed 200pts");
 
+    private final Text warningMsg = new Text("Warning: You mustn't exceed 200pts");
+    private GotchiFormController controller;
+    private String[] statLabels = new String[] {"Attack", "Defence", "Speed", "Stamina"};
 
-    public GotchiCreationForm() {
+    public GotchiCreationForm(GotchiFormController controller) {
+        this.controller = controller;
         this.nameField.setPromptText("Your gotchi name...");
         this.nameField.setFocusTraversable(false);
         this.setId("gotchi-creation-form");
@@ -41,7 +39,7 @@ public class GotchiCreationForm extends VBox {
                 new Label("Choose type: "), typeChoiceBox,
                 new Label("Stat points"), pointsPool
         );
-        for (String statName : new String[] {"Attack", "Speed", "Defence", "Stamina"}) {
+        for (String statName : this.statLabels) {
             this.addStatField(statName);
         }
 
@@ -59,50 +57,31 @@ public class GotchiCreationForm extends VBox {
 
     public void setupCreateButton(Stage primaryStage, Scene scene) {
         this.createGotchi.setOnAction((event) -> {
-            int [] points = this.calculateStatPoints();
-            GotchiDAO.addGotchi(new Gotchi(
+            Map<String, Integer> points = this.calculateStatPoints();
+            this.controller.addNewGotchi(
                     this.nameField.getText(),
                     this.typeChoiceBox.getValue(),
-                    points[0], points[1], points[2], points[3])
-            );
-            if (checkStatsAllowed(countStats(calculateStatPoints()))){
+                    points);
+            if (){
                 if (scene.getRoot() instanceof PrepareBattle) {
                     ((PrepareBattle) scene.getRoot()).createGotchiList();
                 }
                 primaryStage.setScene(scene);}
             else{
-                this.removeExceedWarning(exceedMsg);
-                this.addExceedWarning(exceedMsg);
+                this.removeExceedWarning(warningMsg);
+                this.addExceedWarning(warningMsg);
             }
         });
     }
 
-    /*private List<Integer> createStatsArr(StatPoints statsPoints) {
-        List<Integer> statsArr = new ArrayList<>();
-        statsArr.add(statsPoints.getSpeedPoints());
-        statsArr.add(statsPoints.getDefencePoints());
-        statsArr.add(statsPoints.getAttackPoints());
-        statsArr.add(statsPoints.getStaminaPoints());
-        return statsArr;
-    }
-*/
-    private int countStats(int [] statsArr){
-        int statSum = 0;
-        for(int stat: statsArr){
-            statSum +=stat;
-        }
-        return statSum;
-    }
-
-    public boolean checkStatsAllowed(int statSum){
-        return statSum <= poolOfPoints ? true : false;
-    }
 
 
-    private int[] calculateStatPoints() {
-        int[] statPoints = new int[statValues.size()];
-        for (int i = 0; i < statPoints.length; i++) {
-            statPoints[i] = Integer.parseInt(statValues.get(i).getText());
+
+
+    private Map<String, Integer> calculateStatPoints() {
+        Map<String, Integer> statPoints = new HashMap<>();
+        for (int i = 0; i < statLabels.length; i++) {
+            statPoints.put(statLabels[i], Integer.parseInt(statValues.get(i).getText()));
         }
         return statPoints;
     }
@@ -111,7 +90,7 @@ public class GotchiCreationForm extends VBox {
         Slider slider = new Slider(0, 200, 0);
         slider.getStyleClass().add("slider");
         slider.setOnMouseClicked(Event ->{
-            this.removeExceedWarning(exceedMsg);
+            this.removeExceedWarning(warningMsg);
         });
 
         slider.valueProperty().addListener((observable, oldValue, newValue) ->{

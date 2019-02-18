@@ -88,8 +88,8 @@ public class BattleStage extends BorderPane {
             g1.setCurrentAction(Action.PRIMARY_ATTACK);
             g2.setCurrentAction(Action.PRIMARY_ATTACK);
             this.battleMessageView.addNewMessage(this.battleArena.battle());
-            this.setGotchiInfo(this.battleArena.getGotchi1());
-            this.setEnemyInfo(this.battleArena.getGotchi2());
+            this.setGotchiInfo(g1);
+            this.setEnemyInfo(g2);
             System.out.println(g1.getStatPoints().getHealthPoints());
             System.out.println(g2.getStatPoints().getHealthPoints());
         });
