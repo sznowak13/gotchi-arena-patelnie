@@ -27,14 +27,16 @@ public class GotchiFormController {
         return error;
     }
 
-    public boolean addNewGotchi(String name, GochiType type, Map<String, Integer> points) {
-        if gotchiDAO.addGotchiNameValidation(name);
+    public String calculatePointsPool(Map<String, Integer> statValues) {
+        int statSum = sumStatValues(statValues);
+        return Integer.toString(Config.MAX_POOL_OF_POINTS - statSum);
+    }
 
-
-
-            return false;
+    private int sumStatValues(Map<String, Integer> statValues) {
+        int sum = 0;
+        for (int val : statValues.values()) {
+            sum += val;
         }
-
-
+        return sum;
     }
 }

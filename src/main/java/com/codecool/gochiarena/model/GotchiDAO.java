@@ -24,16 +24,16 @@ public class GotchiDAO {
     }
 
     public boolean checkStatsAllowed(int statSum){
-        return statSum <= MAX_POOL_OF_POINTS;
+        return statSum <= Config.MAX_POOL_OF_POINTS;
     }
 
 
-    public boolean addGotchiNameValidation(String name) {
+    public boolean validateName(String name) {
         name = name.trim();
         return name.length() >= 1;
     }
 
-    public boolean addGotchiStatPointValidation( Map<String, Integer> mapPoints) {
+    public boolean validateStatpoints(Map<String, Integer> mapPoints) {
        return checkStatsAllowed(countStats(mapPoints));
     }
 
@@ -46,9 +46,7 @@ public class GotchiDAO {
     }
 
 
-    public void addNewGotchi(String name, Map<String, Integer> mapPoints, Gotchi gotchi){
-        if(addGotchiNameValidation(name) & addGotchiStatPointValidation(mapPoints)){
-            availableGotchis.add(gotchi);
-        }
+    public void addNewGotchi(Gotchi gotchi){
+        availableGotchis.add(gotchi);
     }
 }

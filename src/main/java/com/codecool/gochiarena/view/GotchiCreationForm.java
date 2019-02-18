@@ -89,16 +89,11 @@ public class GotchiCreationForm extends VBox {
     private Slider createStatSlider(Text value) {
         Slider slider = new Slider(0, 200, 0);
         slider.getStyleClass().add("slider");
-        slider.setOnMouseClicked(Event ->{
-            this.removeExceedWarning(warningMsg);
-        });
+        slider.setOnMouseClicked(Event -> this.removeExceedWarning());
 
         slider.valueProperty().addListener((observable, oldValue, newValue) ->{
-
             value.setText(String.valueOf(newValue.intValue()));
-            int sliderSum = countStats(calculateStatPoints());
-            pointsPool.setText(Integer.toString(poolOfPoints - sliderSum));
-
+            pointsPool.setText(controller.calculatePointsPool(readStatPoints()));
             }
         );
         return slider;
