@@ -78,6 +78,9 @@ public class Gotchi {
     }
 
     public void takeDamage(double damage) {
-        this.getStatPoints().decreaseHealthPoints(damage - this.getStatPoints().getDefencePoints());
+        double dmgAfterDefence = damage - this.getStatPoints().getDefencePoints();
+        if (dmgAfterDefence < 0)
+            return;
+        this.getStatPoints().decreaseHealthPoints(dmgAfterDefence);
     }
 }

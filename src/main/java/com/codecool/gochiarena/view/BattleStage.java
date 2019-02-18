@@ -3,8 +3,13 @@ package com.codecool.gochiarena.view;
 import com.codecool.gochiarena.model.Action;
 import com.codecool.gochiarena.model.BattleArena;
 import com.codecool.gochiarena.model.Gotchi;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class BattleStage extends BorderPane {
 
@@ -35,6 +40,35 @@ public class BattleStage extends BorderPane {
         this.setRight(enemyInfo);
     }
 
+
+    public VBox createVerticalContainer() {
+        VBox verticalContainer = new VBox();
+        String playerImgId = TypeImage.valueOf(battleArena.getGotchi1().getType().toString()).imgPlayer;
+        String enemyImgId = TypeImage.valueOf(battleArena.getGotchi2().getType().toString()).imgEnemy;
+        verticalContainer.getChildren().addAll(createContainerForEnemy(enemyImgId), createGotchiContainer(playerImgId));
+        return verticalContainer;
+    }
+
+    public HBox createContainerForEnemy(String id) {
+        HBox enemyContainer = new HBox();
+        enemyContainer.setAlignment(Pos.TOP_RIGHT);
+        enemyContainer.setPadding(new Insets(10, 0, 150, 10));
+        ProgressBar pbRed = new ProgressBar(0.4);
+        enemyContainer.getChildren().add(pbRed);
+        enemyContainer.setId(id);
+        return enemyContainer;
+    }
+
+    public HBox createGotchiContainer(String id) {
+        HBox gotchiContainer = new HBox();
+        gotchiContainer.setAlignment(Pos.TOP_LEFT);
+        gotchiContainer.setPadding(new Insets(10, 0, 150, 10));
+        ProgressBar pbRed = new ProgressBar(1);
+        gotchiContainer.getChildren().add(pbRed);
+        gotchiContainer.setId(id);
+        return gotchiContainer;
+    }
+
     public ScrollPane createScrollPaneForMessages() {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -61,3 +95,4 @@ public class BattleStage extends BorderPane {
         });
     }
 }
+
