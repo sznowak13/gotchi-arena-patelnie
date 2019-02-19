@@ -43,7 +43,7 @@ public class App extends Application {
         prepareBattle.setupBackButton(primaryStage, mainScene);
         prepareBattle.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
 
-        form.setupCreateButton(primaryStage, prepareBattleScene);
+        form.setupCreateButton(primaryStage, mainScene);
         form.setupBackButton(primaryStage, mainScene);
         form.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
 
