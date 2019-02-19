@@ -21,16 +21,20 @@ public class BattleStageController implements PropertyChangeListener {
 
     public void setBattleStage(BattleStage battleStage) {
         this.battleStage = battleStage;
-        battleStage.addObserver(this);
+        this.battleStage.addPropertyChangeListener(this);
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        switch ((String) arg) {
-            case "Player ready": {
-                this.battleArena.setGotchiReady(0);
-                System.out.println("PLAYER READY");
-            }
+    public void propertyChange(PropertyChangeEvent evt) {
+        String s = evt.getPropertyName();
+        if ("Player Ready".equals(s)) {
+            this.battleArena.setGotchiReady(0);
+            System.out.println("PLAYER READY");
+        } else if ("BeginBattle".equals(s)) {
+            Gotchi playersGotchi = (Gotchi) evt.getNewValue();
+            Gotchi enemy = GotchiDAO.getInstance().getRandomGotchi();
+            this.battleArena.setupGotchis(playersGotchi, enemy);
+            this.battleStage.setupGotchisView(playersGotchi, enemy);
         }
     }
 }
