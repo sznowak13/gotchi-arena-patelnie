@@ -49,6 +49,7 @@ public class PrepareBattle extends BorderPane {
 
     public void setStartButtonAction(Stage primaryStage, Scene scene) {
         this.selectGotchi.setOnAction((event) -> {
+            support.firePropertyChange("BeginBattle", null, this.gotchiToggle.getSelectedToggle().getUserData());
             primaryStage.setScene(scene);
         });
     }

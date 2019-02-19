@@ -42,6 +42,7 @@ public class App extends Application {
         prepareBattle.setStartButtonAction(primaryStage, battleScene);
         prepareBattle.setupBackButton(primaryStage, mainScene);
         prepareBattle.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        prepareBattle.addPropertyChangeListener(battleStageController);
 
         form.setupCreateButton(primaryStage, mainScene);
         form.setupBackButton(primaryStage, mainScene);
