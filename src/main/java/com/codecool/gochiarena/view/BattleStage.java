@@ -12,49 +12,58 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.Observable;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
-public class BattleStage extends Observable {
+public class BattleStage extends BorderPane {
 
-    private BorderPane mainPane;
     private GotchiInfo playerInfo;
     private EnemyGotchisInfo enemyInfo;
     private ActionChooseView actionChoose = new ActionChooseView();
     private BattleMessageView battleMessageView = new BattleMessageView();
-    private BattleArena battleArena = new BattleArena();
+    private PropertyChangeSupport support;
 
     public BattleStage() {
-        this.mainPane = new BorderPane();
-        this.mainPane.setLeft(actionChoose);
+        this.support = new PropertyChangeSupport(this);
+        this.setLeft(actionChoose);
         ScrollPane scroll = createScrollPaneForMessages();
         this.battleMessageView.heightProperty().addListener((observable, oldValue, newValue) -> {
             scroll.setVvalue((double) newValue);
         });
-        this.mainPane.setBottom(scroll);
+        this.setBottom(scroll);
+        this.setupReadyButton();
     }
 
-    public void setGotchiInfo(Gotchi gotchi) {
-        this.battleArena.setGotchi1(gotchi);
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        this.support.addPropertyChangeListener(pcl);
+    }
+
+    public void setupGotchisView(Gotchi player, Gotchi enemy) {
+        setGotchiInfo(player);
+        setEnemyInfo(enemy);
+        this.setCenter(createVerticalContainer(player, enemy));
+    }
+
+    private void setGotchiInfo(Gotchi gotchi) {
         this.playerInfo = new GotchiInfo(gotchi);
-        this.mainPane.setTop(playerInfo);
+        this.setTop(playerInfo);
     }
 
-    public void setEnemyInfo(Gotchi gotchi) {
-        this.battleArena.setGotchi2(gotchi);
+    private void setEnemyInfo(Gotchi gotchi) {
         this.enemyInfo = new EnemyGotchisInfo(gotchi);
-        this.mainPane.setRight(enemyInfo);
+        this.setRight(enemyInfo);
     }
 
 
-    public VBox createVerticalContainer() {
+    private VBox createVerticalContainer(Gotchi player, Gotchi enemy) {
         VBox verticalContainer = new VBox();
-        String playerImgId = TypeImage.valueOf(battleArena.getGotchi1().getType().toString()).imgPlayer;
-        String enemyImgId = TypeImage.valueOf(battleArena.getGotchi2().getType().toString()).imgEnemy;
+        String playerImgId = TypeImage.valueOf(player.getType().toString()).imgPlayer;
+        String enemyImgId = TypeImage.valueOf(enemy.getType().toString()).imgEnemy;
         verticalContainer.getChildren().addAll(createContainerForEnemy(enemyImgId), createGotchiContainer(playerImgId));
         return verticalContainer;
     }
 
-    public HBox createContainerForEnemy(String id) {
+    private HBox createContainerForEnemy(String id) {
         HBox enemyContainer = new HBox();
         enemyContainer.setAlignment(Pos.TOP_RIGHT);
         enemyContainer.setPadding(new Insets(10, 0, 150, 10));
@@ -64,7 +73,7 @@ public class BattleStage extends Observable {
         return enemyContainer;
     }
 
-    public HBox createGotchiContainer(String id) {
+    private HBox createGotchiContainer(String id) {
         HBox gotchiContainer = new HBox();
         gotchiContainer.setAlignment(Pos.TOP_LEFT);
         gotchiContainer.setPadding(new Insets(10, 0, 150, 10));
@@ -74,7 +83,7 @@ public class BattleStage extends Observable {
         return gotchiContainer;
     }
 
-    public ScrollPane createScrollPaneForMessages() {
+    private ScrollPane createScrollPaneForMessages() {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -82,13 +91,13 @@ public class BattleStage extends Observable {
         return scrollPane;
     }
 
-    public BattleMessageView getBattleMessageView() {
+    private BattleMessageView getBattleMessageView() {
         return battleMessageView;
     }
 
     public void setupReadyButton() {
         this.actionChoose.getReadyButton().setOnAction(event -> {
-            this.notifyObservers("Player ready");
+            support.firePropertyChange("Player Ready", false, true);
         });
     }
 }
