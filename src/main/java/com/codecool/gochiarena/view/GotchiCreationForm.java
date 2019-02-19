@@ -62,10 +62,7 @@ public class GotchiCreationForm extends VBox {
                     this.nameField.getText(),
                     this.typeChoiceBox.getValue(),
                     points);
-            if (error == null){
-                if (scene.getRoot() instanceof PrepareBattle) {
-                    ((PrepareBattle) scene.getRoot()).createGotchiList();
-                }
+            if (error == null) {
                 primaryStage.setScene(scene);}
             else {
                 this.removeExceedWarning();
