@@ -2,6 +2,7 @@ package com.codecool.gochiarena;
 
 import com.codecool.gochiarena.controller.BattleStageController;
 import com.codecool.gochiarena.controller.GotchiFormController;
+import com.codecool.gochiarena.controller.PrepareBattleController;
 import com.codecool.gochiarena.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,7 +15,9 @@ public class App extends Application {
         GotchiCreationForm form = new GotchiCreationForm(formController);
         Scene creationScene = new Scene(form, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
+        PrepareBattleController prepareBattleController = new PrepareBattleController();
         PrepareBattle prepareBattle = new PrepareBattle();
+        prepareBattleController.setPrepareBattleView(prepareBattle);
         Scene prepareBattleScene = new Scene(prepareBattle, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         MainMenu mainMenu = new MainMenu();
@@ -33,6 +36,7 @@ public class App extends Application {
         mainMenu.getCreateGotchiBtn().getStyleClass().add("my-special-button");
         mainMenu.getSinglePlayerBtn().getStyleClass().add("my-special-button");
         mainMenu.getMultiPlayerBtn().getStyleClass().add("my-special-button");
+        mainMenu.addPropertyChangeListener(prepareBattleController);
 
 
         prepareBattle.setStartButtonAction(primaryStage, battleScene);

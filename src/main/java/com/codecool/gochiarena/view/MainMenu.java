@@ -6,17 +6,26 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class MainMenu extends BorderPane {
 
     private Button createGotchiBtn = new Button("Create new Gotchi");
     private Button singlePlayerBtn = new Button("Single player");
     private Button multiPlayerBtn = new Button("Multiplayer");
+    private PropertyChangeSupport support;
 
 
 
     public MainMenu() {
+        this.support = new PropertyChangeSupport(this);
         this.setCenter(this.createVerticalField());
         this.setTop(this.createHorizontalFieldForImage());
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        this.support.addPropertyChangeListener(pcl);
     }
 
     public Button getCreateGotchiBtn() {
@@ -52,7 +61,10 @@ public class MainMenu extends BorderPane {
     }
 
     public void setSinglePlayerBtn(Stage primaryStage, Scene scene) {
-        this.singlePlayerBtn.setOnAction((event) -> primaryStage.setScene(scene));
+        this.singlePlayerBtn.setOnAction((event) -> {
+            primaryStage.setScene(scene);
+            support.firePropertyChange("SinglePlayer", false, true);
+        });
     }
 
     public void setMultiPlayerBtn(Stage primaryStage, Scene scene) {
