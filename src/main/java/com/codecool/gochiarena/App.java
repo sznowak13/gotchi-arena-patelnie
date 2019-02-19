@@ -26,7 +26,7 @@ public class App extends Application {
         BattleStageController battleStageController = new BattleStageController();
         BattleStage battleStage = new BattleStage();
         battleStageController.setBattleStage(battleStage);
-        Scene battleScene = new Scene(battleStage.getMainPane(), ViewConfig.WIDTH, ViewConfig.HEIGHT);
+        Scene battleScene = new Scene(battleStage, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         mainMenu.setId("pane");
         mainMenu.setSinglePlayerBtn(primaryStage, prepareBattleScene);
@@ -47,7 +47,7 @@ public class App extends Application {
         form.setupBackButton(primaryStage, mainScene);
         form.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
 
-        battleStage.getMainPane().getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        battleStage.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
 
         primaryStage.setScene(mainScene);
         primaryStage.show();

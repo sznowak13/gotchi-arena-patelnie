@@ -91,9 +91,5 @@ public class BattleStage extends Observable {
             this.notifyObservers("Player ready");
         });
     }
-
-    public Parent getMainPane() {
-        return mainPane;
-    }
 }
 
