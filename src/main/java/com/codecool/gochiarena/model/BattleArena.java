@@ -56,9 +56,6 @@ public class BattleArena {
 
     public void setGotchiReady(int playerNum) {
         gotchis.get(playerNum).setReady(true);
-        if (gotchis.get(0).isReady() && gotchis.get(1).isReady()) {
-            this.battle();
-        }
     }
 
     public void setAttackerAndDefender() {
