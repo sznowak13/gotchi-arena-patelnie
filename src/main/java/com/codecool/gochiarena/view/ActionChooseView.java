@@ -22,7 +22,13 @@ public class ActionChooseView extends VBox {
         }
         this.getChildren().add(readyButton);
         this.actionsGroup.selectToggle(this.actionsGroup.getToggles().get(0));
+
     }
+
+    public Object getUserActionChoice(){
+        return this.actionsGroup.getSelectedToggle();
+    }
+
 
     public Button getReadyButton() {
         return this.readyButton;

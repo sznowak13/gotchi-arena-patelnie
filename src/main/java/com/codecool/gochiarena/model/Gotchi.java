@@ -12,7 +12,7 @@ public class Gotchi {
     private String name;
     private GochiType type;
     private StatPoints statPoints;
-    private Action currentAction;
+    private Object currentAction;
     private boolean ready;
 
 
@@ -65,11 +65,11 @@ public class Gotchi {
         this.statPoints = statPoints;
     }
 
-    public Action getCurrentAction() {
+    public Object getCurrentAction() {
         return currentAction;
     }
 
-    public void setCurrentAction(Action currentAction) {
+    public void setCurrentAction(Object currentAction) {
         this.currentAction = currentAction;
     }
 

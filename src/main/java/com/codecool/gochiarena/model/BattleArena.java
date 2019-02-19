@@ -19,9 +19,9 @@ public class BattleArena {
     }
 
     public String battle() {
-        Action action1 = gotchi1.getCurrentAction();
-        Action action2 = gotchi2.getCurrentAction();
-        if (action1.equals(Action.PRIMARY_ATTACK) && action2.equals(Action.PRIMARY_ATTACK)){
+        Object action1 = gotchi1.getCurrentAction();
+        Object action2 = gotchi2.getCurrentAction();
+        if (action1.equals(gotchi1.getCurrentAction()) && action2.equals(Action.PRIMARY_ATTACK)){
             setAttackerAndDefender();
             Gotchi attacker = this.fighters.get("Attacker");
             Gotchi defender = this.fighters.get("Defender");

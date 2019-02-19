@@ -85,13 +85,13 @@ public class BattleStage extends BorderPane {
         this.actionChoose.getReadyButton().setOnAction(event -> {
             Gotchi g1 = this.battleArena.getGotchi1();
             Gotchi g2 = this.battleArena.getGotchi2();
-            g1.setCurrentAction(Action.PRIMARY_ATTACK);
+            System.out.println("get user choice"+ actionChoose.getUserActionChoice());
+            g1.setCurrentAction(actionChoose.getUserActionChoice());
             g2.setCurrentAction(Action.PRIMARY_ATTACK);
             this.battleMessageView.addNewMessage(this.battleArena.battle());
             this.setGotchiInfo(g1);
             this.setEnemyInfo(g2);
-            System.out.println(g1.getStatPoints().getHealthPoints());
-            System.out.println(g2.getStatPoints().getHealthPoints());
+            System.out.println("gotchi get current action "+ g1.getCurrentAction().toString());
         });
     }
 }
