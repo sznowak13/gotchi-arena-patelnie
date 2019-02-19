@@ -77,4 +77,9 @@ public class BattleArena {
     public Gotchi getGotchi2() {
         return gotchis.get(1);
     }
+
+    public void setupGotchis(Gotchi playersGotchi, Gotchi enemy) {
+        this.gotchis.add(playersGotchi);
+        this.gotchis.add(enemy);
+    }
 }
