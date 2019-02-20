@@ -33,8 +33,13 @@ public class BattleStageController implements PropertyChangeListener {
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
             Gotchi enemy = GotchiDAO.getInstance().getRandomGotchi();
-            this.battleArena.setupGotchis(playersGotchi, enemy);
-            this.battleStage.setupGotchisView(playersGotchi, enemy);
+            setupBattle(playersGotchi, enemy);
         }
+    }
+
+    private void setupBattle(Gotchi player, Gotchi enemy) {
+        this.battleArena.setupGotchis(player, enemy);
+        this.battleStage.setupGotchisView(player, enemy);
+
     }
 }
