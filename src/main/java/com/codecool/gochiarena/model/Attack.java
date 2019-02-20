@@ -10,4 +10,7 @@ public enum Attack {
         this.damageModifier = damageModifier;
     }
 
+    public double getModifier() {
+        return damageModifier;
+    }
 }
