@@ -142,7 +142,7 @@ public class BatlleArenaModel {
         double randomValue1 = 0.75 + (1.25 - 0.75) * random.nextDouble();
         double randomValue2 = 0.75 + (1.25 - 0.75) * random.nextDouble();
         if ((attackersSpeed * randomValue1) - (defendersSpeed * randomValue2) > 0) {
-            applyAttackVsAttackScenario();
+            dealDamage(attacker, defender);
         }
 
     }
