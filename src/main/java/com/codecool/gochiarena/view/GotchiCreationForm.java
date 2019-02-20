@@ -23,7 +23,7 @@ public class GotchiCreationForm extends VBox {
     private Button createGotchi = new Button("Create!");
     private Button backButton = new Button("Back to main menu");
 
-    private final Text warningMsg = new Text("Warning: You mustn't exceed 200pts");
+    private final Text warningMsg = new Text();
     private GotchiFormController controller;
     private String[] statLabels = new String[] {"Attack", "Defence", "Speed", "Stamina"};
 
@@ -42,6 +42,8 @@ public class GotchiCreationForm extends VBox {
         for (String statName : this.statLabels) {
             this.addStatField(statName);
         }
+        this.warningMsg.setId("create-gotchi-warning-msg");
+        this.getChildren().add(warningMsg);
 
 
         this.createHorizontalField();
@@ -62,13 +64,9 @@ public class GotchiCreationForm extends VBox {
                     this.nameField.getText(),
                     this.typeChoiceBox.getValue(),
                     points);
-            if (error == null){
-                if (scene.getRoot() instanceof PrepareBattle) {
-                    ((PrepareBattle) scene.getRoot()).createGotchiList();
-                }
+            if (error == null) {
                 primaryStage.setScene(scene);}
             else {
-                this.removeExceedWarning();
                 this.addExceedWarning(error);
             }
         });
@@ -120,12 +118,10 @@ public class GotchiCreationForm extends VBox {
 
     private void addExceedWarning(String message){
         this.warningMsg.setText(message);
-        this.warningMsg.setId("create-gotchi-warning-msg");
-        this.getChildren().add(this.warningMsg);
     }
 
-    private void removeExceedWarning(){
-        this.getChildren().remove(this.warningMsg);
+    private void removeExceedWarning() {
+        this.warningMsg.setText("");
     }
 
 }

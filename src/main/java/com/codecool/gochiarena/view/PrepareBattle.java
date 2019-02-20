@@ -10,25 +10,34 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.List;
+
 public class PrepareBattle extends BorderPane {
+
     private Button selectGotchi = new Button("Battle!");
     private VBox gotchiListing = new VBox();
     private ToggleGroup gotchiToggle = new ToggleGroup();
     private Button backButton = new Button("Back to main menu");
-    private GotchiDAO gotchiDAO = GotchiDAO.getInstance();
+    private PropertyChangeSupport support;
 
     public PrepareBattle() {
-        this.createGotchiList();
+        this.support = new PropertyChangeSupport(this);
         this.setLeft(this.gotchiListing);
         this.setRight(this.selectGotchi);
         this.setBottom(this.createHorizontalFieldForButtons());
     }
 
-    public void createGotchiList() {
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void createGotchiList(List<Gotchi> gotchiList) {
         this.gotchiListing.getChildren().clear();
         this.gotchiListing.setId("choose-gotchi-border");
         this.gotchiListing.getChildren().add(new Text("Available Gotchis: "));
-        for (Gotchi gotchi : gotchiDAO.getAvailableGotchis()) {
+        for (Gotchi gotchi : gotchiList) {
             RadioButton listItem = new RadioButton(gotchi.getName() + " " + gotchi.getType());
             listItem.setUserData(gotchi);
             listItem.setToggleGroup(this.gotchiToggle);
@@ -40,15 +49,7 @@ public class PrepareBattle extends BorderPane {
 
     public void setStartButtonAction(Stage primaryStage, Scene scene) {
         this.selectGotchi.setOnAction((event) -> {
-            if (scene.getRoot() instanceof BattleStage) {
-                BattleStage battleStage = (BattleStage) scene.getRoot();
-                battleStage.setGotchiInfo((Gotchi) this.gotchiToggle.getSelectedToggle().getUserData());
-                battleStage.setEnemyInfo(gotchiDAO.getRandomGotchi());
-                battleStage.getBattleMessageView().addNewMessage("Battle starts!");
-                battleStage.setupReadyButton();
-                battleStage.setCenter(battleStage.createVerticalContainer());
-
-            }
+            support.firePropertyChange("BeginBattle", null, this.gotchiToggle.getSelectedToggle().getUserData());
             primaryStage.setScene(scene);
         });
     }

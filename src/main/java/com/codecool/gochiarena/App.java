@@ -1,6 +1,8 @@
 package com.codecool.gochiarena;
 
+import com.codecool.gochiarena.controller.BattleStageController;
 import com.codecool.gochiarena.controller.GotchiFormController;
+import com.codecool.gochiarena.controller.PrepareBattleController;
 import com.codecool.gochiarena.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -13,13 +15,17 @@ public class App extends Application {
         GotchiCreationForm form = new GotchiCreationForm(formController);
         Scene creationScene = new Scene(form, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
+        PrepareBattleController prepareBattleController = new PrepareBattleController();
         PrepareBattle prepareBattle = new PrepareBattle();
+        prepareBattleController.setPrepareBattleView(prepareBattle);
         Scene prepareBattleScene = new Scene(prepareBattle, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         MainMenu mainMenu = new MainMenu();
         Scene mainScene = new Scene(mainMenu, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
+        BattleStageController battleStageController = new BattleStageController();
         BattleStage battleStage = new BattleStage();
+        battleStageController.setBattleStage(battleStage);
         Scene battleScene = new Scene(battleStage, ViewConfig.WIDTH, ViewConfig.HEIGHT);
 
         mainMenu.setId("pane");
@@ -30,13 +36,15 @@ public class App extends Application {
         mainMenu.getCreateGotchiBtn().getStyleClass().add("my-special-button");
         mainMenu.getSinglePlayerBtn().getStyleClass().add("my-special-button");
         mainMenu.getMultiPlayerBtn().getStyleClass().add("my-special-button");
+        mainMenu.addPropertyChangeListener(prepareBattleController);
 
 
         prepareBattle.setStartButtonAction(primaryStage, battleScene);
         prepareBattle.setupBackButton(primaryStage, mainScene);
         prepareBattle.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        prepareBattle.addPropertyChangeListener(battleStageController);
 
-        form.setupCreateButton(primaryStage, prepareBattleScene);
+        form.setupCreateButton(primaryStage, mainScene);
         form.setupBackButton(primaryStage, mainScene);
         form.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
 
