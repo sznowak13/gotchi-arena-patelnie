@@ -1,9 +1,6 @@
 package com.codecool.gochiarena.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BatlleArenaModel {
 
@@ -125,6 +122,17 @@ public class BatlleArenaModel {
     public void applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
         double attackModifier = this.getModifier(attacker.getType(), defender.getType());
         defender.takeDamage((attacker.getStatPoints().getAttackPoints() * attackModifier) - (defender.getStatPoints().getDefencePoints() * 2));
+
+    }
+
+    public void applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
+        double attackersSpeed = attacker.getStatPoints().getSpeedPoints();
+        double defendersSpeed = defender.getStatPoints().getSpeedPoints();
+        Random random = new Random();
+        double randomValue = 0.75 + (1.25 - 0.75) * random.nextDouble();
+        if ((attackersSpeed * randomValue) - (defendersSpeed * randomValue) > 0) {
+            applyAttackVsAttackScenario();
+        }
 
     }
 
