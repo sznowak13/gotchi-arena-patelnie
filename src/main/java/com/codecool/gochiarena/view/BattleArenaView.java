@@ -97,5 +97,13 @@ public class BattleArenaView extends BorderPane {
             support.firePropertyChange("Player Ready", false, true);
         });
     }
+
+    public void setEnemyReady() {
+        this.enemyInfo.setReadyBox(true);
+    }
+
+    public void setPlayerReady() {
+        this.playerInfo.setPlayerReady(true);
+    }
 }
 
