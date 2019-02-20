@@ -31,7 +31,13 @@ public class Gotchi {
         this.statPoints = statPoints;
     }
 
+    public Attack getPrimaryAttack() {
+        return Attack.PRIMARY;
+    }
 
+    public Attack getSecondaryAttack() {
+        return Attack.SECONDARY;
+    }
 
     public int getId() {
         return id;
