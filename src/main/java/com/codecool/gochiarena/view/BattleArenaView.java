@@ -101,5 +101,9 @@ public class BattleArenaView extends BorderPane {
     public void setEnemyReady() {
         this.enemyInfo.setReadyBox(true);
     }
+
+    public void setPlayerReady() {
+        this.playerInfo.setPlayerReady(true);
+    }
 }
 

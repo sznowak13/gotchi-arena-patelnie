@@ -58,6 +58,10 @@ public class BatlleArenaModel {
         gotchis.get(playerNum).setReady(true);
     }
 
+    public boolean gotchisReady() {
+        return gotchis.get(0).isReady() && gotchis.get(1).isReady();
+    }
+
     public void setAttackerAndDefender() {
         Gotchi gotchi1 = gotchis.get(0);
         Gotchi gotchi2 = gotchis.get(1);
