@@ -92,8 +92,10 @@ public class BattleStage extends BorderPane {
             this.battleMessageView.addNewMessage(this.battleArena.battle());
             this.setGotchiInfo(g1);
             this.setEnemyInfo(g2);
-            System.out.println("gotchi get current action "+ g1.getCurrentAction().toString());
+            System.out.println("gotchi get current action "+ g1.getCurrentAction().toString());// test printed development
         });
     }
+
+
 }
 
