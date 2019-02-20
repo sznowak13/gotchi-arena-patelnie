@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BattleArena {
+public class BatlleArenaModel {
 
     private List<Gotchi> gotchis = new ArrayList<>();
 
