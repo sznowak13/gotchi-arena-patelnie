@@ -33,6 +33,10 @@ public class BattleArenaController implements PropertyChangeListener {
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
             Gotchi enemy = GotchiDAO.getInstance().getRandomGotchi();
+            while (enemy == playersGotchi) {
+                enemy = GotchiDAO.getInstance().getRandomGotchi();
+            }
+
             setupBattle(playersGotchi, enemy);
         }
     }
