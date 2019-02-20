@@ -1,11 +1,8 @@
 package com.codecool.gochiarena.view;
 
-import com.codecool.gochiarena.model.Action;
-import com.codecool.gochiarena.model.BattleArena;
 import com.codecool.gochiarena.model.Gotchi;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
@@ -15,7 +12,7 @@ import javafx.scene.layout.VBox;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BattleStage extends BorderPane {
+public class BattleArenaView extends BorderPane {
 
     private GotchiInfo playerInfo;
     private EnemyGotchisInfo enemyInfo;
@@ -23,7 +20,7 @@ public class BattleStage extends BorderPane {
     private BattleMessageView battleMessageView = new BattleMessageView();
     private PropertyChangeSupport support;
 
-    public BattleStage() {
+    public BattleArenaView() {
         this.support = new PropertyChangeSupport(this);
         this.setLeft(actionChoose);
         ScrollPane scroll = createScrollPaneForMessages();

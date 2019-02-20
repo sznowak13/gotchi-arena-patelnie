@@ -1,34 +1,32 @@
 package com.codecool.gochiarena.controller;
 
-import com.codecool.gochiarena.model.BattleArena;
+import com.codecool.gochiarena.model.BatlleArenaModel;
 import com.codecool.gochiarena.model.Gotchi;
 import com.codecool.gochiarena.model.GotchiDAO;
-import com.codecool.gochiarena.view.BattleStage;
+import com.codecool.gochiarena.view.BattleArenaView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Observable;
-import java.util.Observer;
 
-public class BattleStageController implements PropertyChangeListener {
+public class BattleArenaController implements PropertyChangeListener {
 
-    private BattleStage battleStage;
-    private BattleArena battleArena;
+    private BattleArenaView battleArenaView;
+    private BatlleArenaModel batlleArenaModel;
 
-    public BattleStageController() {
-        this.battleArena = new BattleArena();
+    public BattleArenaController() {
+        this.batlleArenaModel = new BatlleArenaModel();
     }
 
-    public void setBattleStage(BattleStage battleStage) {
-        this.battleStage = battleStage;
-        this.battleStage.addPropertyChangeListener(this);
+    public void setBattleArenaView(BattleArenaView battleArenaView) {
+        this.battleArenaView = battleArenaView;
+        this.battleArenaView.addPropertyChangeListener(this);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String s = evt.getPropertyName();
         if ("Player Ready".equals(s)) {
-            this.battleArena.setGotchiReady(0);
+            this.batlleArenaModel.setGotchiReady(0);
             System.out.println("PLAYER READY");
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
@@ -38,8 +36,8 @@ public class BattleStageController implements PropertyChangeListener {
     }
 
     private void setupBattle(Gotchi player, Gotchi enemy) {
-        this.battleArena.setupGotchis(player, enemy);
-        this.battleStage.setupGotchisView(player, enemy);
+        this.batlleArenaModel.setupGotchis(player, enemy);
+        this.battleArenaView.setupGotchisView(player, enemy);
 
     }
 }
