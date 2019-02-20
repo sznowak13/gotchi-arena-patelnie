@@ -121,4 +121,30 @@ public class BatlleArenaModel {
         this.gotchis.add(playersGotchi);
         this.gotchis.add(enemy);
     }
+
+    public void chooseCorrectBattleScenario() {
+        Action gotchis1action = gotchis.get(0).getCurrentAction();
+        Action gotchis2action = gotchis.get(1).getCurrentAction();
+        if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
+            applyAttackVsAttackScenario();
+        }
+        if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.DEFEND) || gotchis1action.equals(Action.DEFEND) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
+            if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.DEFEND)) {
+                applyAttackVsDefendScenario(gotchis.get(0), gotchis.get(1));
+            }
+            else {
+                applyAttackVsDefendScenario(gotchis.get(1), gotchis.get(0));
+            }
+
+        }
+        if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.EVADE) || gotchis1action.equals(Action.EVADE) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
+            if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.EVADE)) {
+                applyAttackVsEvadeScenario(gotchis.get(0), gotchis.get(1));
+            }
+            else {
+                applyAttackVsEvadeScenario(gotchis.get(1), gotchis.get(0));
+            }
+        }
+
+    }
 }
