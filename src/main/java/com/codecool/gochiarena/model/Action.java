@@ -1,7 +1,6 @@
 package com.codecool.gochiarena.model;
 
 
-import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +12,7 @@ public enum Action {
     DEFEND,
     EVADE;
 
- public static Object getRandomAction() {
+ public static Action getRandomAction() {
         final List<Action> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
         Random random = new Random();
         return VALUES.get(random.nextInt(VALUES.size()));
