@@ -27,6 +27,7 @@ public class BattleArenaController implements PropertyChangeListener {
         String s = evt.getPropertyName();
         if ("Player Ready".equals(s)) {
             this.batlleArenaModel.setGotchiReady(0);
+            this.battleArenaView.setEnemyReady();
             this.batlleArenaModel.setGotchiReady(1);
             System.out.println("PLAYER READY");
         } else if ("BeginBattle".equals(s)) {

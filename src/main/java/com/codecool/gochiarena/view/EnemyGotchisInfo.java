@@ -14,6 +14,7 @@ public class EnemyGotchisInfo extends VBox {
     private Text health = new Text();
     private Text stamina = new Text();
     private HBox readyStatus = new HBox(5);
+    private Rectangle readyBox = new Rectangle(15, 15, Color.RED);
 
 
     EnemyGotchisInfo(Gotchi gotchi) {
@@ -23,9 +24,14 @@ public class EnemyGotchisInfo extends VBox {
         this.type.setText("Type: " + gotchi.getType());
         this.health.setText("Health: " + String.valueOf(gotchi.getStatPoints().getHealthPoints()));
         this.stamina.setText("Stamina: " + String.valueOf(gotchi.getStatPoints().getStaminaPoints()));
-        this.readyStatus.getChildren().addAll(new Text("Ready: "), new Rectangle(15,15, Color.RED));
+        this.readyStatus.getChildren().addAll(new Text("Ready: "), readyBox);
         this.readyStatus.setId("enemy-gotchi-battle-info");
         this.getChildren().addAll(enemyName, name, type, health, stamina, readyStatus);
+    }
+
+    public void setReadyBox(boolean ready) {
+        Color readyStatus = ready ? Color.GREEN : Color.RED;
+        readyBox.setFill(readyStatus);
     }
 
 }
