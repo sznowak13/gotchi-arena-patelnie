@@ -39,12 +39,51 @@ public class BatlleArenaModel {
         return "Cos tam sie wydzialo";
     }
 
-    public void dealDamage(Gotchi attacker, Gotchi defender) {
-        double attackModifier = this.getModifier(attacker.getType(), defender.getType());
-        defender.takeDamage(attacker.getStatPoints().getAttackPoints() * attackModifier);
+    public void applyAttackVsAttackScenario() {
+        setAttackerAndDefender();
+        Gotchi attacker = fighters.get("Attacker");
+        Gotchi defender = fighters.get("Defender");
+        dealDamage(attacker, defender);
+        if (isAlive(defender)) {
+            dealDamage(defender, attacker);
+        }
     }
 
-    public double getModifier(GochiType attackType, GochiType defenderType) {
+    private boolean isAlive(Gotchi gotchi) {
+        return gotchi.getStatPoints().getHealthPoints() > 0;
+    }
+
+    /**
+     *  Method that takes attacker and deals damage to defender based on the attack type
+     *  chosen by attacker.
+     *  If attacker chose primary attack, the attack type is set to attacker
+     *  base type (e.g Fire gotchi primary attack is Fire), if attacker chose secondary attack
+     *  the attack type is set to secondary type (e.g Fire secondary attack is Grass).
+     *
+     *  attackTypeModifier is based on the attack type and defender base type.
+     *  attackStrengthModifier is based on the attack strength
+     *  @see #getTypeModifier(GochiType, GochiType)
+     *  @see Attack
+     *
+     * @param attacker Gotchi that attacks
+     * @param defender Gotchi that defends
+     */
+    public void dealDamage(Gotchi attacker, Gotchi defender) {
+        GochiType attackType;
+        double attackStrengthModifier;
+        if (Action.PRIMARY_ATTACK.equals(attacker.getCurrentAction())){
+            attackType = attacker.getType();
+            attackStrengthModifier = attacker.getPrimaryAttack().getModifier();
+        } else {
+            attackType = attacker.getType().getSecondaryType();
+            attackStrengthModifier = attacker.getSecondaryAttack().getModifier();
+        }
+        double attackTypeModifier = this.getTypeModifier(attackType, defender.getType());
+        double calculatedDmg = (attacker.getStatPoints().getAttackPoints() * attackTypeModifier) * attackStrengthModifier;
+        defender.takeDamage(calculatedDmg);
+    }
+
+    public double getTypeModifier(GochiType attackType, GochiType defenderType) {
         if (attackType.equals(defenderType.getVulnerability())) {
             return 1.25;
         } else if (attackType.equals(defenderType.getSecondaryType())) {

@@ -30,6 +30,7 @@ public class BattleArenaController implements PropertyChangeListener {
             if (this.batlleArenaModel.gotchisReady()) {
                 // do battle and update the view
             }
+
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
             Gotchi enemy = GotchiDAO.getInstance().getRandomGotchi();
