@@ -59,4 +59,27 @@ class BattleArenaTest {
         assertEquals(0, g1.getStatPoints().getHealthPoints());
         assertEquals(57, g2.getStatPoints().getHealthPoints());
     }
+
+    @Test
+    void testApplyingAttackVsEvadeScenarioHighSpeed() {
+        Gotchi g1 = new Gotchi("G1", GochiType.FIRE, 100, 10, 40, 50);
+        Gotchi g2 = new Gotchi("G2", GochiType.GRASS, 50, 340, 70, 60);
+        battleArena.setGotchi1(g1);
+        battleArena.setGotchi2(g2);
+        int evadersHealth = g2.getStatPoints().getHealthPoints();
+        battleArena.applyAttackVsEvadeScenario(g1, g2);
+        assertEquals(evadersHealth, g2.getStatPoints().getHealthPoints());
+    }
+
+    @Test
+    void testApplyingAttackVsEvadeScenarioLowSpeed() {
+        Gotchi g1 = new Gotchi("G1", GochiType.FIRE, 100, 100, 40, 40);
+        Gotchi g2 = new Gotchi("G2", GochiType.FIRE, 100, 1, 40, 40);
+        battleArena.setGotchi1(g1);
+        battleArena.setGotchi2(g2);
+        int evadersHealth = g2.getStatPoints().getHealthPoints();
+        battleArena.applyAttackVsEvadeScenario(g1, g2);
+        assertNotEquals(evadersHealth, g2.getStatPoints().getHealthPoints());
+    }
+
 }
