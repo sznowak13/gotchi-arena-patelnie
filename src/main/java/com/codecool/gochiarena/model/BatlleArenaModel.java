@@ -122,6 +122,12 @@ public class BatlleArenaModel {
         this.gotchis.add(enemy);
     }
 
+    public void applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
+        double attackModifier = this.getModifier(attacker.getType(), defender.getType());
+        defender.takeDamage((attacker.getStatPoints().getAttackPoints() * attackModifier) - (defender.getStatPoints().getDefencePoints() * 2));
+
+    }
+
     public void chooseCorrectBattleScenario() {
         Action gotchis1action = gotchis.get(0).getCurrentAction();
         Action gotchis2action = gotchis.get(1).getCurrentAction();
