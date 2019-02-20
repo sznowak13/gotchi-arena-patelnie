@@ -120,8 +120,14 @@ public class BatlleArenaModel {
     }
 
     public void applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
-        double attackModifier = this.getTypeModifier(attacker.getType(), defender.getType());
-        defender.takeDamage((attacker.getStatPoints().getAttackPoints() * attackModifier) - (defender.getStatPoints().getDefencePoints() * 2));
+        if (attacker.getCurrentAction().equals(Action.PRIMARY_ATTACK)) {
+            double attackModifier = this.getTypeModifier(attacker.getType(), defender.getType());
+            defender.takeDamage((attacker.getStatPoints().getAttackPoints() * attackModifier) - (defender.getStatPoints().getDefencePoints()));
+        }
+        else if (attacker.getCurrentAction().equals(Action.SECONDARY_ATTACK)) {
+            double secondaryAttackModifier = this.getTypeModifier(attacker.getType().getSecondaryType(), defender.getType());
+            defender.takeDamage((attacker.getStatPoints().getAttackPoints() * secondaryAttackModifier * Attack.SECONDARY.getModifier()) - (defender.getStatPoints().getDefencePoints()));
+        }
 
     }
 
