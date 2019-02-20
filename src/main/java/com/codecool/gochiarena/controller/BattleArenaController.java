@@ -26,10 +26,10 @@ public class BattleArenaController implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         String s = evt.getPropertyName();
         if ("Player Ready".equals(s)) {
-            this.batlleArenaModel.setGotchiReady(0);
-            this.battleArenaView.setEnemyReady();
-            this.batlleArenaModel.setGotchiReady(1);
-            System.out.println("PLAYER READY");
+            setGotchiReady(0);
+            if (this.batlleArenaModel.gotchisReady()) {
+                // do battle and update the view
+            }
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
             Gotchi enemy = GotchiDAO.getInstance().getRandomGotchi();
@@ -41,5 +41,14 @@ public class BattleArenaController implements PropertyChangeListener {
         this.batlleArenaModel.setupGotchis(player, enemy);
         this.battleArenaView.setupGotchisView(player, enemy);
 
+    }
+
+    private void setGotchiReady(int gotchiNumber) {
+        this.batlleArenaModel.setGotchiReady(gotchiNumber);
+        if (gotchiNumber == 0) {
+            this.battleArenaView.setPlayerReady();
+        } else if (gotchiNumber == 1){
+            this.battleArenaView.setEnemyReady();
+        }
     }
 }
