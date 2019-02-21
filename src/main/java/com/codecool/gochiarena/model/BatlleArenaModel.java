@@ -121,16 +121,12 @@ public class BatlleArenaModel {
         this.gotchis.add(enemy);
     }
 
-    public void applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
-        if (attacker.getCurrentAction().equals(Action.PRIMARY_ATTACK)) {
-            double attackModifier = this.getTypeModifier(attacker.getType(), defender.getType());
-            defender.takeDamage((attacker.getStatPoints().getAttackPoints() * attackModifier) - (defender.getStatPoints().getDefencePoints()));
-        }
-        else if (attacker.getCurrentAction().equals(Action.SECONDARY_ATTACK)) {
-            double secondaryAttackModifier = this.getTypeModifier(attacker.getType().getSecondaryType(), defender.getType());
-            defender.takeDamage((attacker.getStatPoints().getAttackPoints() * secondaryAttackModifier * Attack.SECONDARY.getModifier()) - (defender.getStatPoints().getDefencePoints()));
-        }
-
+    public String applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
+        String result = String.format("%s doubled its defence! \n", defender.getName());
+        defender.buffDefence();
+        result += dealDamage(attacker, defender);
+        defender.resetDefence();
+        return result;
     }
 
     public void applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
