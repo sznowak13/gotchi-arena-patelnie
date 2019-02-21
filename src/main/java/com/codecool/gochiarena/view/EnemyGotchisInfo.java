@@ -34,4 +34,7 @@ public class EnemyGotchisInfo extends VBox {
         readyBox.setFill(readyStatus);
     }
 
+    public void update(Gotchi enemy) {
+        health.setText("Health: " + enemy.getStatPoints().getHealthPoints());
+    }
 }
