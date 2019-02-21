@@ -27,8 +27,6 @@ public class ActionChooseView extends VBox {
     }
 
     public Action getUserActionChoice(){
-        System.out.println("toglle test "+this.actionsGroup.getSelectedToggle());
-        System.out.println("toglle test user data"+this.actionsGroup.getSelectedToggle().getUserData());
         return (Action) this.actionsGroup.getSelectedToggle().getUserData();
     }
 

@@ -15,9 +15,9 @@ public class GotchiDAO {
     }
 
     private GotchiDAO() {
-        availableGotchis.add(new Gotchi("Goczi1", GochiType.WATER, 10, 10, 10, 10));
-        availableGotchis.add(new Gotchi("Goczi2", GochiType.FIRE, 10, 10, 10 ,10));
-        availableGotchis.add(new Gotchi("Goczi3", GochiType.GRASS, 10, 10, 10, 10));
+        availableGotchis.add(new Gotchi("Goczi1", GochiType.WATER, 20, 50, 30, 90));
+        availableGotchis.add(new Gotchi("Goczi2", GochiType.FIRE, 50, 30, 20 ,90));
+        availableGotchis.add(new Gotchi("Goczi3", GochiType.GRASS, 30, 20, 50, 90));
     }
 
     private int countStats(Map<String, Integer> statsMap){
