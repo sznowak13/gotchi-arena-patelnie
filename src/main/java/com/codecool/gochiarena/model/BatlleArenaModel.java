@@ -1,9 +1,6 @@
 package com.codecool.gochiarena.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BatlleArenaModel {
 
@@ -124,5 +121,61 @@ public class BatlleArenaModel {
     public void setupGotchis(Gotchi playersGotchi, Gotchi enemy) {
         this.gotchis.add(playersGotchi);
         this.gotchis.add(enemy);
+    }
+
+    public void applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
+        if (attacker.getCurrentAction().equals(Action.PRIMARY_ATTACK)) {
+            double attackModifier = this.getTypeModifier(attacker.getType(), defender.getType());
+            defender.takeDamage((attacker.getStatPoints().getAttackPoints() * attackModifier) - (defender.getStatPoints().getDefencePoints()));
+        }
+        else if (attacker.getCurrentAction().equals(Action.SECONDARY_ATTACK)) {
+            double secondaryAttackModifier = this.getTypeModifier(attacker.getType().getSecondaryType(), defender.getType());
+            defender.takeDamage((attacker.getStatPoints().getAttackPoints() * secondaryAttackModifier * Attack.SECONDARY.getModifier()) - (defender.getStatPoints().getDefencePoints()));
+        }
+
+    }
+
+    public void applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
+        double attackersSpeed = attacker.getStatPoints().getSpeedPoints();
+        double defendersSpeed = defender.getStatPoints().getSpeedPoints();
+        Random random = new Random();
+        double randomValue1 = 0.75 + (1.25 - 0.75) * random.nextDouble();
+        double randomValue2 = 0.75 + (1.25 - 0.75) * random.nextDouble();
+        if ((attackersSpeed * randomValue1) - (defendersSpeed * randomValue2) > 0) {
+            dealDamage(attacker, defender);
+        }
+
+    }
+
+    public void chooseCorrectBattleScenario() {
+        Action gotchis1action = gotchis.get(0).getCurrentAction();
+        Action gotchis2action = gotchis.get(1).getCurrentAction();
+        if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
+            applyAttackVsAttackScenario();
+        }
+        if (checkIfAttackVs(Action.DEFEND, gotchis1action, gotchis2action)) {
+            if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
+                applyAttackVsDefendScenario(gotchis.get(0), gotchis.get(1));
+            }
+            else {
+                applyAttackVsDefendScenario(gotchis.get(1), gotchis.get(0));
+            }
+
+        }
+        if (checkIfAttackVs(Action.EVADE, gotchis1action, gotchis2action)) {
+            if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
+                applyAttackVsEvadeScenario(gotchis.get(0), gotchis.get(1));
+            }
+            else {
+                applyAttackVsEvadeScenario(gotchis.get(1), gotchis.get(0));
+            }
+        }
+
+    }
+
+    private boolean checkIfAttackVs(Action checkedAction, Action action1, Action action2) {
+        boolean firstAttacks = (Action.PRIMARY_ATTACK.equals(action1) || Action.SECONDARY_ATTACK.equals(action1)) && checkedAction.equals(action2);
+        boolean secondAttacks = (Action.PRIMARY_ATTACK.equals(action2) || Action.SECONDARY_ATTACK.equals(action2)) && checkedAction.equals(action1);
+        return firstAttacks || secondAttacks;
     }
 }
