@@ -1,9 +1,5 @@
 package com.codecool.gochiarena.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.*;
 
 public class BatlleArenaModel {
@@ -19,7 +15,6 @@ public class BatlleArenaModel {
         this.gotchis.add(1, gotchi2);
     }
 
-
     public String battle() {
         return chooseCorrectBattleScenario();
     }
@@ -30,6 +25,7 @@ public class BatlleArenaModel {
         gotchi1.setReady(false);
         gotchi2.setReady(false);
     }
+
 
 
     public String applyAttackVsAttackScenario() {
@@ -102,8 +98,8 @@ public class BatlleArenaModel {
     }
 
     public void setAttackerAndDefender() {
-        Gotchi gotchi1 = getGotchi1();
-        Gotchi gotchi2 = getGotchi2();
+        Gotchi gotchi1 = gotchis.get(0);
+        Gotchi gotchi2 = gotchis.get(1);
         if (gotchi1.getStatPoints().getSpeedPoints() > gotchi2.getStatPoints().getSpeedPoints()) {
             fighters.put("Attacker", gotchi1);
             fighters.put("Defender", gotchi2);
