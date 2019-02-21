@@ -16,10 +16,12 @@ public class BatlleArenaModel {
     }
 
     public String battle() {
-        return chooseCorrectBattleScenario();
+        String result = chooseCorrectBattleScenario();
+        resetGotchisStatus();
+        return result;
     }
 
-    public void changeGotchisStatus() {
+    public void resetGotchisStatus() {
         Gotchi gotchi1 = getGotchi1();
         Gotchi gotchi2 = getGotchi2();
         gotchi1.setReady(false);

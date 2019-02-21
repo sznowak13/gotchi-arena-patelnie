@@ -26,7 +26,6 @@ public class BattleArenaController implements PropertyChangeListener {
             String battleMessages = batlleArenaModel.battle();
             battleArenaView.displayBattleMessages(battleMessages);
             battleArenaView.updateGotchis(batlleArenaModel.getGotchi1(), batlleArenaModel.getGotchi2());
-            batlleArenaModel.changeGotchisStatus();
         }
     }
 
