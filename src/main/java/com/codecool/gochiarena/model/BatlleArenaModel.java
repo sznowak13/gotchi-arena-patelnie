@@ -182,4 +182,14 @@ public class BatlleArenaModel {
         boolean secondAttacks = (Action.PRIMARY_ATTACK.equals(action2) || Action.SECONDARY_ATTACK.equals(action2)) && checkedAction.equals(action1);
         return firstAttacks || secondAttacks;
     }
+
+    public void setPlayersGotchiCurrentAction(Action action){
+        System.out.println("Setter test"+ action);
+        getGotchi1().setCurrentAction(action);
+    }
+
+    public void setEnemyCurrentAction(Action action){
+        getGotchi2().setCurrentAction(action);
+    }
+
 }

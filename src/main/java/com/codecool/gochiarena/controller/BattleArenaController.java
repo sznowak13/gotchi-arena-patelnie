@@ -1,9 +1,6 @@
 package com.codecool.gochiarena.controller;
 
-import com.codecool.gochiarena.model.BatlleArenaModel;
-import com.codecool.gochiarena.model.Gotchi;
-import com.codecool.gochiarena.model.GotchiDAO;
-import com.codecool.gochiarena.model.PlayerAI;
+import com.codecool.gochiarena.model.*;
 import com.codecool.gochiarena.view.BattleArenaView;
 
 import java.beans.PropertyChangeEvent;
@@ -29,11 +26,13 @@ public class BattleArenaController implements PropertyChangeListener {
         String s = evt.getPropertyName();
         if ("Player Ready".equals(s)) {
             setGotchiReady(0);
+            this.batlleArenaModel.setPlayersGotchiCurrentAction((Action) evt.getNewValue());
             if (this.batlleArenaModel.gotchisReady()) {
-                // do battle and update the view
+
             }
         } else if ("EnemyReady".equals(s)) {
             setGotchiReady(1);
+            this.batlleArenaModel.setEnemyCurrentAction((Action) evt.getNewValue());
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
             PlayerAI enemyPlayer = createEnemyPlayer();

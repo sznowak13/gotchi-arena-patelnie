@@ -13,7 +13,7 @@ public enum Action {
     EVADE;
 
  public static Action getRandomAction() {
-        final List<Action> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
+        final List<Action> VALUES = Arrays.asList(values());
         Random random = new Random();
         return VALUES.get(random.nextInt(VALUES.size()));
     }
