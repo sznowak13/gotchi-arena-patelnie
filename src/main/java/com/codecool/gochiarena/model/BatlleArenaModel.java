@@ -72,13 +72,10 @@ public class BatlleArenaModel {
             attackStrengthModifier = attacker.getSecondaryAttack().getModifier();
         }
         double attackTypeModifier = this.getTypeModifier(attackType, defender.getType());
-        double calculatedDmg = (attacker.getStatPoints().getAttackPoints() * attackTypeModifier) * attackStrengthModifier;
-        defender.takeDamage(calculatedDmg);
-        String msg = String.format("%s choose %s !, \n %s choose %s ! \n %s deal %s damage to %s",
-                attacker.getName(), attacker.getCurrentAction(),
-                defender.getName(), defender.getCurrentAction(),
-                attacker.getName(), calculatedDmg, defender.getName());
-        return msg;
+        double calculatedRawDmg = (attacker.getStatPoints().getAttackPoints() * attackTypeModifier) * attackStrengthModifier;
+        double dmgDealt = defender.takeDamage(calculatedRawDmg);
+        return String.format("%s choose %s of type %s! Dealt %s damage to %s\n",
+                attacker.getName(), attacker.getCurrentAction(), attackType, dmgDealt, defender.getName());
     }
 
     public double getTypeModifier(GochiType attackType, GochiType defenderType) {
