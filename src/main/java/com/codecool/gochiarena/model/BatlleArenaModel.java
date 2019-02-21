@@ -149,9 +149,10 @@ public class BatlleArenaModel {
     public String chooseCorrectBattleScenario() {
         Action gotchis1action = getGotchi1().getCurrentAction();
         Action gotchis2action = getGotchi2().getCurrentAction();
-        if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
-            String msg = applyAttackVsAttackScenario();
-            return msg;
+        if (checkIfAttackVs(Action.PRIMARY_ATTACK, gotchis1action, gotchis2action) ||
+                checkIfAttackVs(Action.SECONDARY_ATTACK, gotchis1action, gotchis2action)) {
+            result.append("Both gotchis used attack!\n");
+            result.append(applyAttackVsAttackScenario());
         }
         if (checkIfAttackVs(Action.DEFEND, gotchis1action, gotchis2action)) {
             if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
