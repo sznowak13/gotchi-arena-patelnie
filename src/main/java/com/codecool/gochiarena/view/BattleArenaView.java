@@ -89,10 +89,6 @@ public class BattleArenaView extends BorderPane {
         return scrollPane;
     }
 
-    private BattleMessageView getBattleMessageView() {
-        return battleMessageView;
-    }
-
     public void setupReadyButton() {
         this.actionChoose.getReadyButton().setOnAction(event -> {
             Action choosenAction =  actionChoose.getUserActionChoice();
