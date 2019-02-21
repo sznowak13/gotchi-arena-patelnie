@@ -21,22 +21,35 @@ public class BattleArenaController implements PropertyChangeListener {
         this.battleArenaView.addPropertyChangeListener(this);
     }
 
+    public String preparations() {
+        String battleMessages = "Waiting for gotchis to be ready";
+        if (this.batlleArenaModel.gotchisReady()) {
+            battleMessages = batlleArenaModel.battle();
+            batlleArenaModel.changeGotchisStatus();
+        }
+        return battleMessages;
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String s = evt.getPropertyName();
         if ("Player Ready".equals(s)) {
             setGotchiReady(0);
-            this.batlleArenaModel.setPlayersGotchiCurrentAction((Action) evt.getNewValue());
-            if (this.batlleArenaModel.gotchisReady()) {
-                String battleMessages = batlleArenaModel.battle();
-            }
+            setGotchiReady(1);
+            this.batlleArenaModel.setPlayersGotchiCurrentAction((Action) evt.getNewValue())
+            battleArenaView.displayBattleMessages(preparations());
+            ;
         } else if ("EnemyReady".equals(s)) {
             setGotchiReady(1);
             this.batlleArenaModel.setEnemyCurrentAction((Action) evt.getNewValue());
+            battleArenaView.displayBattleMessages(preparations());
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
-            PlayerAI enemyPlayer = createEnemyFromAvailableGotchis(playersGotchi);
-            setupBattle(playersGotchi, enemyPlayer.getGotchi());
+            Gotchi enemysGotchi = GotchiDAO.getInstance().getRandomGotchi();
+            while (playersGotchi.equals(enemysGotchi)) {
+                enemysGotchi = GotchiDAO.getInstance().getRandomGotchi();
+            }
+            setupBattle(playersGotchi, enemysGotchi);
         }
     }
 
