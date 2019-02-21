@@ -61,6 +61,19 @@ class BattleArenaTest {
     }
 
     @Test
+    void testPrimAttackVsSecAttackScenario() {
+        Gotchi g1 = new Gotchi("G1", GochiType.FIRE, 100, 10, 40, 50);
+        Gotchi g2 = new Gotchi("G2", GochiType.GRASS, 80, 30, 50, 40);
+        battleArena.setGotchi1(g1);
+        battleArena.setGotchi2(g2);
+        g1.setCurrentAction(Action.PRIMARY_ATTACK);
+        g2.setCurrentAction(Action.SECONDARY_ATTACK);
+        battleArena.applyAttackVsAttackScenario();
+        assertEquals(65, g1.getStatPoints().getHealthPoints());
+        assertEquals(25, g2.getStatPoints().getHealthPoints());
+    }
+
+    @Test
     void testApplyingAttackVsEvadeScenarioHighSpeed() {
         Gotchi g1 = new Gotchi("G1", GochiType.FIRE, 100, 10, 40, 50);
         Gotchi g2 = new Gotchi("G2", GochiType.GRASS, 50, 340, 70, 60);
