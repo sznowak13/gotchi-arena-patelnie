@@ -35,4 +35,8 @@ public class GotchiInfo extends HBox {
         Color readyColor = ready ? Color.GREEN : Color.RED;
         this.readyIndicator.setFill(readyColor);
     }
+
+    public void update(Gotchi player) {
+        health.setText("Health \n" + player.getStatPoints().getHealthPoints());
+    }
 }
