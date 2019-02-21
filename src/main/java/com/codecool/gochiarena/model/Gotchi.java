@@ -84,8 +84,8 @@ public class Gotchi {
         return String.format("Gotchi %s of type %s, %s.", this.name, this.type, this.statPoints);
     }
 
-    public void setReady(boolean b) {
-        this.ready = true;
+    public void setReady(boolean ready) {
+        this.ready = ready;
     }
 
     public boolean isReady() {
