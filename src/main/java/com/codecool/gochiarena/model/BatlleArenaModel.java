@@ -153,8 +153,8 @@ public class BatlleArenaModel {
         if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
             applyAttackVsAttackScenario();
         }
-        if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.DEFEND) || gotchis1action.equals(Action.DEFEND) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
-            if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.DEFEND)) {
+        if (checkIfAttackVs(Action.DEFEND, gotchis1action, gotchis2action)) {
+            if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
                 applyAttackVsDefendScenario(gotchis.get(0), gotchis.get(1));
             }
             else {
@@ -162,8 +162,8 @@ public class BatlleArenaModel {
             }
 
         }
-        if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.EVADE) || gotchis1action.equals(Action.EVADE) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
-            if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.EVADE)) {
+        if (checkIfAttackVs(Action.EVADE, gotchis1action, gotchis2action)) {
+            if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
                 applyAttackVsEvadeScenario(gotchis.get(0), gotchis.get(1));
             }
             else {
@@ -171,5 +171,11 @@ public class BatlleArenaModel {
             }
         }
 
+    }
+
+    private boolean checkIfAttackVs(Action checkedAction, Action action1, Action action2) {
+        boolean firstAttacks = (Action.PRIMARY_ATTACK.equals(action1) || Action.SECONDARY_ATTACK.equals(action1)) && checkedAction.equals(action2);
+        boolean secondAttacks = (Action.PRIMARY_ATTACK.equals(action2) || Action.SECONDARY_ATTACK.equals(action2)) && checkedAction.equals(action1);
+        return firstAttacks || secondAttacks;
     }
 }
