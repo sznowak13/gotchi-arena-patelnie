@@ -1,5 +1,6 @@
 package com.codecool.gochiarena.view;
 
+import com.codecool.gochiarena.controller.BattleArenaController;
 import com.codecool.gochiarena.model.Gotchi;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -86,10 +87,6 @@ public class BattleArenaView extends BorderPane {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setContent(battleMessageView);
         return scrollPane;
-    }
-
-    private BattleMessageView getBattleMessageView() {
-        return battleMessageView;
     }
 
     public void setupReadyButton() {

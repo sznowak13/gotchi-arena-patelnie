@@ -30,7 +30,7 @@ public class BattleArenaController implements PropertyChangeListener {
         if ("Player Ready".equals(s)) {
             setGotchiReady(0);
             if (this.batlleArenaModel.gotchisReady()) {
-                // do battle and update the view
+                String battleMessages = batlleArenaModel.battle();
             }
         } else if ("EnemyReady".equals(s)) {
             setGotchiReady(1);
