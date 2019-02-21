@@ -146,7 +146,8 @@ public class BatlleArenaModel {
         return result;
     }
 
-    public String chooseCorrectBattleScenario() {
+    private String chooseCorrectBattleScenario() {
+        StringBuilder result = new StringBuilder("New round!\n");
         Action gotchis1action = getGotchi1().getCurrentAction();
         Action gotchis2action = getGotchi2().getCurrentAction();
         if (checkIfAttackVs(Action.PRIMARY_ATTACK, gotchis1action, gotchis2action) ||
@@ -154,24 +155,26 @@ public class BatlleArenaModel {
             result.append("Both gotchis used attack!\n");
             result.append(applyAttackVsAttackScenario());
         }
-        if (checkIfAttackVs(Action.DEFEND, gotchis1action, gotchis2action)) {
+        else if (checkIfAttackVs(Action.DEFEND, gotchis1action, gotchis2action)) {
             if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
-                applyAttackVsDefendScenario(gotchis.get(0), gotchis.get(1));
+                result.append(applyAttackVsDefendScenario(gotchis.get(0), gotchis.get(1)));
             }
             else {
-                applyAttackVsDefendScenario(gotchis.get(1), gotchis.get(0));
+                result.append(applyAttackVsDefendScenario(gotchis.get(1), gotchis.get(0)));
             }
 
         }
-        if (checkIfAttackVs(Action.EVADE, gotchis1action, gotchis2action)) {
+        else if (checkIfAttackVs(Action.EVADE, gotchis1action, gotchis2action)) {
             if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
-                applyAttackVsEvadeScenario(gotchis.get(0), gotchis.get(1));
+                result.append(applyAttackVsEvadeScenario(gotchis.get(0), gotchis.get(1)));
             }
             else {
-                applyAttackVsEvadeScenario(gotchis.get(1), gotchis.get(0));
+                result.append(applyAttackVsEvadeScenario(gotchis.get(1), gotchis.get(0)));
             }
+        } else {
+            result.append("None of the gotchis attacked! Nothing happens!");
         }
-        return "demo";
+        return result.toString();
     }
 
     private boolean checkIfAttackVs(Action checkedAction, Action action1, Action action2) {
