@@ -129,16 +129,21 @@ public class BatlleArenaModel {
         return result;
     }
 
-    public void applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
+    public String applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
+        String result = String.format("%s used Evade!\n", defender.getName());
         double attackersSpeed = attacker.getStatPoints().getSpeedPoints();
         double defendersSpeed = defender.getStatPoints().getSpeedPoints();
         Random random = new Random();
         double randomValue1 = 0.75 + (1.25 - 0.75) * random.nextDouble();
         double randomValue2 = 0.75 + (1.25 - 0.75) * random.nextDouble();
         if ((attackersSpeed * randomValue1) - (defendersSpeed * randomValue2) > 0) {
-            dealDamage(attacker, defender);
+            result += String.format("%s landed a hit!\n", attacker.getName());
+            result += dealDamage(attacker, defender);
+        } else {
+            result += String.format("%s managed to evade the attack!", defender.getName());
         }
 
+        return result;
     }
 
     public String chooseCorrectBattleScenario() {
