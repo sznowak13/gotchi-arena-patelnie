@@ -1,5 +1,6 @@
 package com.codecool.gochiarena.view;
 
+import com.codecool.gochiarena.model.Action;
 import com.codecool.gochiarena.model.Gotchi;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -94,7 +95,8 @@ public class BattleArenaView extends BorderPane {
 
     public void setupReadyButton() {
         this.actionChoose.getReadyButton().setOnAction(event -> {
-            support.firePropertyChange("Player Ready", false, true);
+            Action choosenAction =  actionChoose.getUserActionChoice();
+            support.firePropertyChange("Player Ready", null, choosenAction);
         });
     }
 

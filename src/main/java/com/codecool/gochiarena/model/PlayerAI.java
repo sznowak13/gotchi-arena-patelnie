@@ -29,8 +29,7 @@ public class PlayerAI implements Runnable {
             while (playing) {
                 if (!gotchi.isReady()) {
                     Thread.sleep(3000);
-                    gotchi.setCurrentAction(Action.PRIMARY_ATTACK);
-                    support.firePropertyChange("EnemyReady", false, true);
+                    support.firePropertyChange("EnemyReady", null, Action.getRandomAction());
                 }
             }
         } catch (InterruptedException e) {

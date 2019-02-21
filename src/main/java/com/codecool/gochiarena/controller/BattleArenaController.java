@@ -1,9 +1,6 @@
 package com.codecool.gochiarena.controller;
 
-import com.codecool.gochiarena.model.BatlleArenaModel;
-import com.codecool.gochiarena.model.Gotchi;
-import com.codecool.gochiarena.model.GotchiDAO;
-import com.codecool.gochiarena.model.PlayerAI;
+import com.codecool.gochiarena.model.*;
 import com.codecool.gochiarena.view.BattleArenaView;
 
 import java.beans.PropertyChangeEvent;
@@ -29,30 +26,36 @@ public class BattleArenaController implements PropertyChangeListener {
         String s = evt.getPropertyName();
         if ("Player Ready".equals(s)) {
             setGotchiReady(0);
+            this.batlleArenaModel.setPlayersGotchiCurrentAction((Action) evt.getNewValue());
             if (this.batlleArenaModel.gotchisReady()) {
-                // do battle and update the view
+
             }
         } else if ("EnemyReady".equals(s)) {
             setGotchiReady(1);
+            this.batlleArenaModel.setEnemyCurrentAction((Action) evt.getNewValue());
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
-            PlayerAI enemyPlayer = createEnemyPlayer();
+            PlayerAI enemyPlayer = createEnemyFromAvailableGotchis(playersGotchi);
             setupBattle(playersGotchi, enemyPlayer.getGotchi());
         }
     }
 
-    private PlayerAI createEnemyPlayer() {
+    private PlayerAI createEnemyFromAvailableGotchis(Gotchi playersGotchi) {
         PlayerAI enemy = new PlayerAI(GotchiDAO.getInstance().getRandomGotchi());
+        while(enemy.getGotchi().equals(playersGotchi)){
+            enemy = new PlayerAI(GotchiDAO.getInstance().getRandomGotchi());
+        }
         AIThread = new Thread(enemy);
         enemy.addPropertyChangeListener(this);
         AIThread.start();
         return enemy;
     }
 
+
+
     private void setupBattle(Gotchi player, Gotchi enemy) {
         this.batlleArenaModel.setupGotchis(player, enemy);
         this.battleArenaView.setupGotchisView(player, enemy);
-
     }
 
     private void setGotchiReady(int gotchiNumber) {
