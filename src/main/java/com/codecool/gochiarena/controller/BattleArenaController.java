@@ -35,23 +35,27 @@ public class BattleArenaController implements PropertyChangeListener {
             this.batlleArenaModel.setEnemyCurrentAction((Action) evt.getNewValue());
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
-            PlayerAI enemyPlayer = createEnemyPlayer();
+            PlayerAI enemyPlayer = createEnemyFromAvailableGotchis(playersGotchi);
             setupBattle(playersGotchi, enemyPlayer.getGotchi());
         }
     }
 
-    private PlayerAI createEnemyPlayer() {
+    private PlayerAI createEnemyFromAvailableGotchis(Gotchi playersGotchi) {
         PlayerAI enemy = new PlayerAI(GotchiDAO.getInstance().getRandomGotchi());
+        while(enemy.getGotchi().equals(playersGotchi)){
+            enemy = new PlayerAI(GotchiDAO.getInstance().getRandomGotchi());
+        }
         AIThread = new Thread(enemy);
         enemy.addPropertyChangeListener(this);
         AIThread.start();
         return enemy;
     }
 
+
+
     private void setupBattle(Gotchi player, Gotchi enemy) {
         this.batlleArenaModel.setupGotchis(player, enemy);
         this.battleArenaView.setupGotchisView(player, enemy);
-
     }
 
     private void setGotchiReady(int gotchiNumber) {
