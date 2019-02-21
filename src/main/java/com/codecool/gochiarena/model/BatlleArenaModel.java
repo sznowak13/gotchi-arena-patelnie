@@ -22,7 +22,13 @@ public class BatlleArenaModel {
 
     public String battle() {
         return chooseCorrectBattleScenario();
+    }
 
+    public void changeGotchisStatus() {
+        Gotchi gotchi1 = getGotchi1();
+        Gotchi gotchi2 = getGotchi2();
+        gotchi1.setReady(false);
+        gotchi2.setReady(false);
     }
 
 
