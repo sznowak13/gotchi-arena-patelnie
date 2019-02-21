@@ -189,6 +189,7 @@ public class BatlleArenaModel {
     }
 
     public void setEnemyCurrentAction(Action action){
+        System.out.println("Setter test"+ action);
         getGotchi2().setCurrentAction(action);
     }
 

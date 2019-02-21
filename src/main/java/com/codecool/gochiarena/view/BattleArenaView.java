@@ -107,5 +107,10 @@ public class BattleArenaView extends BorderPane {
     public void displayBattleMessages(String msg) {
         battleMessageView.addNewMessage(msg);
     }
+
+    public void updateGotchis(Gotchi player, Gotchi enemy) {
+        playerInfo.update(player);
+        enemyInfo.update(enemy);
+    }
 }
 
