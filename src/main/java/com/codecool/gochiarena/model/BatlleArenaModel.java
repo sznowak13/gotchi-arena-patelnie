@@ -102,8 +102,8 @@ public class BatlleArenaModel {
     }
 
     public void setAttackerAndDefender() {
-        Gotchi gotchi1 = gotchis.get(0);
-        Gotchi gotchi2 = gotchis.get(1);
+        Gotchi gotchi1 = getGotchi1();
+        Gotchi gotchi2 = getGotchi2();
         if (gotchi1.getStatPoints().getSpeedPoints() > gotchi2.getStatPoints().getSpeedPoints()) {
             fighters.put("Attacker", gotchi1);
             fighters.put("Defender", gotchi2);
@@ -151,8 +151,8 @@ public class BatlleArenaModel {
     }
 
     public String chooseCorrectBattleScenario() {
-        Action gotchis1action = gotchis.get(0).getCurrentAction();
-        Action gotchis2action = gotchis.get(1).getCurrentAction();
+        Action gotchis1action = getGotchi1().getCurrentAction();
+        Action gotchis2action = getGotchi2().getCurrentAction();
         if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
             String msg = applyAttackVsAttackScenario();
             return msg;
