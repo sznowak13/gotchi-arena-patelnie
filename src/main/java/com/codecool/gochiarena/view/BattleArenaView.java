@@ -89,10 +89,6 @@ public class BattleArenaView extends BorderPane {
         return scrollPane;
     }
 
-    private BattleMessageView getBattleMessageView() {
-        return battleMessageView;
-    }
-
     public void setupReadyButton() {
         this.actionChoose.getReadyButton().setOnAction(event -> {
             Action choosenAction =  actionChoose.getUserActionChoice();
@@ -106,6 +102,15 @@ public class BattleArenaView extends BorderPane {
 
     public void setPlayerReady() {
         this.playerInfo.setPlayerReady(true);
+    }
+
+    public void displayBattleMessages(String msg) {
+        battleMessageView.addNewMessage(msg);
+    }
+
+    public void updateGotchis(Gotchi player, Gotchi enemy) {
+        playerInfo.update(player);
+        enemyInfo.update(enemy);
     }
 }
 

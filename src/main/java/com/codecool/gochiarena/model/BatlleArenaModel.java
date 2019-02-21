@@ -1,58 +1,157 @@
 package com.codecool.gochiarena.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.*;
 
 public class BatlleArenaModel {
 
     private List<Gotchi> gotchis = new ArrayList<>();
-
     private Map<String, Gotchi> fighters = new HashMap<>();
 
-    public void setGotchi1(Gotchi gotchi1) {
-        this.gotchis.add(0, gotchi1);
-    }
-
-    public void setGotchi2(Gotchi gotchi2) {
-        this.gotchis.add(1, gotchi2);
-    }
-
     public String battle() {
-        Action action1 = gotchis.get(0).getCurrentAction();
-        Action action2 = gotchis.get(1).getCurrentAction();
-        if (action1.equals(Action.PRIMARY_ATTACK) && action2.equals(Action.PRIMARY_ATTACK)){
-            setAttackerAndDefender();
-            Gotchi attacker = this.fighters.get("Attacker");
-            Gotchi defender = this.fighters.get("Defender");
-            this.dealDamage(attacker, defender);
-            if (defender.getStatPoints().getHealthPoints() <= 0) {
-                return String.format("%s is dead!", defender.getName());
-            }
-            this.dealDamage(defender, attacker);
-            if (attacker.getStatPoints().getHealthPoints() <= 0) {
-                return String.format("%s is dead", attacker.getName());
-            }
-        }
-
-        return "Cos tam sie wydzialo";
+        String result = chooseCorrectBattleScenario();
+        resetGotchisStatus();
+        return result;
     }
 
-    public void applyAttackVsAttackScenario() {
-        setAttackerAndDefender();
+    private String chooseCorrectBattleScenario() {
+        StringBuilder result = new StringBuilder("New round!\n");
+        Action gotchis1action = getGotchi1().getCurrentAction();
+        Action gotchis2action = getGotchi2().getCurrentAction();
+        if (checkIfAttackVs(Action.PRIMARY_ATTACK, gotchis1action, gotchis2action) ||
+                checkIfAttackVs(Action.SECONDARY_ATTACK, gotchis1action, gotchis2action)) {
+            result.append("Both gotchis used attack!\n");
+            result.append(applyAttackVsAttackScenario());
+        }
+        else if (checkIfAttackVs(Action.DEFEND, gotchis1action, gotchis2action)) {
+            if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
+                result.append(applyAttackVsDefendScenario(gotchis.get(0), gotchis.get(1)));
+            }
+            else {
+                result.append(applyAttackVsDefendScenario(gotchis.get(1), gotchis.get(0)));
+            }
+
+        }
+        else if (checkIfAttackVs(Action.EVADE, gotchis1action, gotchis2action)) {
+            if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
+                result.append(applyAttackVsEvadeScenario(gotchis.get(0), gotchis.get(1)));
+            }
+            else {
+                result.append(applyAttackVsEvadeScenario(gotchis.get(1), gotchis.get(0)));
+            }
+        } else {
+            result.append("None of the gotchis attacked! Nothing happens!");
+        }
+        return result.toString();
+    }
+
+    private void resetGotchisStatus() {
+        Gotchi gotchi1 = getGotchi1();
+        Gotchi gotchi2 = getGotchi2();
+        gotchi1.setReady(false);
+        gotchi2.setReady(false);
+    }
+
+    private boolean checkIfAttackVs(Action checkedAction, Action action1, Action action2) {
+        boolean firstAttacks = (Action.PRIMARY_ATTACK.equals(action1) || Action.SECONDARY_ATTACK.equals(action1)) && checkedAction.equals(action2);
+        boolean secondAttacks = (Action.PRIMARY_ATTACK.equals(action2) || Action.SECONDARY_ATTACK.equals(action2)) && checkedAction.equals(action1);
+        return firstAttacks || secondAttacks;
+    }
+
+    /**
+     * Applies scenario where both gotchis are attacking each other.
+     *
+     * First it calculates which Gotchi should attack first based on their speed,
+     * Then it deals damage to the first defender, if defender still have healthPoints
+     * defender deals damage to attacker.
+     *
+     * @see #dealDamage(Gotchi, Gotchi)
+     * @see StatPoints
+     * @see #setWhichAttacksFirst()
+     * 
+     * @return String that is representation of what happened in the scenario.
+     */
+    private String applyAttackVsAttackScenario() {
+        String result = "";
+        setWhichAttacksFirst();
         Gotchi attacker = fighters.get("Attacker");
         Gotchi defender = fighters.get("Defender");
-        dealDamage(attacker, defender);
+        result += dealDamage(attacker, defender);
         if (isAlive(defender)) {
-            dealDamage(defender, attacker);
+            result += dealDamage(defender, attacker);
+        }
+        return result;
+    }
+
+    /**
+     * Applies scenario where one Gotchi is attacking and second is used Defend action.
+     * Before dealing damage, the defender doubles its defence by 2.
+     * After that the damage is dealt and defender again resets its defence to normal.
+     *
+     * @see Action
+     * @see #dealDamage(Gotchi, Gotchi)
+     *
+     * @param attacker Gotchi that's attacking
+     * @param defender Gotchi that's defending
+     * @return
+     */
+    private String applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
+        String result = String.format("%s doubled its defence! \n", defender.getName());
+        defender.buffDefence();
+        result += dealDamage(attacker, defender);
+        defender.resetDefence();
+        return result;
+    }
+
+    /**
+     * Applies the scenario in which one gotchi is attacking and the second is evading.
+     * Before attacker attacks its checked if the defender has successfully evaded the attack
+     * by this formula:
+     * attacker's speed * (random value between 0.75 and 1.25) -
+     * defender's speed * (random value between 0.75 and 1.25)
+     *
+     * If defender was successful he takes no dmg, otherwise dmg is dealt using
+     * dealDamage method.
+     *
+     * @see #dealDamage(Gotchi, Gotchi)
+     *
+     * @param attacker Gotchi that's attacking
+     * @param defender Gotchi that's evading
+     * @return String that is a representation of what exactly happened in this scenario
+     */
+    private String applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
+        String result = String.format("%s used Evade!\n", defender.getName());
+        double attackersSpeed = attacker.getStatPoints().getSpeedPoints();
+        double defendersSpeed = defender.getStatPoints().getSpeedPoints();
+        Random random = new Random();
+        double randomValue1 = 0.75 + (1.25 - 0.75) * random.nextDouble();
+        double randomValue2 = 0.75 + (1.25 - 0.75) * random.nextDouble();
+        if ((attackersSpeed * randomValue1) - (defendersSpeed * randomValue2) > 0) {
+            result += String.format("%s landed a hit!\n", attacker.getName());
+            result += dealDamage(attacker, defender);
+        } else {
+            result += String.format("%s managed to evade the attack!", defender.getName());
+        }
+
+        return result;
+    }
+
+    /**
+     * Sets which gotchi is attacking first and which is defending
+     * based on their speed, and puts them accordingly into the fighters map.
+     * @see #fighters
+     */
+    private void setWhichAttacksFirst() {
+        Gotchi gotchi1 = gotchis.get(0);
+        Gotchi gotchi2 = gotchis.get(1);
+        if (gotchi1.getStatPoints().getSpeedPoints() > gotchi2.getStatPoints().getSpeedPoints()) {
+            fighters.put("Attacker", gotchi1);
+            fighters.put("Defender", gotchi2);
+        } else {
+            fighters.put("Attacker", gotchi2);
+            fighters.put("Defender", gotchi1);
         }
     }
 
-    private boolean isAlive(Gotchi gotchi) {
-        return gotchi.getStatPoints().getHealthPoints() > 0;
-    }
 
     /**
      *  Method that takes attacker and deals damage to defender based on the attack type
@@ -60,6 +159,9 @@ public class BatlleArenaModel {
      *  If attacker chose primary attack, the attack type is set to attacker
      *  base type (e.g Fire gotchi primary attack is Fire), if attacker chose secondary attack
      *  the attack type is set to secondary type (e.g Fire secondary attack is Grass).
+     *
+     *  Damage is calculated by this formula:
+     *  (attacker's attack points * attackTypeModifier * attackStrengthModifier) - defender's defense point
      *
      *  attackTypeModifier is based on the attack type and defender base type.
      *  attackStrengthModifier is based on the attack strength
@@ -69,7 +171,7 @@ public class BatlleArenaModel {
      * @param attacker Gotchi that attacks
      * @param defender Gotchi that defends
      */
-    public void dealDamage(Gotchi attacker, Gotchi defender) {
+    private String dealDamage(Gotchi attacker, Gotchi defender) {
         GochiType attackType;
         double attackStrengthModifier;
         if (Action.PRIMARY_ATTACK.equals(attacker.getCurrentAction())){
@@ -80,11 +182,17 @@ public class BatlleArenaModel {
             attackStrengthModifier = attacker.getSecondaryAttack().getModifier();
         }
         double attackTypeModifier = this.getTypeModifier(attackType, defender.getType());
-        double calculatedDmg = (attacker.getStatPoints().getAttackPoints() * attackTypeModifier) * attackStrengthModifier;
-        defender.takeDamage(calculatedDmg);
+        double calculatedRawDmg = (attacker.getStatPoints().getAttackPoints() * attackTypeModifier) * attackStrengthModifier;
+        double dmgDealt = defender.takeDamage(calculatedRawDmg);
+        return String.format("%s choose %s of type %s! Dealt %s damage to %s\n",
+                attacker.getName(), attacker.getCurrentAction(), attackType, dmgDealt, defender.getName());
     }
 
-    public double getTypeModifier(GochiType attackType, GochiType defenderType) {
+    private boolean isAlive(Gotchi gotchi) {
+        return gotchi.getStatPoints().getHealthPoints() > 0;
+    }
+
+    private double getTypeModifier(GochiType attackType, GochiType defenderType) {
         if (attackType.equals(defenderType.getVulnerability())) {
             return 1.25;
         } else if (attackType.equals(defenderType.getSecondaryType())) {
@@ -102,18 +210,6 @@ public class BatlleArenaModel {
         return gotchis.get(0).isReady() && gotchis.get(1).isReady();
     }
 
-    public void setAttackerAndDefender() {
-        Gotchi gotchi1 = gotchis.get(0);
-        Gotchi gotchi2 = gotchis.get(1);
-        if (gotchi1.getStatPoints().getSpeedPoints() > gotchi2.getStatPoints().getSpeedPoints()) {
-            fighters.put("Attacker", gotchi1);
-            fighters.put("Defender", gotchi2);
-        } else {
-            fighters.put("Attacker", gotchi2);
-            fighters.put("Defender", gotchi1);
-        }
-    }
-
     public Gotchi getGotchi1() {
         return gotchis.get(0);
     }
@@ -127,69 +223,22 @@ public class BatlleArenaModel {
         this.gotchis.add(enemy);
     }
 
-    public void applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
-        if (attacker.getCurrentAction().equals(Action.PRIMARY_ATTACK)) {
-            double attackModifier = this.getTypeModifier(attacker.getType(), defender.getType());
-            defender.takeDamage((attacker.getStatPoints().getAttackPoints() * attackModifier) - (defender.getStatPoints().getDefencePoints()));
-        }
-        else if (attacker.getCurrentAction().equals(Action.SECONDARY_ATTACK)) {
-            double secondaryAttackModifier = this.getTypeModifier(attacker.getType().getSecondaryType(), defender.getType());
-            defender.takeDamage((attacker.getStatPoints().getAttackPoints() * secondaryAttackModifier * Attack.SECONDARY.getModifier()) - (defender.getStatPoints().getDefencePoints()));
-        }
-
-    }
-
-    public void applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
-        double attackersSpeed = attacker.getStatPoints().getSpeedPoints();
-        double defendersSpeed = defender.getStatPoints().getSpeedPoints();
-        Random random = new Random();
-        double randomValue1 = 0.75 + (1.25 - 0.75) * random.nextDouble();
-        double randomValue2 = 0.75 + (1.25 - 0.75) * random.nextDouble();
-        if ((attackersSpeed * randomValue1) - (defendersSpeed * randomValue2) > 0) {
-            dealDamage(attacker, defender);
-        }
-
-    }
-
-    public void chooseCorrectBattleScenario() {
-        Action gotchis1action = gotchis.get(0).getCurrentAction();
-        Action gotchis2action = gotchis.get(1).getCurrentAction();
-        if (gotchis1action.equals(Action.PRIMARY_ATTACK) && gotchis2action.equals(Action.PRIMARY_ATTACK)) {
-            applyAttackVsAttackScenario();
-        }
-        if (checkIfAttackVs(Action.DEFEND, gotchis1action, gotchis2action)) {
-            if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
-                applyAttackVsDefendScenario(gotchis.get(0), gotchis.get(1));
-            }
-            else {
-                applyAttackVsDefendScenario(gotchis.get(1), gotchis.get(0));
-            }
-
-        }
-        if (checkIfAttackVs(Action.EVADE, gotchis1action, gotchis2action)) {
-            if (gotchis1action.equals(Action.PRIMARY_ATTACK) || gotchis1action.equals(Action.SECONDARY_ATTACK)) {
-                applyAttackVsEvadeScenario(gotchis.get(0), gotchis.get(1));
-            }
-            else {
-                applyAttackVsEvadeScenario(gotchis.get(1), gotchis.get(0));
-            }
-        }
-
-    }
-
-    private boolean checkIfAttackVs(Action checkedAction, Action action1, Action action2) {
-        boolean firstAttacks = (Action.PRIMARY_ATTACK.equals(action1) || Action.SECONDARY_ATTACK.equals(action1)) && checkedAction.equals(action2);
-        boolean secondAttacks = (Action.PRIMARY_ATTACK.equals(action2) || Action.SECONDARY_ATTACK.equals(action2)) && checkedAction.equals(action1);
-        return firstAttacks || secondAttacks;
-    }
-
     public void setPlayersGotchiCurrentAction(Action action){
         System.out.println("Setter test"+ action);
         getGotchi1().setCurrentAction(action);
     }
 
     public void setEnemyCurrentAction(Action action){
+        System.out.println("Setter test"+ action);
         getGotchi2().setCurrentAction(action);
+    }
+
+    public void setGotchi1(Gotchi gotchi1) {
+        this.gotchis.add(0, gotchi1);
+    }
+
+    public void setGotchi2(Gotchi gotchi2) {
+        this.gotchis.add(1, gotchi2);
     }
 
 

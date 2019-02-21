@@ -21,22 +21,34 @@ public class BattleArenaController implements PropertyChangeListener {
         this.battleArenaView.addPropertyChangeListener(this);
     }
 
+    public void preparations() {
+        if (this.batlleArenaModel.gotchisReady()) {
+            String battleMessages = batlleArenaModel.battle();
+            battleArenaView.displayBattleMessages(battleMessages);
+            battleArenaView.updateGotchis(batlleArenaModel.getGotchi1(), batlleArenaModel.getGotchi2());
+        }
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String s = evt.getPropertyName();
         if ("Player Ready".equals(s)) {
             setGotchiReady(0);
+            setGotchiReady(1);
             this.batlleArenaModel.setPlayersGotchiCurrentAction((Action) evt.getNewValue());
-            if (this.batlleArenaModel.gotchisReady()) {
-
-            }
+            this.batlleArenaModel.setEnemyCurrentAction(Action.getRandomAction());
+            preparations();
         } else if ("EnemyReady".equals(s)) {
             setGotchiReady(1);
             this.batlleArenaModel.setEnemyCurrentAction((Action) evt.getNewValue());
+            preparations();
         } else if ("BeginBattle".equals(s)) {
             Gotchi playersGotchi = (Gotchi) evt.getNewValue();
-            PlayerAI enemyPlayer = createEnemyFromAvailableGotchis(playersGotchi);
-            setupBattle(playersGotchi, enemyPlayer.getGotchi());
+            Gotchi enemysGotchi = GotchiDAO.getInstance().getRandomGotchi();
+            while (playersGotchi.equals(enemysGotchi)) {
+                enemysGotchi = GotchiDAO.getInstance().getRandomGotchi();
+            }
+            setupBattle(playersGotchi, enemysGotchi);
         }
     }
 
@@ -51,11 +63,10 @@ public class BattleArenaController implements PropertyChangeListener {
         return enemy;
     }
 
-
-
     private void setupBattle(Gotchi player, Gotchi enemy) {
         this.batlleArenaModel.setupGotchis(player, enemy);
         this.battleArenaView.setupGotchisView(player, enemy);
+
     }
 
     private void setGotchiReady(int gotchiNumber) {
