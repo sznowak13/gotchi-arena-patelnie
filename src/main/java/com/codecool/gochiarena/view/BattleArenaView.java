@@ -103,5 +103,9 @@ public class BattleArenaView extends BorderPane {
     public void setPlayerReady() {
         this.playerInfo.setPlayerReady(true);
     }
+
+    public void displayBattleMessages(String msg) {
+        battleMessageView.addNewMessage(msg);
+    }
 }
 
