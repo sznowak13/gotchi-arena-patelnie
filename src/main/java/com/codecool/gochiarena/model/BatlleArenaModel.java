@@ -31,15 +31,15 @@ public class BatlleArenaModel {
 
 
     public String applyAttackVsAttackScenario() {
+        String result = "";
         setAttackerAndDefender();
         Gotchi attacker = fighters.get("Attacker");
         Gotchi defender = fighters.get("Defender");
-        String msg = dealDamage(attacker, defender);
+        result += dealDamage(attacker, defender);
         if (isAlive(defender)) {
-            String msg1 = dealDamage(defender, attacker);
-            return msg1;
+            result += dealDamage(defender, attacker);
         }
-        return msg;
+        return result;
     }
 
     private boolean isAlive(Gotchi gotchi) {
