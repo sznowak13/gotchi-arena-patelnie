@@ -70,7 +70,7 @@ public class BatlleArenaModel {
      * 
      * @return String that is representation of what happened in the scenario.
      */
-    private String applyAttackVsAttackScenario() {
+    String applyAttackVsAttackScenario() {
         String result = "";
         setWhichAttacksFirst();
         Gotchi attacker = fighters.get("Attacker");
@@ -94,7 +94,7 @@ public class BatlleArenaModel {
      * @param defender Gotchi that's defending
      * @return
      */
-    private String applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
+    String applyAttackVsDefendScenario(Gotchi attacker, Gotchi defender) {
         String result = String.format("%s doubled its defence! \n", defender.getName());
         defender.buffDefence();
         result += dealDamage(attacker, defender);
@@ -118,7 +118,7 @@ public class BatlleArenaModel {
      * @param defender Gotchi that's evading
      * @return String that is a representation of what exactly happened in this scenario
      */
-    private String applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
+    String applyAttackVsEvadeScenario(Gotchi attacker, Gotchi defender) {
         String result = String.format("%s used Evade!\n", defender.getName());
         double attackersSpeed = attacker.getStatPoints().getSpeedPoints();
         double defendersSpeed = defender.getStatPoints().getSpeedPoints();
@@ -171,7 +171,7 @@ public class BatlleArenaModel {
      * @param attacker Gotchi that attacks
      * @param defender Gotchi that defends
      */
-    private String dealDamage(Gotchi attacker, Gotchi defender) {
+    String dealDamage(Gotchi attacker, Gotchi defender) {
         GochiType attackType;
         double attackStrengthModifier;
         if (Action.PRIMARY_ATTACK.equals(attacker.getCurrentAction())){
@@ -192,7 +192,7 @@ public class BatlleArenaModel {
         return gotchi.getStatPoints().getHealthPoints() > 0;
     }
 
-    private double getTypeModifier(GochiType attackType, GochiType defenderType) {
+    double getTypeModifier(GochiType attackType, GochiType defenderType) {
         if (attackType.equals(defenderType.getVulnerability())) {
             return 1.25;
         } else if (attackType.equals(defenderType.getSecondaryType())) {
