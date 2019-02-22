@@ -36,6 +36,7 @@ public class App extends Application {
         mainMenu.getCreateGotchiBtn().getStyleClass().add("my-special-button");
         mainMenu.getSinglePlayerBtn().getStyleClass().add("my-special-button");
         mainMenu.getMultiPlayerBtn().getStyleClass().add("my-special-button");
+        mainMenu.getMultiPlayerBtn().setDisable(true);
         mainMenu.addPropertyChangeListener(prepareBattleController);
 
 
